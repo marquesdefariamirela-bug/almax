@@ -1,0 +1,554 @@
+/* =========================================================
+   ALMAX — NAVBAR / HEADER
+   ========================================================= */
+
+.app-header {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 900;
+
+    height:
+            var(--header-height);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    padding:
+            0 1.5rem;
+
+    background:
+            rgba(18, 18, 18, 0.94);
+
+    border-bottom:
+            1px solid
+            var(--almax-border);
+
+    backdrop-filter:
+            blur(12px);
+}
+
+
+/* =========================================================
+   LADO ESQUERDO
+   ========================================================= */
+
+.header-left {
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.85rem;
+}
+
+
+.header-page-info {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.header-page-title {
+
+    color:
+            var(--almax-text);
+
+    font-size:
+            0.9rem;
+
+    font-weight:
+            700;
+
+    line-height:
+            1.2;
+}
+
+
+.header-page-description {
+
+    margin-top:
+            0.1rem;
+
+    color:
+            var(--almax-text-secondary);
+
+    font-size:
+            0.68rem;
+}
+
+
+/* =========================================================
+   BOTÃO SIDEBAR
+   ========================================================= */
+
+.sidebar-toggle {
+
+    display: none;
+
+    width: 36px;
+    height: 36px;
+
+    align-items: center;
+    justify-content: center;
+
+    color:
+            var(--almax-text-muted);
+
+    background:
+            transparent;
+
+    border:
+            1px solid
+            var(--almax-border);
+
+    border-radius:
+            var(--radius-sm);
+
+    cursor: pointer;
+
+    transition:
+            color var(--transition),
+            background-color var(--transition),
+            border-color var(--transition);
+}
+
+
+.sidebar-toggle svg {
+
+    width: 18px;
+    height: 18px;
+
+    fill:
+            currentColor;
+}
+
+
+.sidebar-toggle:hover {
+
+    color:
+            var(--almax-text);
+
+    background:
+            var(--almax-bg-elevated);
+
+    border-color:
+            var(--almax-border-hover);
+}
+
+
+/* =========================================================
+   LADO DIREITO
+   ========================================================= */
+
+.header-right {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1.2rem;
+}
+
+
+/* =========================================================
+   STATUS DO SISTEMA
+   ========================================================= */
+
+.system-status {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.45rem;
+
+    color:
+            var(--almax-text-secondary);
+
+    font-size:
+            0.68rem;
+}
+
+
+.status-dot {
+
+    width: 7px;
+    height: 7px;
+
+    background:
+            var(--almax-success);
+
+    border-radius:
+            50%;
+
+    box-shadow:
+            0 0 0 3px
+            rgba(53, 199, 89, 0.08);
+}
+
+
+/* =========================================================
+   USUÁRIO
+   ========================================================= */
+
+.header-user {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.65rem;
+
+    padding-left:
+            1rem;
+
+    border-left:
+            1px solid
+            var(--almax-border);
+}
+
+
+.user-avatar {
+
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color:
+            var(--almax-accent);
+
+    background:
+            var(--almax-accent-soft);
+
+    border:
+            1px solid
+            rgba(255, 107, 0, 0.18);
+
+    border-radius:
+            50%;
+
+    font-size:
+            0.75rem;
+
+    font-weight:
+            700;
+}
+
+
+.user-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+}
+
+
+.user-info strong {
+
+    max-width: 150px;
+
+    overflow: hidden;
+
+    color:
+            var(--almax-text);
+
+    font-size:
+            0.73rem;
+
+    font-weight:
+            650;
+
+    white-space:
+            nowrap;
+
+    text-overflow:
+            ellipsis;
+}
+
+
+.user-info span {
+
+    color:
+            var(--almax-text-secondary);
+
+    font-size:
+            0.6rem;
+
+    text-transform:
+            uppercase;
+}
+
+
+/* =========================================================
+   NAVBAR SUPERIOR
+   ========================================================= */
+
+.top-navbar {
+
+    height:
+            var(--header-height);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding:
+            0 1.5rem;
+
+    background:
+            var(--almax-bg-elevated);
+
+    border-bottom:
+            1px solid
+            var(--almax-border);
+}
+
+
+.navbar-brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.7rem;
+}
+
+
+.navbar-logo {
+
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color:
+            #121212;
+
+    background:
+            var(--almax-accent);
+
+    border-radius:
+            var(--radius-md);
+
+    font-weight:
+            800;
+}
+
+
+.navbar-brand-info {
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.navbar-brand-info strong {
+
+    color:
+            var(--almax-text);
+
+    font-size:
+            0.88rem;
+}
+
+
+.navbar-brand-info span {
+
+    color:
+            var(--almax-text-secondary);
+
+    font-size:
+            0.62rem;
+}
+
+
+.navbar-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.35rem;
+}
+
+
+.navbar-action {
+
+    position: relative;
+
+    width: 36px;
+    height: 36px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color:
+            var(--almax-text-muted);
+
+    background:
+            transparent;
+
+    border:
+            1px solid
+            transparent;
+
+    border-radius:
+            var(--radius-sm);
+
+    cursor: pointer;
+
+    transition:
+            color var(--transition),
+            background-color var(--transition),
+            border-color var(--transition);
+}
+
+
+.navbar-action:hover {
+
+    color:
+            var(--almax-text);
+
+    background:
+            var(--almax-bg-card);
+
+    border-color:
+            var(--almax-border);
+}
+
+
+.navbar-action svg {
+
+    width: 17px;
+    height: 17px;
+
+    fill:
+            currentColor;
+}
+
+
+.notification-badge {
+
+    position: absolute;
+
+    top: 3px;
+    right: 3px;
+
+    min-width: 14px;
+    height: 14px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding:
+            0 3px;
+
+    color:
+            #ffffff;
+
+    background:
+            var(--almax-danger);
+
+    border-radius:
+            10px;
+
+    font-size:
+            0.52rem;
+
+    font-weight:
+            700;
+}
+
+
+.logout-form {
+    margin: 0;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .sidebar-toggle {
+
+        display: inline-flex;
+    }
+
+
+    .app-header {
+
+        padding:
+                0 1rem;
+    }
+
+
+    .system-status {
+
+        display: none;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .header-page-description {
+
+        display: none;
+    }
+
+
+    .header-user {
+
+        padding-left: 0;
+
+        border-left: none;
+    }
+
+
+    .user-info {
+
+        display: none;
+    }
+
+
+    .header-right {
+
+        gap: 0.25rem;
+    }
+
+}

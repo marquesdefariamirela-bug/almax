@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Leitores | ALMAX</title>
+
+    <!-- =====================================================
+         FONT AWESOME
+         ===================================================== -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <!-- =====================================================
+         CSS GLOBAL
+         ===================================================== -->
+    <link rel="stylesheet"
+          th:href="@{/css/base.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/layout.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/sidebar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/navbar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/footer.css}">
+
+
+    <!-- =====================================================
+         CSS DA TELA
+         ===================================================== -->
+    <link rel="stylesheet"
+          th:href="@{/css/leitores.css}">
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+
+    <!-- =====================================================
+         CONTEÚDO PRINCIPAL
+         ===================================================== -->
+
+    <main class="app-main">
+
+
+        <!-- =================================================
+             HEADER GLOBAL
+             ================================================= -->
+
+        <header class="app-header">
+
+            <div class="header-left">
+
+                <button type="button"
+                        class="mobile-menu-button"
+                        aria-label="Abrir menu">
+
+                    <i class="fa-solid fa-bars"></i>
+
+                </button>
+
+
+                <div>
+
+                    <span class="page-section">
+                        Patrimônio
+                    </span>
+
+                    <h1>
+                        Leitores
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <span class="header-system">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    Sistema Patrimonial
+
+                </span>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             PÁGINA DE LEITORES
+             ================================================= -->
+
+        <section class="leitores-container">
+
+
+            <!-- =================================================
+                 CABEÇALHO
+                 ================================================= -->
+
+            <div class="page-header">
+
+
+                <!-- TÍTULO -->
+
+                <div>
+
+                    <nav class="breadcrumb">
+
+                        <a th:href="@{/}">
+
+                            <i class="fa-solid fa-house"></i>
+
+                            Início
+
+                        </a>
+
+                        <i class="fa-solid fa-chevron-right"></i>
+
+                        <strong>
+                            Leitores
+                        </strong>
+
+                    </nav>
+
+
+                    <div class="page-title">
+
+                        <div class="page-title-icon">
+
+                            <i class="fa-solid fa-tower-broadcast"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h1>
+                                Leitores
+                            </h1>
+
+                            <p>
+                                Gerencie os leitores utilizados no controle patrimonial.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- NOVO -->
+
+                <a th:href="@{/leitores/novo}"
+                   class="btn btn-primary">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Novo leitor
+
+                </a>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 INDICADORES
+                 ================================================= -->
+
+            <div class="stats-grid">
+
+
+                <!-- TOTAL -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon blue">
+
+                        <i class="fa-solid fa-tower-broadcast"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Total de leitores
+                        </span>
+
+                        <strong
+                                th:text="${leitores != null ? #lists.size(leitores) : 0}">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ATIVOS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon green">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Leitores ativos
+                        </span>
+
+                        <strong
+                                th:text="${totalAtivos != null ? totalAtivos : 0}">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- COM AMBIENTE -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon orange">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Com ambiente
+                        </span>
+
+                        <strong
+                                th:text="${totalComAmbiente != null ? totalComAmbiente : 0}">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SEM AMBIENTE -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon purple">
+
+                        <i class="fa-solid fa-location-crosshairs"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Sem ambiente
+                        </span>
+
+                        <strong
+                                th:text="${leitores != null
+                                ? (#lists.size(leitores) - (totalComAmbiente != null ? totalComAmbiente : 0))
+                                : 0}">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FILTROS
+                 ================================================= -->
+
+            <div class="filter-card">
+
+
+                <form th:action="@{/leitores}"
+                      method="get"
+                      class="leitores-filter-form">
+
+
+                    <!-- BUSCA -->
+
+                    <div class="filter-group leitor-search">
+
+                        <label for="busca">
+                            Buscar
+                        </label>
+
+                        <div class="search-container">
+
+                            <i class="fa-solid fa-magnifying-glass"></i>
+
+                            <input
+                                    id="busca"
+                                    name="busca"
+                                    type="text"
+                                    th:value="${busca}"
+                                    placeholder="Nome, identificador ou IP..."
+                                    autocomplete="off">
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- STATUS -->
+
+                    <div class="filter-group">
+
+                        <label for="ativo">
+                            Status
+                        </label>
+
+                        <select id="ativo"
+                                name="ativo">
+
+                            <option value="">
+                                Todos os status
+                            </option>
+
+                            <option value="true"
+                                    th:selected="${ativo == true}">
+                                Ativos
+                            </option>
+
+                            <option value="false"
+                                    th:selected="${ativo == false}">
+                                Inativos
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- AÇÕES -->
+
+                    <div class="filter-actions">
+
+                        <button type="submit"
+                                class="btn btn-primary">
+
+                            <i class="fa-solid fa-filter"></i>
+
+                            Filtrar
+
+                        </button>
+
+
+                        <a th:href="@{/leitores}"
+                           class="btn btn-secondary">
+
+                            <i class="fa-solid fa-rotate-left"></i>
+
+                            Limpar
+
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 TABELA
+                 ================================================= -->
+
+            <div class="table-card">
+
+
+                <!-- CABEÇALHO -->
+
+                <div class="table-header">
+
+                    <div>
+
+                        <h2>
+                            Leitores cadastrados
+                        </h2>
+
+                        <span>
+                            Dispositivos utilizados para leitura das tags patrimoniais.
+                        </span>
+
+                    </div>
+
+
+                    <button type="button"
+                            class="btn-export">
+
+                        <i class="fa-solid fa-download"></i>
+
+                        Exportar
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     ESTADO VAZIO
+                     ================================================= -->
+
+                <div class="empty-state"
+                     th:if="${leitores == null || #lists.isEmpty(leitores)}">
+
+                    <div>
+
+                        <div class="empty-icon">
+
+                            <i class="fa-solid fa-tower-broadcast"></i>
+
+                        </div>
+
+
+                        <strong>
+                            Nenhum leitor encontrado
+                        </strong>
+
+
+                        <span>
+                            Não existem leitores cadastrados
+                            ou nenhum corresponde aos filtros.
+                        </span>
+
+
+                        <a th:href="@{/leitores/novo}"
+                           class="btn btn-primary">
+
+                            <i class="fa-solid fa-plus"></i>
+
+                            Cadastrar leitor
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     TABELA
+                     ================================================= -->
+
+                <div class="table-wrapper"
+                     th:if="${leitores != null && !#lists.isEmpty(leitores)}">
+
+
+                    <table>
+
+
+                        <thead>
+
+                        <tr>
+
+                            <th>
+                                Leitor
+                            </th>
+
+                            <th>
+                                Identificador
+                            </th>
+
+                            <th>
+                                Rede
+                            </th>
+
+                            <th>
+                                Fabricante / Modelo
+                            </th>
+
+                            <th>
+                                Ambiente
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th class="actions-column">
+                                Ações
+                            </th>
+
+                        </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+
+                        <tr th:each="leitor : ${leitores}">
+
+
+                            <!-- =====================================
+                                 LEITOR
+                                 ===================================== -->
+
+                            <td>
+
+                                <div class="reader-cell">
+
+                                    <div class="reader-icon">
+
+                                        <i class="fa-solid fa-tower-broadcast"></i>
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <strong
+                                                th:text="${leitor.nome}">
+                                            Leitor principal
+                                        </strong>
+
+                                        <small>
+
+                                            ID
+
+                                            <span th:text="${leitor.id}">
+                                                1
+                                            </span>
+
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+
+                            <!-- =====================================
+                                 IDENTIFICADOR
+                                 ===================================== -->
+
+                            <td>
+
+                                <span class="identifier"
+                                      th:text="${leitor.identificador}">
+
+                                    READER-001
+
+                                </span>
+
+                            </td>
+
+
+
+                            <!-- =====================================
+                                 REDE
+                                 ===================================== -->
+
+                            <td>
+
+                                <div class="network-cell"
+                                     th:if="${leitor.ip != null
+                                     && !leitor.ip.isBlank()}">
+
+                                    <i class="fa-solid fa-network-wired"></i>
+
+                                    <span
+                                            th:text="${leitor.ip}">
+                                        192.168.0.100
+                                    </span>
+
+                                </div>
+
+
+                                <span class="not-informed"
+                                      th:if="${leitor.ip == null
+                                      || leitor.ip.isBlank()}">
+
+                                    <i class="fa-solid fa-minus"></i>
+
+                                    Não informado
+
+                                </span>
+
+                            </td>
+
+
+
+                            <!-- =====================================
+                                 FABRICANTE / MODELO
+                                 ===================================== -->
+
+                            <td>
+
+                                <div class="device-cell">
+
+
+                                    <strong
+                                            th:text="${leitor.fabricante != null
+                                            && !leitor.fabricante.isBlank()
+                                            ? leitor.fabricante
+                                            : 'Fabricante não informado'}">
+
+                                        Fabricante
+
+                                    </strong>
+
+
+                                    <small
+                                            th:if="${leitor.modelo != null
+                                            && !leitor.modelo.isBlank()}"
+                                            th:text="${leitor.modelo}">
+
+                                        Modelo
+
+                                    </small>
+
+
+                                    <small
+                                            class="muted"
+                                            th:if="${leitor.modelo == null
+                                            || leitor.modelo.isBlank()}">
+
+                                        Modelo não informado
+
+                                    </small>
+
+                                </div>
+
+                            </td>
+
+                            <!-- =====================================
+                                 AMBIENTE
+                                 ===================================== -->
+
+                            <td>
+
+                                <span class="not-informed">
+
+                                    <i class="fa-solid fa-location-crosshairs"></i>
+
+                                    Não informado
+
+                                </span>
+
+                            </td>
+
+                            <!-- =====================================
+                                 STATUS
+                                 ===================================== -->
+
+                            <td>
+
+                                <span class="status active"
+                                      th:if="${leitor.ativo}">
+
+                                    <span></span>
+
+                                    Ativo
+
+                                </span>
+
+
+                                <span class="status inactive"
+                                      th:unless="${leitor.ativo}">
+
+                                    <span></span>
+
+                                    Inativo
+
+                                </span>
+
+                            </td>
+
+
+
+                            <!-- =====================================
+                                 AÇÕES
+                                 ===================================== -->
+
+                            <td class="actions-column">
+
+                                <div class="actions">
+
+
+                                    <!-- VISUALIZAR -->
+
+                                    <a th:href="@{/leitores/{id}(id=${leitor.id})}"
+                                       class="action-button"
+                                       title="Visualizar"
+                                       aria-label="Visualizar leitor">
+
+                                        <i class="fa-solid fa-eye"></i>
+
+                                    </a>
+
+
+
+                                    <!-- EDITAR -->
+
+                                    <a th:href="@{/leitores/{id}/editar(id=${leitor.id})}"
+                                       class="action-button"
+                                       title="Editar"
+                                       aria-label="Editar leitor">
+
+                                        <i class="fa-solid fa-pen"></i>
+
+                                    </a>
+
+
+
+                                    <!-- ALTERAR STATUS -->
+
+                                    <form th:action="@{/leitores/{id}/status(id=${leitor.id})}"
+                                          method="post"
+                                          style="display: contents;">
+
+                                        <button
+                                                type="submit"
+                                                class="action-button"
+                                                th:title="${leitor.ativo
+                                                ? 'Desativar leitor'
+                                                : 'Ativar leitor'}"
+                                                th:aria-label="${leitor.ativo
+                                                ? 'Desativar leitor'
+                                                : 'Ativar leitor'}">
+
+                                            <i class="fa-solid"
+                                               th:classappend="${leitor.ativo
+                                               ? ' fa-toggle-on'
+                                               : ' fa-toggle-off'}">
+                                            </i>
+
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     RODAPÉ DA TABELA
+                     ================================================= -->
+
+                <div class="pagination"
+                     th:if="${leitores != null && !#lists.isEmpty(leitores)}">
+
+                    <span>
+
+                        Exibindo
+
+                        <strong
+                                th:text="${#lists.size(leitores)}">
+                            0
+                        </strong>
+
+                        leitor(es)
+
+                    </span>
+
+
+                    <div class="pagination-buttons">
+
+                        <button type="button"
+                                disabled>
+
+                            <i class="fa-solid fa-chevron-left"></i>
+
+                        </button>
+
+
+                        <button type="button"
+                                class="selected">
+
+                            1
+
+                        </button>
+
+
+                        <button type="button"
+                                disabled>
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FOOTER
+             ================================================= -->
+
+        <footer class="app-footer">
+
+            <span>
+                © ALMAX — Controle Patrimonial
+            </span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+
+</html>

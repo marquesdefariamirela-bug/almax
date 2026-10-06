@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	
+	<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+	>
+	
+	<meta
+			name="description"
+			content="ALMAX — Listagem de Tags RFID"
+	>
+	
+	<title>Tags | ALMAX</title>
+	
+	<!-- CSS GLOBAL -->
+	<link rel="stylesheet" th:href="@{/css/base.css}">
+	<link rel="stylesheet" th:href="@{/css/layout.css}">
+	
+	<!-- CSS DOS FRAGMENTS -->
+	<link rel="stylesheet" th:href="@{/css/sidebar.css}">
+	<link rel="stylesheet" th:href="@{/css/navbar.css}">
+	<link rel="stylesheet" th:href="@{/css/alerts.css}">
+	<link rel="stylesheet" th:href="@{/css/footer.css}">
+	
+	<!-- CSS DA PÁGINA -->
+	<link rel="stylesheet" th:href="@{/css/tags.css}">
+	
+	<link rel="stylesheet"
+	      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+<div class="app-layout">
+	
+	<!-- =====================================================
+		 SIDEBAR
+		 ===================================================== -->
+	
+	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+	
+	
+	<!-- =====================================================
+		 ÁREA PRINCIPAL
+		 ===================================================== -->
+	
+	<div class="app-main">
+		
+		<!-- NAVBAR -->
+		
+		<header class="app-header">
+			
+			<div th:replace="~{fragments/navbar :: navbar}"></div>
+		
+		</header>
+		
+		
+		<!-- =================================================
+			 CONTEÚDO
+			 ================================================= -->
+		
+		<main class="tags-container">
+			
+			
+			<!-- =================================================
+				 CABEÇALHO
+				 ================================================= -->
+			
+			<section class="page-header">
+				
+				<div>
+					
+					<div class="breadcrumb">
+						
+						<a th:href="@{/dashboard}">
+							Dashboard
+						</a>
+						
+						<i class="fa-solid fa-chevron-right"></i>
+						
+						<strong>
+							Tags
+						</strong>
+					
+					</div>
+					
+					
+					<div class="page-title">
+						
+						<div class="page-title-icon">
+							
+							<i class="fa-solid fa-tags"></i>
+						
+						</div>
+						
+						<div>
+							
+							<h1>
+								Tags RFID
+							</h1>
+							
+							<p>
+								Gerencie as tags utilizadas na identificação dos patrimônios.
+							</p>
+						
+						</div>
+					
+					</div>
+				
+				</div>
+				
+				
+				<a
+						th:href="@{/tags/nova}"
+						class="btn btn-primary">
+					
+					<i class="fa-solid fa-plus"></i>
+					
+					Nova tag
+				
+				</a>
+			
+			</section>
+			
+			
+			<!-- =================================================
+				 CARDS DE RESUMO
+				 ================================================= -->
+			
+			<section class="stats-grid">
+				
+				<!-- TOTAL -->
+				
+				<article class="stat-card">
+					
+					<div class="stat-icon blue">
+						
+						<i class="fa-solid fa-tags"></i>
+					
+					</div>
+					
+					<div>
+
+                        <span>
+                            Total de tags
+                        </span>
+						
+						<strong
+								th:text="${totalTags != null ? totalTags : 0}">
+							0
+						</strong>
+					
+					</div>
+				
+				</article>
+				
+				
+				<!-- ATIVAS -->
+				
+				<article class="stat-card">
+					
+					<div class="stat-icon green">
+						
+						<i class="fa-solid fa-circle-check"></i>
+					
+					</div>
+					
+					<div>
+
+                        <span>
+                            Tags ativas
+                        </span>
+						
+						<strong
+								th:text="${tagsAtivas != null ? tagsAtivas : 0}">
+							0
+						</strong>
+					
+					</div>
+				
+				</article>
+				
+				
+				<!-- DISPONÍVEIS -->
+				
+				<article class="stat-card">
+					
+					<div class="stat-icon orange">
+						
+						<i class="fa-solid fa-box-open"></i>
+					
+					</div>
+					
+					<div>
+
+                        <span>
+                            Disponíveis
+                        </span>
+						
+						<strong
+								th:text="${tagsDisponiveis != null ? tagsDisponiveis : 0}">
+							0
+						</strong>
+					
+					</div>
+				
+				</article>
+				
+				
+				<!-- VINCULADAS -->
+				
+				<article class="stat-card">
+					
+					<div class="stat-icon purple">
+						
+						<i class="fa-solid fa-link"></i>
+					
+					</div>
+					
+					<div>
+
+                        <span>
+                            Vinculadas
+                        </span>
+						
+						<strong
+								th:text="${tagsVinculadas != null ? tagsVinculadas : 0}">
+							0
+						</strong>
+					
+					</div>
+				
+				</article>
+			
+			</section>
+			
+			
+			<!-- =================================================
+				 FILTROS
+				 ================================================= -->
+			
+			<section class="filter-card">
+				
+				<div class="search-container">
+					
+					<i class="fa-solid fa-magnifying-glass"></i>
+					
+					<input
+							type="text"
+							id="searchInput"
+							placeholder="Pesquisar por EPC, código ou patrimônio..."
+							autocomplete="off"
+					>
+				
+				</div>
+				
+				
+				<div class="filter-group">
+					
+					<select id="statusFilter">
+						
+						<option value="">
+							Todos os status
+						</option>
+						
+						<option value="ATIVA">
+							Ativas
+						</option>
+						
+						<option value="INATIVA">
+							Inativas
+						</option>
+					
+					</select>
+					
+					
+					<select id="vinculoFilter">
+						
+						<option value="">
+							Todas as tags
+						</option>
+						
+						<option value="VINCULADA">
+							Vinculadas
+						</option>
+						
+						<option value="DISPONIVEL">
+							Disponíveis
+						</option>
+					
+					</select>
+					
+					
+					<button
+							type="button"
+							class="btn btn-filter"
+							id="clearFilters">
+						
+						<i class="fa-solid fa-filter-circle-xmark"></i>
+						
+						Limpar filtros
+					
+					</button>
+				
+				</div>
+			
+			</section>
+			
+			
+			<!-- =================================================
+				 TABELA
+				 ================================================= -->
+			
+			<section class="table-card">
+				
+				
+				<!-- HEADER -->
+				
+				<div class="table-header">
+					
+					<div>
+						
+						<h2>
+							Tags cadastradas
+						</h2>
+						
+						<span>
+                            Lista de tags RFID disponíveis no sistema
+                        </span>
+					
+					</div>
+					
+					
+					<div class="table-actions">
+						
+						<button
+								type="button"
+								class="btn-export"
+								onclick="exportarTags()">
+							
+							<i class="fa-solid fa-file-arrow-down"></i>
+							
+							Exportar
+						
+						</button>
+					
+					</div>
+				
+				</div>
+				
+				
+				<!-- TABLE -->
+				
+				<div class="table-wrapper">
+					
+					<table>
+						
+						<thead>
+						
+						<tr>
+							
+							<th>
+								TAG
+							</th>
+							
+							<th>
+								EPC
+							</th>
+							
+							<th>
+								Código
+							</th>
+							
+							<th>
+								Patrimônio
+							</th>
+							
+							<th>
+								Localização
+							</th>
+							
+							<th>
+								Status
+							</th>
+							
+							<th class="actions-column">
+								Ações
+							</th>
+						
+						</tr>
+						
+						</thead>
+						
+						
+						<tbody id="tagsTableBody">
+						
+						
+						<!-- =====================================
+							 TAG
+							 ===================================== -->
+						<tr
+								th:each="tag : ${tags}"
+								class="tag-row"
+								th:attr="
+        data-search=${tag.epc + ' ' +
+            (tag.codigo != null ? tag.codigo : '') + ' ' +
+            (tag.produtoNome != null ? tag.produtoNome : '') + ' ' +
+            (tag.numeroPatrimonio != null ? tag.numeroPatrimonio : '')},
+        data-status=${tag.ativo ? 'ATIVA' : 'INATIVA'},
+        data-vinculo=${tag.produtoId != null ? 'VINCULADA' : 'DISPONIVEL'}
+    "
+						>
+							
+							<!-- TAG -->
+							
+							<td>
+								
+								<div class="tag-cell">
+									
+									<div class="tag-icon">
+										
+										<i class="fa-solid fa-tag"></i>
+									
+									</div>
+									
+									<div>
+										
+										<strong
+												th:text="${tag.codigo != null && !tag.codigo.isBlank()
+                        ? tag.codigo
+                        : 'TAG-' + tag.id}"
+										>
+											TAG-0001
+										</strong>
+										
+										<small
+												th:text="'ID #' + ${tag.id}"
+										>
+											ID #1
+										</small>
+									
+									</div>
+								
+								</div>
+							
+							</td>
+							
+							
+							<!-- EPC -->
+							
+							<td>
+								
+								<div class="epc-cell">
+									
+									<i class="fa-solid fa-microchip"></i>
+									
+									<span
+											th:text="${tag.epc}"
+									>
+                E2000017221101441890A001
+            </span>
+								
+								</div>
+							
+							</td>
+							
+							
+							<!-- CÓDIGO -->
+							
+							<td>
+
+        <span
+		        class="codigo"
+		        th:text="${tag.codigo != null && !tag.codigo.isBlank()
+                ? tag.codigo
+                : '—'}"
+        >
+            TAG-0001
+        </span>
+							
+							</td>
+							
+							
+							<!-- PATRIMÔNIO -->
+							
+							<td>
+								
+								<div
+										class="patrimonio-cell"
+										th:if="${tag.produtoId != null}"
+								>
+									
+									<div class="product-mini-icon">
+										
+										<i class="fa-solid fa-box"></i>
+									
+									</div>
+									
+									<div>
+										
+										<strong
+												th:text="${tag.produtoNome != null
+                        ? tag.produtoNome
+                        : 'Produto #' + tag.produtoId}"
+										>
+											Notebook Dell Latitude
+										</strong>
+										
+										<small
+												th:text="${tag.numeroPatrimonio != null
+                        ? tag.numeroPatrimonio
+                        : '—'}"
+										>
+											PAT-2026-0001
+										</small>
+									
+									</div>
+								
+								</div>
+								
+								
+								<span
+										class="not-linked"
+										th:unless="${tag.produtoId != null}"
+								>
+
+            <i class="fa-solid fa-link-slash"></i>
+
+            Não vinculada
+
+        </span>
+							
+							</td>
+							
+							
+							<!-- LOCALIZAÇÃO -->
+							
+							<td>
+
+        <span class="muted">
+
+            Não informada
+
+        </span>
+							
+							</td>
+							
+							
+							<!-- STATUS -->
+							
+							<td>
+
+        <span
+		        class="status active"
+		        th:if="${tag.ativo}"
+        >
+
+            <span></span>
+
+            Ativa
+
+        </span>
+								
+								
+								<span
+										class="status inactive"
+										th:unless="${tag.ativo}"
+								>
+
+            <span></span>
+
+            Inativa
+
+        </span>
+							
+							</td>
+							
+							
+							<!-- AÇÕES -->
+							
+							<td class="actions-column">
+								
+								<div class="actions">
+									
+									<a
+											th:href="@{/tags/{id}(id=${tag.id})}"
+											class="action-button"
+											title="Visualizar"
+											aria-label="Visualizar tag"
+									>
+										
+										<i class="fa-regular fa-eye"></i>
+									
+									</a>
+									
+									
+									<a
+											th:href="@{/tags/{id}/editar(id=${tag.id})}"
+											class="action-button"
+											title="Editar"
+											aria-label="Editar tag"
+									>
+										
+										<i class="fa-regular fa-pen-to-square"></i>
+									
+									</a>
+									
+									
+									<button
+											type="button"
+											class="action-button danger"
+											title="Excluir"
+											aria-label="Excluir tag"
+											th:attr="
+                    data-id=${tag.id},
+                    data-codigo=${tag.codigo}
+                "
+									>
+										
+										<i class="fa-regular fa-trash-can"></i>
+									
+									</button>
+								
+								</div>
+							
+							</td>
+						
+						</tr>
+						
+						<!-- =====================================
+							 EMPTY STATE
+							 ===================================== -->
+						
+						<tr
+								th:if="${#lists.isEmpty(tags)}"
+								id="emptyServerRow">
+							
+							<td
+									colspan="7"
+									class="empty-state">
+								
+								<div>
+									
+									<div class="empty-icon">
+										
+										<i class="fa-solid fa-tags"></i>
+									
+									</div>
+									
+									<strong>
+										Nenhuma tag cadastrada
+									</strong>
+									
+									<span>
+                                        Cadastre uma nova tag RFID para começar.
+                                    </span>
+									
+									<a
+											th:href="@{/tags/nova}"
+											class="btn btn-primary">
+										
+										<i class="fa-solid fa-plus"></i>
+										
+										Cadastrar primeira tag
+									
+									</a>
+								
+								</div>
+							
+							</td>
+						
+						</tr>
+						
+						
+						<!-- FILTRO SEM RESULTADO -->
+						
+						<tr id="emptyFilterRow" style="display: none;">
+							
+							<td
+									colspan="7"
+									class="empty-state">
+								
+								<div>
+									
+									<div class="empty-icon">
+										
+										<i class="fa-solid fa-filter"></i>
+									
+									</div>
+									
+									<strong>
+										Nenhuma tag encontrada
+									</strong>
+									
+									<span>
+                                        Tente alterar os filtros utilizados.
+                                    </span>
+								
+								</div>
+							
+							</td>
+						
+						</tr>
+						
+						
+						</tbody>
+					
+					</table>
+				
+				</div>
+				
+				
+				<!-- PAGINAÇÃO -->
+				
+				<div class="pagination">
+
+                    <span id="paginationInfo">
+
+                        Mostrando
+                        <strong th:text="${#lists.size(tags)}">
+                            0
+                        </strong>
+                        tags
+
+                    </span>
+					
+					
+					<div class="pagination-buttons">
+						
+						<button
+								type="button"
+								id="previousPage"
+								disabled>
+							
+							<i class="fa-solid fa-chevron-left"></i>
+						
+						</button>
+						
+						
+						<button
+								type="button"
+								class="selected">
+							
+							1
+						
+						</button>
+						
+						
+						<button
+								type="button"
+								id="nextPage">
+							
+							<i class="fa-solid fa-chevron-right"></i>
+						
+						</button>
+					
+					</div>
+				
+				</div>
+			
+			</section>
+		
+		</main>
+		
+		
+		<!-- FOOTER -->
+		
+		<footer class="app-footer">
+			
+			<div th:replace="~{fragments/footer :: footer}"></div>
+		
+		</footer>
+	
+	</div>
+
+</div>
+
+
+<!-- =========================================================
+     MODAL DE EXCLUSÃO
+     ========================================================= -->
+
+<div
+		id="deleteModal"
+		class="modal">
+	
+	<div
+			class="modal-overlay"
+			onclick="fecharExclusao()">
+	</div>
+	
+	
+	<div class="modal-content">
+		
+		<div class="modal-icon danger-icon">
+			
+			<i class="fa-solid fa-trash-can"></i>
+		
+		</div>
+		
+		
+		<h2>
+			Excluir tag?
+		</h2>
+		
+		
+		<p>
+			
+			Você está prestes a excluir a tag
+			
+			<strong id="deleteTagCode">
+				TAG-0001
+			</strong>.
+			
+			Essa ação não poderá ser desfeita.
+		
+		</p>
+		
+		
+		<div class="modal-actions">
+			
+			<button
+					type="button"
+					class="btn btn-secondary"
+					onclick="fecharExclusao()">
+				
+				Cancelar
+			
+			</button>
+			
+			
+			<button
+					type="button"
+					class="btn btn-danger"
+					id="confirmDelete">
+				
+				<i class="fa-regular fa-trash-can"></i>
+				
+				Excluir tag
+			
+			</button>
+		
+		</div>
+	
+	</div>
+
+</div>
+
+
+<!-- =========================================================
+     TOAST
+     ========================================================= -->
+
+<div
+		id="toast"
+		class="toast">
+	
+	<div class="toast-icon">
+		
+		<i class="fa-solid fa-check"></i>
+	
+	</div>
+	
+	
+	<div>
+		
+		<strong id="toastTitle">
+			Sucesso
+		</strong>
+		
+		<p id="toastMessage">
+			Operação realizada com sucesso.
+		</p>
+	
+	</div>
+	
+	
+	<button
+			type="button"
+			onclick="fecharToast()"
+			aria-label="Fechar">
+		
+		<i class="fa-solid fa-xmark"></i>
+	
+	</button>
+
+</div>
+
+
+<!-- SCRIPTS -->
+
+<script th:src="@{/js/app.js}"></script>
+<script th:src="@{/js/tags.js}"></script>
+
+</body>
+
+</html>

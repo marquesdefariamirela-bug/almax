@@ -1,0 +1,2242 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0">
+
+    <meta
+            name="description"
+            content="ALMAX — Gestão de Patrimônios">
+
+    <meta name="_csrf"
+          th:content="${_csrf.token}">
+
+    <meta name="_csrf_header"
+          th:content="${_csrf.headerName}">
+
+    <title>Patrimônios | ALMAX</title>
+
+
+    <!-- =====================================================
+         CSS GLOBAL
+         ===================================================== -->
+
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/layout.css}">
+
+    <!-- =====================================================
+         FRAGMENTS
+         ===================================================== -->
+
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/alerts.css}">
+
+    <!-- =====================================================
+         FONT AWESOME
+         ===================================================== -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- =====================================================
+         CSS DA PÁGINA
+         ===================================================== -->
+
+    <link rel="stylesheet" th:href="@{/css/produto-lista.css}">
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+
+    <!-- =====================================================
+         OVERLAY MOBILE
+         ===================================================== -->
+
+    <div th:replace="~{fragments/sidebar :: sidebar-overlay}"></div>
+
+
+    <!-- =====================================================
+         ÁREA PRINCIPAL
+         ===================================================== -->
+
+    <div class="app-main">
+
+
+        <!-- =================================================
+             NAVBAR
+             ================================================= -->
+
+        <header class="app-header">
+
+            <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+        </header>
+
+
+        <!-- =================================================
+             CONTEÚDO
+             ================================================= -->
+
+        <main class="produto-page">
+
+
+            <!-- =================================================
+                 CONTAINER DA PÁGINA
+                 ================================================= -->
+
+            <div class="page-container">
+
+
+                <!-- =================================================
+                     CABEÇALHO
+                     ================================================= -->
+
+                <section class="page-heading">
+
+                    <div class="page-heading-info">
+
+                        <div class="page-title-icon">
+
+                            <i class="fa-solid fa-boxes-stacked"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h1>
+                                Patrimônios
+                            </h1>
+
+                            <p>
+                                Gerencie os produtos e patrimônios cadastrados.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <a
+                            th:href="@{/produtos/novo}"
+                            class="btn btn-primary">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        <span>
+                            Novo patrimônio
+                        </span>
+
+                    </a>
+
+                </section>
+
+
+                <!-- =================================================
+                     INDICADORES
+                     ================================================= -->
+
+                <section class="stats-grid">
+
+
+                    <!-- TOTAL -->
+
+                    <article class="stat-card">
+
+                        <div class="stat-icon blue">
+
+                            <i class="fa-solid fa-boxes-stacked"></i>
+
+                        </div>
+
+                        <div class="stat-content">
+
+                            <span>
+                                Total
+                            </span>
+
+                            <strong id="totalProdutos"
+                                    th:text="${totalProdutos}">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- ATIVOS -->
+
+                    <article class="stat-card">
+
+                        <div class="stat-icon green">
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                        </div>
+
+                        <div class="stat-content">
+
+                            <span>
+                                Ativos
+                            </span>
+
+                            <strong id="totalAtivos"
+                                    th:text="${totalAtivos}">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- MANUTENÇÃO -->
+
+                    <article class="stat-card">
+
+                        <div class="stat-icon orange">
+
+                            <i class="fa-solid fa-screwdriver-wrench"></i>
+
+                        </div>
+
+                        <div class="stat-content">
+
+                            <span>
+                                Manutenção
+                            </span>
+
+                            <strong id="totalManutencao"
+                                    th:text="${totalManutencao}">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- INATIVOS -->
+
+                    <article class="stat-card">
+
+                        <div class="stat-icon red">
+
+                            <i class="fa-solid fa-ban"></i>
+
+                        </div>
+
+                        <div class="stat-content">
+
+                            <span>
+                                Inativos
+                            </span>
+
+                            <strong id="totalInativos"
+                                    th:text="${totalInativos}">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </article>
+
+
+                </section>
+
+
+                <!-- =================================================
+                     FILTROS
+                     ================================================= -->
+
+                <section class="filter-card">
+
+
+                    <!-- BUSCA -->
+
+                    <div class="search-container">
+
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                        <input
+                                type="text"
+                                id="searchInput"
+                                placeholder="Buscar por patrimônio, nome, marca ou número de série..."
+                                autocomplete="off">
+
+                    </div>
+
+
+                    <!-- FILTROS -->
+
+                    <div class="filter-group">
+
+
+                        <div class="select-wrapper">
+
+                            <select id="statusFilter">
+
+                                <option value="">
+                                    Todos os status
+                                </option>
+
+                                <option
+                                        th:each="status : ${statusList}"
+                                        th:value="${status}"
+                                        th:text="${status}">
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="select-wrapper">
+
+                            <select id="ambienteFilter">
+
+                                <option value="">
+                                    Todos os ambientes
+                                </option>
+
+                                <option
+                                        th:each="ambiente : ${ambientes}"
+                                        th:value="${ambiente.id}"
+                                        th:text="${ambiente.nome}">
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <button
+                                type="button"
+                                class="btn btn-filter"
+                                onclick="limparFiltros()">
+
+                            <i class="fa-solid fa-filter-circle-xmark"></i>
+
+                            <span>
+                                Limpar
+                            </span>
+
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     TABELA
+                     ================================================= -->
+
+                <section class="table-card">
+
+
+                    <!-- CABEÇALHO DA TABELA -->
+
+                    <div class="table-header">
+
+                        <div>
+
+                            <h2>
+                                Lista de patrimônios
+                            </h2>
+
+                            <span id="resultCount"
+                                  th:text="${#lists.size(produtos)} + ' registros encontrados'">
+
+    0 registros encontrados
+
+</span>
+
+                        </div>
+
+
+                        <button
+                                type="button"
+                                class="btn-export"
+                                onclick="exportarCSV()">
+
+                            <i class="fa-solid fa-file-export"></i>
+
+                            <span>
+                                Exportar
+                            </span>
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         TABELA RESPONSIVA
+                         ================================================= -->
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                            <tr>
+
+                                <th>
+                                    Patrimônio
+                                </th>
+
+                                <th>
+                                    Produto
+                                </th>
+
+                                <th>
+                                    Marca / Modelo
+                                </th>
+
+                                <th>
+                                    Nº de série
+                                </th>
+
+                                <th>
+                                    Ambiente
+                                </th>
+
+                                <th>
+                                    Valor
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th class="actions-column">
+                                    Ações
+                                </th>
+
+                            </tr>
+
+                            </thead>
+
+                            <tbody id="produtosTableBody">
+
+                            <tr th:each="produto : ${produtos}"
+                                    data-produto-row
+                                    th:attr="
+                                    data-ambiente-id=${produto.ambienteId},
+                                    data-status=${produto.status}
+                                ">
+
+
+                                <!-- PATRIMÔNIO -->
+                                <td>
+
+                                    <div class="patrimonio">
+
+                                        <div class="product-icon">
+
+                                            <i class="fa-solid fa-box"></i>
+
+                                        </div>
+
+                                        <div>
+
+                                            <strong
+                                                    th:text="${produto.numeroPatrimonio}">
+                                                PAT-0000
+                                            </strong>
+
+                                            <small
+                                                    th:text="'ID #' + ${produto.id}">
+                                                ID #0
+                                            </small>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- PRODUTO -->
+                                <td>
+
+                                    <div class="product-name">
+
+                                        <strong
+                                                th:text="${produto.nome}">
+                                            Produto
+                                        </strong>
+
+                                        <span
+                                                th:text="${produto.descricao != null && !produto.descricao.isBlank()
+                            ? produto.descricao
+                            : 'Sem descrição'}">
+                    Descrição
+                </span>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- MARCA / MODELO -->
+                                <td>
+
+                                    <div class="brand-model">
+
+                                        <strong
+                                                th:text="${produto.marca != null
+                            ? produto.marca
+                            : 'Não informado'}">
+                                            Marca
+                                        </strong>
+
+                                        <span
+                                                th:text="${produto.modelo != null
+                            ? produto.modelo
+                            : 'Modelo não informado'}">
+                    Modelo
+                </span>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- NÚMERO DE SÉRIE -->
+                                <td>
+
+            <span
+                    th:text="${produto.numeroSerie != null
+                        && !produto.numeroSerie.isBlank()
+                        ? produto.numeroSerie
+                        : '-'}">
+                -
+            </span>
+
+                                </td>
+
+
+                                <!-- AMBIENTE -->
+                                <td>
+
+            <span class="location">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                <span
+                        th:text="${produto.ambienteNome != null
+                            ? produto.ambienteNome
+                            : 'Sem ambiente'}">
+                    Ambiente
+                </span>
+
+            </span>
+
+                                </td>
+
+
+                                <!-- VALOR -->
+                                <td>
+
+                                    <strong
+                                            th:text="${produto.valor != null
+                        ? 'R$ ' + #numbers.formatDecimal(
+                            produto.valor,
+                            1,
+                            'POINT',
+                            2,
+                            'COMMA'
+                          )
+                        : 'R$ 0,00'}">
+                                        R$ 0,00
+                                    </strong>
+
+                                </td>
+
+
+                                <!-- STATUS -->
+                                <td>
+
+            <span
+                    class="status"
+                    th:classappend="${produto.status != null
+                        ? (
+                            produto.status.name() == 'ATIVO'
+                            ? ' active'
+                            : (
+                                produto.status.name() == 'MANUTENCAO'
+                                ? ' maintenance'
+                                : (
+                                    produto.status.name() == 'INATIVO'
+                                    ? ' inactive'
+                                    : ' disabled'
+                                )
+                            )
+                          )
+                        : ' disabled'}">
+
+                <span></span>
+
+                <span
+                        th:text="${produto.status != null
+                            ? produto.status
+                            : 'Sem status'}">
+                    Status
+                </span>
+
+            </span>
+
+                                </td>
+
+
+                                <!-- AÇÕES -->
+                                <td>
+
+                                    <div class="actions">
+
+                                        <button
+                                                type="button"
+                                                title="Visualizar"
+                                                th:onclick="'visualizarProduto(' + ${produto.id} + ')'">
+
+                                            <i class="fa-regular fa-eye"></i>
+
+                                        </button>
+
+
+                                        <button
+                                                type="button"
+                                                title="Editar"
+                                                th:onclick="'editarProduto(' + ${produto.id} + ')'">
+
+                                            <i class="fa-regular fa-pen-to-square"></i>
+
+                                        </button>
+
+
+                                        <button
+                                                type="button"
+                                                class="danger"
+                                                title="Excluir"
+                                                th:onclick="'excluirProduto(' + ${produto.id} + ')'">
+
+                                            <i class="fa-regular fa-trash-can"></i>
+
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+                            <!-- NENHUM RESULTADO -->
+
+                            <tr th:if="${produtos == null || #lists.isEmpty(produtos)}">
+
+                                <td
+                                        colspan="8"
+                                        class="empty-state">
+
+                                    <div>
+
+                                        <i class="fa-solid fa-box-open"></i>
+
+                                        <strong>
+                                            Nenhum patrimônio encontrado
+                                        </strong>
+
+                                        <span>
+                    Não existem patrimônios cadastrados.
+                </span>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         PAGINAÇÃO
+                         ================================================= -->
+
+                    <div class="pagination">
+
+                        <span>
+                            Página 1 de 13
+                        </span>
+
+
+                        <div class="pagination-buttons">
+
+                            <button
+                                    type="button"
+                                    disabled>
+
+                                <i class="fa-solid fa-chevron-left"></i>
+
+                            </button>
+
+
+                            <button
+                                    type="button"
+                                    class="selected">
+
+                                1
+
+                            </button>
+
+
+                            <button
+                                    type="button">
+
+                                2
+
+                            </button>
+
+
+                            <button
+                                    type="button">
+
+                                3
+
+                            </button>
+
+
+                            <span>
+                                ...
+                            </span>
+
+
+                            <button
+                                    type="button">
+
+                                13
+
+                            </button>
+
+
+                            <button
+                                    type="button">
+
+                                <i class="fa-solid fa-chevron-right"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </main>
+
+
+        <!-- =================================================
+             FOOTER
+             ================================================= -->
+
+        <footer class="app-footer">
+
+            <div th:replace="~{fragments/footer :: footer}"></div>
+
+        </footer>
+
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     MODAL DE EXCLUSÃO
+     ========================================================= -->
+
+<div
+        id="deleteModal"
+        class="modal"
+        aria-hidden="true">
+
+
+    <div
+            class="modal-overlay"
+            onclick="fecharModal()">
+    </div>
+
+
+    <div
+            class="modal-content"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="deleteModalTitle">
+
+
+        <div class="modal-icon danger-icon">
+
+            <i class="fa-solid fa-trash-can"></i>
+
+        </div>
+
+
+        <h2 id="deleteModalTitle">
+            Excluir patrimônio?
+        </h2>
+
+
+        <p>
+            Tem certeza que deseja excluir este patrimônio?
+            Essa ação não poderá ser desfeita.
+        </p>
+
+
+        <div class="modal-actions">
+
+            <button
+                    type="button"
+                    class="btn btn-secondary"
+                    onclick="fecharModal()">
+
+                Cancelar
+
+            </button>
+
+
+            <button
+                    type="button"
+                    class="btn btn-danger"
+                    onclick="confirmarExclusao()">
+
+                Excluir patrimônio
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     TOAST
+     ========================================================= -->
+
+<div
+        id="toast"
+        class="toast"
+        role="status"
+        aria-live="polite">
+
+
+    <div class="toast-icon">
+
+        <i class="fa-solid fa-check"></i>
+
+    </div>
+
+
+    <div>
+
+        <strong id="toastTitle">
+            Sucesso
+        </strong>
+
+        <p id="toastMessage">
+            Operação realizada.
+        </p>
+
+    </div>
+
+
+    <button
+            type="button"
+            onclick="fecharToast()"
+            aria-label="Fechar notificação">
+
+        <i class="fa-solid fa-xmark"></i>
+
+    </button>
+
+</div>
+
+<script th:inline="javascript">
+
+    // =========================================================
+    // CONFIGURAÇÕES
+    // =========================================================
+
+    let produtoIdParaExcluir = null;
+
+    let paginaAtual = 1;
+
+    const itensPorPagina = 10;
+
+
+    // =========================================================
+    // CSRF
+    // =========================================================
+
+    const csrfToken =
+        document
+            .querySelector('meta[name="_csrf"]')
+            ?.getAttribute("content");
+
+    const csrfHeader =
+        document
+            .querySelector('meta[name="_csrf_header"]')
+            ?.getAttribute("content");
+
+
+    // =========================================================
+    // URL BASE
+    // =========================================================
+
+    const produtosUrl =
+        /*[[@{/produtos/}]]*/ "/produtos/";
+
+
+    // =========================================================
+    // ELEMENTOS
+    // =========================================================
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    const statusFilter =
+        document.getElementById("statusFilter");
+
+    const ambienteFilter =
+        document.getElementById("ambienteFilter");
+
+    const tableBody =
+        document.getElementById("produtosTableBody");
+
+    const resultCount =
+        document.getElementById("resultCount");
+
+
+    // =========================================================
+    // OBTÉM AS LINHAS REAIS DA TABELA
+    // =========================================================
+
+    function obterLinhasProdutos() {
+
+        if (!tableBody) {
+            return [];
+        }
+
+        return Array.from(
+            tableBody.querySelectorAll("tr[data-produto-row]")
+        );
+    }
+
+
+    // =========================================================
+    // NORMALIZAR TEXTO
+    // =========================================================
+
+    function normalizarTexto(texto) {
+
+        return (texto || "")
+            .toString()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .trim();
+    }
+
+
+    // =========================================================
+    // APLICAÇÃO DOS FILTROS
+    // =========================================================
+
+    function aplicarFiltros() {
+
+        const busca =
+            normalizarTexto(
+                searchInput?.value
+            );
+
+        const statusSelecionado =
+            normalizarTexto(
+                statusFilter?.value
+            );
+
+        const ambienteSelecionado =
+            ambienteFilter?.value || "";
+
+
+        const linhas =
+            obterLinhasProdutos();
+
+
+        let linhasVisiveis = [];
+
+
+        linhas.forEach(function (linha) {
+
+            const textoLinha =
+                normalizarTexto(
+                    linha.innerText
+                );
+
+
+            const statusProduto =
+                normalizarTexto(
+                    linha.dataset.status
+                );
+
+
+            const ambienteProduto =
+                linha.dataset.ambiente || "";
+
+
+            // -------------------------------------------------
+            // BUSCA
+            // -------------------------------------------------
+
+            const correspondeBusca =
+                !busca ||
+                textoLinha.includes(busca);
+
+
+            // -------------------------------------------------
+            // STATUS
+            // -------------------------------------------------
+
+            const correspondeStatus =
+                !statusSelecionado ||
+                statusProduto === statusSelecionado;
+
+
+            // -------------------------------------------------
+            // AMBIENTE
+            // -------------------------------------------------
+
+            const correspondeAmbiente =
+                !ambienteSelecionado ||
+                ambienteProduto === ambienteSelecionado;
+
+
+            // -------------------------------------------------
+            // RESULTADO
+            // -------------------------------------------------
+
+            const corresponde =
+                correspondeBusca &&
+                correspondeStatus &&
+                correspondeAmbiente;
+
+
+            if (corresponde) {
+
+                linhasVisiveis.push(linha);
+
+            }
+
+        });
+
+
+        atualizarTabela(
+            linhasVisiveis
+        );
+
+
+        atualizarIndicadores(
+            linhasVisiveis
+        );
+
+
+        atualizarContagem(
+            linhasVisiveis.length
+        );
+
+
+        atualizarPaginacao(
+            linhasVisiveis
+        );
+    }
+
+
+    // =========================================================
+    // ATUALIZAR TABELA
+    // =========================================================
+
+    function atualizarTabela(linhasVisiveis) {
+
+        const linhas =
+            obterLinhasProdutos();
+
+
+        linhas.forEach(function (linha) {
+
+            linha.style.display = "none";
+
+        });
+
+
+        const inicio =
+            (paginaAtual - 1) *
+            itensPorPagina;
+
+
+        const fim =
+            inicio +
+            itensPorPagina;
+
+
+        const pagina =
+            linhasVisiveis.slice(
+                inicio,
+                fim
+            );
+
+
+        pagina.forEach(function (linha) {
+
+            linha.style.display = "";
+
+        });
+
+
+        atualizarEstadoVazio(
+            linhasVisiveis.length
+        );
+    }
+
+
+    // =========================================================
+    // ESTADO VAZIO
+    // =========================================================
+
+    function atualizarEstadoVazio(
+        quantidade
+    ) {
+
+        let linhaVazia =
+            document.getElementById(
+                "linhaSemResultados"
+            );
+
+
+        if (!linhaVazia) {
+
+            linhaVazia =
+                document.createElement("tr");
+
+            linhaVazia.id =
+                "linhaSemResultados";
+
+            linhaVazia.innerHTML = `
+                <td colspan="8" class="empty-state">
+                    <div>
+                        <i class="fa-solid fa-box-open"></i>
+
+                        <strong>
+                            Nenhum patrimônio encontrado
+                        </strong>
+
+                        <span>
+                            Nenhum patrimônio corresponde aos filtros informados.
+                        </span>
+                    </div>
+                </td>
+            `;
+
+            tableBody.appendChild(
+                linhaVazia
+            );
+        }
+
+
+        linhaVazia.style.display =
+            quantidade === 0
+                ? ""
+                : "none";
+    }
+
+
+    // =========================================================
+    // CONTAGEM DE RESULTADOS
+    // =========================================================
+
+    function atualizarContagem(
+        quantidade
+    ) {
+
+        if (!resultCount) {
+            return;
+        }
+
+
+        resultCount.textContent =
+            quantidade === 1
+                ? "1 registro encontrado"
+                : `${quantidade} registros encontrados`;
+    }
+
+
+    // =========================================================
+    // INDICADORES
+    // =========================================================
+
+    function atualizarIndicadores(
+        linhasVisiveis
+    ) {
+
+        let ativos = 0;
+
+        let manutencao = 0;
+
+        let inativos = 0;
+
+
+        linhasVisiveis.forEach(
+            function (linha) {
+
+                const status =
+                    normalizarTexto(
+                        linha.dataset.status
+                    );
+
+
+                if (status === "ativo") {
+
+                    ativos++;
+
+                } else if (
+                    status === "manutencao" ||
+                    status === "manutenção"
+                ) {
+
+                    manutencao++;
+
+                } else if (
+                    status === "inativo"
+                ) {
+
+                    inativos++;
+
+                }
+
+            }
+        );
+
+
+        const totalAtivos =
+            document.getElementById(
+                "totalAtivos"
+            );
+
+        const totalManutencao =
+            document.getElementById(
+                "totalManutencao"
+            );
+
+        const totalInativos =
+            document.getElementById(
+                "totalInativos"
+            );
+
+
+        if (totalAtivos) {
+
+            totalAtivos.textContent =
+                ativos;
+        }
+
+
+        if (totalManutencao) {
+
+            totalManutencao.textContent =
+                manutencao;
+        }
+
+
+        if (totalInativos) {
+
+            totalInativos.textContent =
+                inativos;
+        }
+    }
+
+
+    // =========================================================
+    // LIMPAR FILTROS
+    // =========================================================
+
+    function limparFiltros() {
+
+        if (searchInput) {
+
+            searchInput.value = "";
+
+        }
+
+
+        if (statusFilter) {
+
+            statusFilter.value = "";
+
+        }
+
+
+        if (ambienteFilter) {
+
+            ambienteFilter.value = "";
+
+        }
+
+
+        paginaAtual = 1;
+
+
+        aplicarFiltros();
+    }
+
+
+    // =========================================================
+    // EVENTOS DOS FILTROS
+    // =========================================================
+
+    if (searchInput) {
+
+        searchInput.addEventListener(
+            "input",
+            function () {
+
+                paginaAtual = 1;
+
+                aplicarFiltros();
+
+            }
+        );
+    }
+
+
+    if (statusFilter) {
+
+        statusFilter.addEventListener(
+            "change",
+            function () {
+
+                paginaAtual = 1;
+
+                aplicarFiltros();
+
+            }
+        );
+    }
+
+
+    if (ambienteFilter) {
+
+        ambienteFilter.addEventListener(
+            "change",
+            function () {
+
+                paginaAtual = 1;
+
+                aplicarFiltros();
+
+            }
+        );
+    }
+
+
+    // =========================================================
+    // PAGINAÇÃO
+    // =========================================================
+
+    function atualizarPaginacao(
+        linhasVisiveis
+    ) {
+
+        const pagination =
+            document.querySelector(
+                ".pagination"
+            );
+
+
+        if (!pagination) {
+            return;
+        }
+
+
+        const totalPaginas =
+            Math.max(
+                1,
+                Math.ceil(
+                    linhasVisiveis.length /
+                    itensPorPagina
+                )
+            );
+
+
+        if (
+            paginaAtual >
+            totalPaginas
+        ) {
+
+            paginaAtual =
+                totalPaginas;
+        }
+
+
+        const textoPagina =
+            pagination.querySelector(
+                "span"
+            );
+
+
+        if (textoPagina) {
+
+            textoPagina.textContent =
+                `Página ${paginaAtual} de ${totalPaginas}`;
+        }
+
+
+        const botoes =
+            pagination.querySelector(
+                ".pagination-buttons"
+            );
+
+
+        if (!botoes) {
+            return;
+        }
+
+
+        botoes.innerHTML = "";
+
+
+        // -----------------------------------------------------
+        // BOTÃO ANTERIOR
+        // -----------------------------------------------------
+
+        const anterior =
+            document.createElement("button");
+
+        anterior.type = "button";
+
+        anterior.innerHTML =
+            `<i class="fa-solid fa-chevron-left"></i>`;
+
+        anterior.disabled =
+            paginaAtual === 1;
+
+
+        anterior.addEventListener(
+            "click",
+            function () {
+
+                if (paginaAtual > 1) {
+
+                    paginaAtual--;
+
+                    atualizarTabela(
+                        linhasVisiveis
+                    );
+
+                    atualizarPaginacao(
+                        linhasVisiveis
+                    );
+                }
+
+            }
+        );
+
+
+        botoes.appendChild(
+            anterior
+        );
+
+
+        // -----------------------------------------------------
+        // NÚMEROS
+        // -----------------------------------------------------
+
+        for (
+            let pagina = 1;
+            pagina <= totalPaginas;
+            pagina++
+        ) {
+
+            const botao =
+                document.createElement("button");
+
+
+            botao.type = "button";
+
+            botao.textContent =
+                pagina;
+
+
+            if (
+                pagina === paginaAtual
+            ) {
+
+                botao.classList.add(
+                    "selected"
+                );
+            }
+
+
+            botao.addEventListener(
+                "click",
+                function () {
+
+                    paginaAtual =
+                        pagina;
+
+
+                    atualizarTabela(
+                        linhasVisiveis
+                    );
+
+
+                    atualizarPaginacao(
+                        linhasVisiveis
+                    );
+
+                }
+            );
+
+
+            botoes.appendChild(
+                botao
+            );
+        }
+
+
+        // -----------------------------------------------------
+        // BOTÃO PRÓXIMO
+        // -----------------------------------------------------
+
+        const proximo =
+            document.createElement("button");
+
+
+        proximo.type = "button";
+
+        proximo.innerHTML =
+            `<i class="fa-solid fa-chevron-right"></i>`;
+
+
+        proximo.disabled =
+            paginaAtual === totalPaginas;
+
+
+        proximo.addEventListener(
+            "click",
+            function () {
+
+                if (
+                    paginaAtual <
+                    totalPaginas
+                ) {
+
+                    paginaAtual++;
+
+                    atualizarTabela(
+                        linhasVisiveis
+                    );
+
+                    atualizarPaginacao(
+                        linhasVisiveis
+                    );
+                }
+
+            }
+        );
+
+
+        botoes.appendChild(
+            proximo
+        );
+    }
+
+
+    // =========================================================
+    // ABRIR MODAL DE EXCLUSÃO
+    // =========================================================
+
+    function excluirProduto(id) {
+
+        produtoIdParaExcluir =
+            id;
+
+
+        const modal =
+            document.getElementById(
+                "deleteModal"
+            );
+
+
+        if (!modal) {
+            return;
+        }
+
+
+        modal.classList.add(
+            "show"
+        );
+
+
+        modal.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+    }
+
+
+    // =========================================================
+    // FECHAR MODAL
+    // =========================================================
+
+    function fecharModal() {
+
+        produtoIdParaExcluir =
+            null;
+
+
+        const modal =
+            document.getElementById(
+                "deleteModal"
+            );
+
+
+        if (!modal) {
+            return;
+        }
+
+
+        modal.classList.remove(
+            "show"
+        );
+
+
+        modal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+    }
+
+
+    // =========================================================
+    // CONFIRMAR EXCLUSÃO
+    // =========================================================
+
+    async function confirmarExclusao() {
+
+        if (!produtoIdParaExcluir) {
+
+            return;
+        }
+
+
+        const id =
+            produtoIdParaExcluir;
+
+
+        try {
+
+            const headers = {
+                "Accept": "application/json"
+            };
+
+
+            if (
+                csrfToken &&
+                csrfHeader
+            ) {
+
+                headers[csrfHeader] =
+                    csrfToken;
+            }
+
+
+            const response =
+                await fetch(
+                    produtosUrl + id,
+                    {
+                        method: "DELETE",
+                        headers: headers
+                    }
+                );
+
+
+            if (response.ok) {
+
+                fecharModal();
+
+
+                mostrarToast(
+                    "Sucesso",
+                    "Patrimônio excluído com sucesso."
+                );
+
+
+                setTimeout(
+                    function () {
+
+                        window.location.href =
+                            /*[[@{/produtos}]]*/
+                            "/produtos";
+
+                    },
+                    800
+                );
+
+
+                return;
+            }
+
+
+            let mensagem =
+                "Não foi possível excluir o patrimônio.";
+
+
+            if (
+                response.status === 403
+            ) {
+
+                mensagem =
+                    "Acesso negado. O token CSRF não foi aceito.";
+
+            } else if (
+                response.status === 404
+            ) {
+
+                mensagem =
+                    "Patrimônio não encontrado.";
+
+            } else if (
+                response.status === 500
+            ) {
+
+                mensagem =
+                    "Erro interno do servidor.";
+            }
+
+
+            try {
+
+                const data =
+                    await response.json();
+
+
+                if (data.message) {
+
+                    mensagem =
+                        data.message;
+                }
+
+            } catch (e) {
+
+                // Resposta não era JSON
+            }
+
+
+            mostrarToast(
+                "Erro",
+                mensagem
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Erro ao excluir patrimônio:",
+                error
+            );
+
+
+            mostrarToast(
+                "Erro",
+                "Erro de comunicação com o servidor."
+            );
+        }
+    }
+
+
+    // =========================================================
+    // VISUALIZAR
+    // =========================================================
+
+    function visualizarProduto(id) {
+
+        window.location.href =
+            produtosUrl + id;
+    }
+
+
+    // =========================================================
+    // EDITAR
+    // =========================================================
+
+    function editarProduto(id) {
+
+        window.location.href =
+            produtosUrl +
+            id +
+            "/editar";
+    }
+
+
+    // =========================================================
+    // TOAST
+    // =========================================================
+
+    function mostrarToast(
+        titulo,
+        mensagem
+    ) {
+
+        const toast =
+            document.getElementById(
+                "toast"
+            );
+
+
+        if (!toast) {
+            return;
+        }
+
+
+        const toastTitle =
+            document.getElementById(
+                "toastTitle"
+            );
+
+
+        const toastMessage =
+            document.getElementById(
+                "toastMessage"
+            );
+
+
+        if (toastTitle) {
+
+            toastTitle.textContent =
+                titulo;
+        }
+
+
+        if (toastMessage) {
+
+            toastMessage.textContent =
+                mensagem;
+        }
+
+
+        toast.classList.add(
+            "show"
+        );
+
+
+        setTimeout(
+            fecharToast,
+            3000
+        );
+    }
+
+
+    // =========================================================
+    // FECHAR TOAST
+    // =========================================================
+
+    function fecharToast() {
+
+        const toast =
+            document.getElementById(
+                "toast"
+            );
+
+
+        if (!toast) {
+            return;
+        }
+
+
+        toast.classList.remove(
+            "show"
+        );
+    }
+
+
+    // =========================================================
+    // ESC
+    // =========================================================
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Escape"
+            ) {
+
+                fecharModal();
+            }
+
+        }
+    );
+
+
+    // =========================================================
+    // INICIALIZAÇÃO
+    // =========================================================
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            prepararLinhas();
+
+            aplicarFiltros();
+
+        }
+    );
+
+
+    // =========================================================
+    // PREPARAR LINHAS
+    // =========================================================
+
+    function prepararLinhas() {
+
+        const linhas =
+            tableBody?.querySelectorAll(
+                "tr"
+            );
+
+        if (!linhas) {
+            return;
+        }
+
+        linhas.forEach(
+            function (linha) {
+
+                /*
+                 * Ignora a linha estática
+                 * de "nenhum patrimônio".
+                 */
+                if (
+                    !linha.querySelector(
+                        ".patrimonio"
+                    )
+                ) {
+                    return;
+                }
+
+                /*
+                 * Garante que a linha seja
+                 * identificada pelos filtros.
+                 */
+                linha.setAttribute(
+                    "data-produto-row",
+                    "true"
+                );
+
+                /*
+                 * AMBIENTE
+                 *
+                 * O ID já vem diretamente
+                 * do atributo da <tr>.
+                 */
+                linha.dataset.ambiente =
+                    linha.dataset.ambienteId || "";
+
+                /*
+                 * STATUS
+                 *
+                 * Também vem diretamente
+                 * da <tr>.
+                 */
+                if (!linha.dataset.status) {
+
+                    const statusElement =
+                        linha.querySelector(
+                            ".status"
+                        );
+
+                    if (statusElement) {
+
+                        const spans =
+                            statusElement.querySelectorAll(
+                                "span"
+                            );
+
+                        /*
+                         * O segundo span contém
+                         * o texto do status.
+                         */
+                        if (spans.length >= 2) {
+
+                            linha.dataset.status =
+                                spans[1]
+                                    .innerText
+                                    .trim();
+
+                        } else {
+
+                            linha.dataset.status =
+                                statusElement
+                                    .innerText
+                                    .trim();
+
+                        }
+
+                    } else {
+
+                        linha.dataset.status = "";
+
+                    }
+                }
+
+            }
+        );
+    }
+
+
+    // =========================================================
+    // EXPORTAR CSV
+    // =========================================================
+
+    function exportarCSV() {
+
+        const linhas =
+            obterLinhasProdutos();
+
+
+        const linhasVisiveis =
+            linhas.filter(
+                function (linha) {
+
+                    return (
+                        linha.style.display !==
+                        "none"
+                    );
+                }
+            );
+
+
+        if (
+            linhasVisiveis.length === 0
+        ) {
+
+            mostrarToast(
+                "Aviso",
+                "Não existem registros para exportar."
+            );
+
+            return;
+        }
+
+
+        const dados = [];
+
+
+        dados.push([
+            "Patrimônio",
+            "Produto",
+            "Marca",
+            "Modelo",
+            "Número de série",
+            "Ambiente",
+            "Valor",
+            "Status"
+        ]);
+
+
+        linhasVisiveis.forEach(
+            function (linha) {
+
+                const celulas =
+                    linha.querySelectorAll(
+                        "td"
+                    );
+
+
+                if (
+                    celulas.length < 8
+                ) {
+
+                    return;
+                }
+
+
+                const patrimonio =
+                    celulas[0]
+                        .innerText
+                        .trim();
+
+
+                const produto =
+                    celulas[1]
+                        .innerText
+                        .trim();
+
+
+                const marcaModelo =
+                    celulas[2]
+                        .innerText
+                        .trim()
+                        .split("\n");
+
+
+                const marca =
+                    (marcaModelo[0] || "")
+                        .trim();
+
+
+                const modelo =
+                    (marcaModelo[1] || "")
+                        .trim();
+
+
+                const numeroSerie =
+                    celulas[3]
+                        .innerText
+                        .trim();
+
+
+                const ambiente =
+                    celulas[4]
+                        .innerText
+                        .trim();
+
+
+                const valor =
+                    celulas[5]
+                        .innerText
+                        .trim();
+
+
+                const status =
+                    celulas[6]
+                        .innerText
+                        .trim();
+
+
+                dados.push([
+                    patrimonio,
+                    produto,
+                    marca,
+                    modelo,
+                    numeroSerie,
+                    ambiente,
+                    valor,
+                    status
+                ]);
+
+            }
+        );
+
+
+        const csv =
+            dados
+                .map(
+                    function (linha) {
+
+                        return linha
+                            .map(
+                                function (valor) {
+
+                                    return `"${String(valor)
+                                        .replace(/"/g, '""')}"`;
+
+                                }
+                            )
+                            .join(";");
+
+                    }
+                )
+                .join("\n");
+
+
+        const blob =
+            new Blob(
+                ["\uFEFF" + csv],
+                {
+                    type:
+                        "text/csv;charset=utf-8;"
+                }
+            );
+
+
+        const url =
+            URL.createObjectURL(
+                blob
+            );
+
+
+        const link =
+            document.createElement(
+                "a"
+            );
+
+
+        link.href =
+            url;
+
+
+        link.download =
+            "patrimonios.csv";
+
+
+        document.body.appendChild(
+            link
+        );
+
+
+        link.click();
+
+
+        link.remove();
+
+
+        URL.revokeObjectURL(
+            url
+        );
+    }
+
+</script>
+
+</body>
+
+</html>

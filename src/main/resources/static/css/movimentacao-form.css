@@ -1,0 +1,1240 @@
+/* =========================================================
+   ALMAX — FORMULÁRIO DE MOVIMENTAÇÃO
+   ========================================================= */
+
+:root {
+
+    --mov-bg: #0f0f0f;
+
+    --mov-surface: #151515;
+
+    --mov-surface-hover: #1b1b1b;
+
+    --mov-input: #101010;
+
+    --mov-border: #292929;
+
+    --mov-border-hover: #383838;
+
+    --mov-text: #f5f5f5;
+
+    --mov-text-secondary: #a4a4a4;
+
+    --mov-text-muted: #6f6f6f;
+
+    --mov-accent: #ff6b00;
+
+    --mov-accent-hover: #ff7b1a;
+
+    --mov-accent-soft: rgba(255, 107, 0, .10);
+
+    --mov-success: #35c76f;
+
+    --mov-success-soft: rgba(53, 199, 111, .10);
+
+    --mov-danger: #ef5350;
+
+    --mov-danger-soft: rgba(239, 83, 80, .10);
+
+    --mov-info: #4d9fff;
+
+    --mov-info-soft: rgba(77, 159, 255, .10);
+
+    --mov-purple: #9b7cff;
+
+    --mov-purple-soft: rgba(155, 124, 255, .10);
+
+    --mov-warning: #f5a623;
+
+    --mov-warning-soft: rgba(245, 166, 35, .10);
+
+    --mov-radius: 10px;
+
+    --mov-radius-sm: 7px;
+
+    --mov-transition: 180ms ease;
+}
+
+
+/* =========================================================
+   CONTAINER PRINCIPAL
+   ========================================================= */
+
+.movimentacao-form-container {
+
+    width: 100%;
+
+    max-width: 1250px;
+
+    margin: 0 auto;
+
+    padding: 2rem 2rem 3rem;
+}
+
+
+/* =========================================================
+   BREADCRUMB
+   ========================================================= */
+
+.breadcrumb {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: .55rem;
+
+    margin-bottom: .9rem;
+
+    color: var(--mov-text-muted);
+
+    font-size: .72rem;
+}
+
+
+.breadcrumb a {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: .4rem;
+
+    color: var(--mov-text-muted);
+
+    text-decoration: none;
+
+    transition: color var(--mov-transition);
+}
+
+
+.breadcrumb a:hover {
+
+    color: var(--mov-accent);
+}
+
+
+.breadcrumb a i {
+
+    font-size: .65rem;
+}
+
+
+.breadcrumb > i {
+
+    color: #555;
+
+    font-size: .55rem;
+}
+
+
+.breadcrumb strong {
+
+    color: var(--mov-text-secondary);
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   PAGE HEADING
+   ========================================================= */
+
+.page-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 2rem;
+
+    margin-bottom: 1.5rem;
+}
+
+
+.page-heading-main {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .85rem;
+}
+
+
+.page-title-icon {
+
+    width: 46px;
+
+    height: 46px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    color: var(--mov-accent);
+
+    background: var(--mov-accent-soft);
+
+    border: 1px solid rgba(255, 107, 0, .15);
+
+    border-radius: var(--mov-radius);
+
+    font-size: 1rem;
+}
+
+
+.page-heading h2 {
+
+    margin: 0;
+
+    color: var(--mov-text);
+
+    font-size: clamp(1.5rem, 2vw, 2rem);
+
+    font-weight: 750;
+
+    letter-spacing: -.025em;
+}
+
+
+.page-heading p {
+
+    margin: .35rem 0 0;
+
+    color: var(--mov-text-secondary);
+
+    font-size: .78rem;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   FORMULÁRIO
+   ========================================================= */
+
+.movimentacao-form {
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   ALERTA DE ERRO
+   ========================================================= */
+
+.alert {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: .75rem;
+
+    margin-bottom: 1rem;
+
+    padding: .9rem 1rem;
+
+    border-radius: var(--mov-radius);
+
+    font-size: .73rem;
+}
+
+
+.alert-danger {
+
+    color: var(--mov-danger);
+
+    background: var(--mov-danger-soft);
+
+    border: 1px solid rgba(239, 83, 80, .15);
+}
+
+
+.alert-danger > i {
+
+    margin-top: .1rem;
+
+    font-size: .9rem;
+}
+
+
+.alert-danger strong {
+
+    display: block;
+
+    margin-bottom: .35rem;
+
+    color: var(--mov-text);
+
+    font-size: .74rem;
+}
+
+
+.alert-danger ul {
+
+    margin: 0;
+
+    padding-left: 1.1rem;
+
+}
+
+
+.alert-danger li {
+
+    margin: .2rem 0;
+
+    color: var(--mov-text-secondary);
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   FORM CARD
+   ========================================================= */
+
+.form-card {
+
+    overflow: hidden;
+
+    margin-bottom: 1rem;
+
+    background: var(--mov-surface);
+
+    border: 1px solid var(--mov-border);
+
+    border-radius: var(--mov-radius);
+
+    box-shadow:
+            0 10px 30px rgba(0, 0, 0, .18);
+}
+
+
+/* =========================================================
+   FORM CARD HEADER
+   ========================================================= */
+
+.form-card-header {
+
+    padding: 1rem 1.25rem;
+
+    border-bottom: 1px solid var(--mov-border);
+}
+
+
+.form-card-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .75rem;
+}
+
+
+.form-section-icon {
+
+    width: 38px;
+
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    color: var(--mov-accent);
+
+    background: var(--mov-accent-soft);
+
+    border-radius: var(--mov-radius-sm);
+
+    font-size: .8rem;
+}
+
+
+.form-card-header h3 {
+
+    margin: 0;
+
+    color: var(--mov-text);
+
+    font-size: .88rem;
+
+    font-weight: 700;
+}
+
+
+.form-card-header p {
+
+    margin: .25rem 0 0;
+
+    color: var(--mov-text-muted);
+
+    font-size: .67rem;
+
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   GRID DO FORMULÁRIO
+   ========================================================= */
+
+.form-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 1.1rem;
+
+    padding: 1.25rem;
+}
+
+
+/* =========================================================
+   FORM GROUP
+   ========================================================= */
+
+.form-group {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.form-group-full {
+
+    grid-column: 1 / -1;
+}
+
+
+.form-group label {
+
+    display: block;
+
+    margin-bottom: .45rem;
+
+    color: var(--mov-text-secondary);
+
+    font-size: .7rem;
+
+    font-weight: 650;
+}
+
+
+.required {
+
+    margin-left: .15rem;
+
+    color: var(--mov-accent);
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   INPUT / SELECT COM ÍCONE
+   ========================================================= */
+
+.input-with-icon {
+
+    position: relative;
+
+    width: 100%;
+}
+
+
+.input-with-icon > i {
+
+    position: absolute;
+
+    top: 50%;
+
+    left: .85rem;
+
+    z-index: 2;
+
+    color: var(--mov-text-muted);
+
+    font-size: .72rem;
+
+    pointer-events: none;
+
+    transform: translateY(-50%);
+
+    transition: color var(--mov-transition);
+}
+
+
+.input-with-icon:focus-within > i {
+
+    color: var(--mov-accent);
+}
+
+
+/* =========================================================
+   INPUTS E SELECTS
+   ========================================================= */
+
+.input-with-icon input,
+.input-with-icon select,
+.form-group > input,
+.form-group > select,
+.form-group textarea {
+
+    width: 100%;
+
+    color: var(--mov-text);
+
+    background: var(--mov-input);
+
+    border: 1px solid var(--mov-border);
+
+    border-radius: var(--mov-radius-sm);
+
+    outline: none;
+
+    font-family: inherit;
+
+    font-size: .73rem;
+
+    transition:
+            border-color var(--mov-transition),
+            box-shadow var(--mov-transition),
+            background var(--mov-transition);
+}
+
+
+/* =========================================================
+   INPUT
+   ========================================================= */
+
+.input-with-icon input {
+
+    height: 42px;
+
+    padding:
+            0 .85rem 0 2.35rem;
+}
+
+
+/* =========================================================
+   SELECT
+   ========================================================= */
+
+.input-with-icon select {
+
+    height: 42px;
+
+    padding:
+            0 2.25rem 0 2.35rem;
+
+    cursor: pointer;
+
+    appearance: none;
+
+    -webkit-appearance: none;
+}
+
+
+.input-with-icon::after {
+
+    content: "\f078";
+
+    position: absolute;
+
+    top: 50%;
+
+    right: .85rem;
+
+    color: var(--mov-text-muted);
+
+    font-family: "Font Awesome 6 Free";
+
+    font-size: .58rem;
+
+    font-weight: 900;
+
+    pointer-events: none;
+
+    transform: translateY(-50%);
+}
+
+
+/* =========================================================
+   TEXTAREA
+   ========================================================= */
+
+.form-group textarea {
+
+    min-height: 105px;
+
+    padding: .8rem .85rem;
+
+    resize: vertical;
+
+    line-height: 1.5;
+}
+
+
+.form-group textarea::placeholder,
+.input-with-icon input::placeholder {
+
+    color: #5e5e5e;
+}
+
+
+/* =========================================================
+   FOCUS
+   ========================================================= */
+
+.input-with-icon input:focus,
+.input-with-icon select:focus,
+.form-group > input:focus,
+.form-group > select:focus,
+.form-group textarea:focus {
+
+    background: #111;
+
+    border-color: rgba(255, 107, 0, .55);
+
+    box-shadow:
+            0 0 0 3px rgba(255, 107, 0, .08);
+}
+
+
+/* =========================================================
+   HOVER
+   ========================================================= */
+
+.input-with-icon select:hover,
+.input-with-icon input:hover,
+.form-group textarea:hover {
+
+    border-color: var(--mov-border-hover);
+}
+
+
+/* =========================================================
+   SELECT OPTION
+   ========================================================= */
+
+select option {
+
+    color: var(--mov-text);
+
+    background: #151515;
+}
+
+
+/* =========================================================
+   FIELD HELP
+   ========================================================= */
+
+.field-help {
+
+    display: block;
+
+    margin-top: .35rem;
+
+    color: var(--mov-text-muted);
+
+    font-size: .62rem;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   FIELD ERROR
+   ========================================================= */
+
+.field-error {
+
+    display: block;
+
+    margin-top: .35rem;
+
+    color: var(--mov-danger);
+
+    font-size: .63rem;
+
+    line-height: 1.4;
+}
+
+
+.input-with-icon:has(+ .field-error) select {
+
+    border-color:
+            rgba(239, 83, 80, .45);
+}
+
+
+/* =========================================================
+   LOCALIZAÇÃO
+   ========================================================= */
+
+.location-preview {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr auto 1fr;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    padding: 1.25rem;
+}
+
+
+.location-item {
+
+    min-height: 76px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: .35rem;
+
+    padding: .85rem 1rem;
+
+    background: #101010;
+
+    border: 1px solid var(--mov-border);
+
+    border-radius: var(--mov-radius-sm);
+
+    transition:
+            border-color var(--mov-transition),
+            background var(--mov-transition);
+}
+
+
+.location-item:hover {
+
+    background: var(--mov-surface-hover);
+
+    border-color: var(--mov-border-hover);
+}
+
+
+.location-label {
+
+    color: var(--mov-text-muted);
+
+    font-size: .62rem;
+
+    font-weight: 650;
+
+    letter-spacing: .04em;
+
+    text-transform: uppercase;
+}
+
+
+.location-item strong {
+
+    overflow: hidden;
+
+    color: var(--mov-text);
+
+    font-size: .75rem;
+
+    font-weight: 650;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+.location-arrow {
+
+    width: 38px;
+
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: var(--mov-accent);
+
+    background: var(--mov-accent-soft);
+
+    border: 1px solid rgba(255, 107, 0, .12);
+
+    border-radius: 50%;
+
+    font-size: .75rem;
+}
+
+
+/* =========================================================
+   AÇÕES
+   ========================================================= */
+
+.form-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: .75rem;
+
+    padding: 0;
+
+    margin-top: .25rem;
+}
+
+
+/* =========================================================
+   BOTÕES
+   ========================================================= */
+
+.btn {
+
+    min-height: 40px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: .5rem;
+
+    padding: .65rem 1rem;
+
+    border: 1px solid transparent;
+
+    border-radius: var(--mov-radius-sm);
+
+    font-family: inherit;
+
+    font-size: .7rem;
+
+    font-weight: 650;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+            background var(--mov-transition),
+            border-color var(--mov-transition),
+            color var(--mov-transition),
+            transform var(--mov-transition),
+            box-shadow var(--mov-transition);
+}
+
+
+.btn i {
+
+    font-size: .68rem;
+}
+
+
+/* =========================================================
+   BOTÃO PRIMÁRIO
+   ========================================================= */
+
+.btn-primary {
+
+    color: #fff;
+
+    background: var(--mov-accent);
+
+    border-color: var(--mov-accent);
+
+    box-shadow:
+            0 5px 18px rgba(255, 107, 0, .14);
+}
+
+
+.btn-primary:hover {
+
+    color: #fff;
+
+    background: var(--mov-accent-hover);
+
+    border-color: var(--mov-accent-hover);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+            0 7px 22px rgba(255, 107, 0, .20);
+}
+
+
+.btn-primary:active {
+
+    transform: translateY(0);
+
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   BOTÃO SECUNDÁRIO
+   ========================================================= */
+
+.btn-secondary {
+
+    color: var(--mov-text-secondary);
+
+    background: #111;
+
+    border-color: var(--mov-border);
+}
+
+
+.btn-secondary:hover {
+
+    color: var(--mov-text);
+
+    background: var(--mov-surface-hover);
+
+    border-color: var(--mov-border-hover);
+}
+
+
+/* =========================================================
+   BOTÃO DESABILITADO
+   ========================================================= */
+
+.btn:disabled {
+
+    opacity: .5;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* =========================================================
+   ESTADO DE CARREGAMENTO
+   ========================================================= */
+
+.btn.loading {
+
+    pointer-events: none;
+
+    opacity: .7;
+}
+
+
+.btn.loading i {
+
+    animation:
+            buttonSpin .8s linear infinite;
+}
+
+
+@keyframes buttonSpin {
+
+    from {
+
+        transform: rotate(0deg);
+    }
+
+    to {
+
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   AUTOFILL — CHROME
+   ========================================================= */
+
+.input-with-icon input:-webkit-autofill,
+.form-group textarea:-webkit-autofill {
+
+    -webkit-text-fill-color: var(--mov-text);
+
+    -webkit-box-shadow:
+            0 0 0 1000px var(--mov-input) inset;
+
+    transition:
+            background-color 9999s ease-in-out 0s;
+}
+
+
+/* =========================================================
+   RESPONSIVO — 1100px
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .movimentacao-form-container {
+
+        max-width: 100%;
+
+        padding:
+                1.75rem 1.5rem 2.5rem;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVO — 800px
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    .page-heading {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 1rem;
+    }
+
+
+    .form-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .form-group-full {
+
+        grid-column: auto;
+    }
+
+
+    .location-preview {
+
+        grid-template-columns: 1fr;
+
+        gap: .7rem;
+    }
+
+
+    .location-arrow {
+
+        margin: 0 auto;
+
+        transform: rotate(90deg);
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVO — 600px
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .movimentacao-form-container {
+
+        padding:
+                1.25rem .9rem 2rem;
+    }
+
+
+    .breadcrumb {
+
+        font-size: .66rem;
+    }
+
+
+    .page-heading-main {
+
+        align-items: flex-start;
+    }
+
+
+    .page-title-icon {
+
+        width: 42px;
+
+        height: 42px;
+
+        margin-top: .05rem;
+    }
+
+
+    .page-heading h2 {
+
+        font-size: 1.4rem;
+    }
+
+
+    .page-heading p {
+
+        font-size: .71rem;
+    }
+
+
+    .form-card-header {
+
+        padding: .9rem 1rem;
+    }
+
+
+    .form-grid {
+
+        gap: .95rem;
+
+        padding: 1rem;
+    }
+
+
+    .form-card-header h3 {
+
+        font-size: .82rem;
+    }
+
+
+    .form-card-header p {
+
+        font-size: .64rem;
+    }
+
+
+    .location-preview {
+
+        padding: 1rem;
+    }
+
+
+    .form-actions {
+
+        flex-direction: column-reverse;
+
+        align-items: stretch;
+    }
+
+
+    .form-actions .btn {
+
+        width: 100%;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVO — 420px
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+    .page-title-icon {
+
+        width: 38px;
+
+        height: 38px;
+
+        font-size: .85rem;
+    }
+
+
+    .page-heading h2 {
+
+        font-size: 1.25rem;
+    }
+
+
+    .page-heading p {
+
+        font-size: .67rem;
+    }
+
+
+    .form-card-title {
+
+        align-items: flex-start;
+    }
+
+
+    .form-section-icon {
+
+        width: 34px;
+
+        height: 34px;
+
+        font-size: .72rem;
+    }
+
+
+    .input-with-icon input,
+    .input-with-icon select {
+
+        height: 40px;
+
+        font-size: .7rem;
+    }
+
+
+    .form-group textarea {
+
+        font-size: .7rem;
+    }
+
+
+    .location-item {
+
+        min-height: 68px;
+
+        padding: .75rem;
+    }
+
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration: .01ms !important;
+
+        animation-iteration-count: 1 !important;
+
+        transition-duration: .01ms !important;
+
+        scroll-behavior: auto !important;
+    }
+
+}

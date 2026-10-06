@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title
+            th:text="${ambienteId != null}
+            ? 'Editar Ambiente | ALMAX'
+            : 'Novo Ambiente | ALMAX'">
+        Novo Ambiente | ALMAX
+    </title>
+
+
+    <!-- =====================================================
+         FONT AWESOME
+         ===================================================== -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <!-- =====================================================
+         CSS GLOBAL
+         ===================================================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/base.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/layout.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/sidebar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/navbar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/footer.css}">
+
+
+    <!-- =====================================================
+         CSS DA TELA
+         ===================================================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/ambiente-cadastro.css}">
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+
+    <!-- =====================================================
+         CONTEÚDO PRINCIPAL
+         ===================================================== -->
+
+    <main class="app-main">
+
+
+        <!-- =================================================
+             HEADER
+             ================================================= -->
+
+        <header class="app-header">
+
+            <div class="header-left">
+
+                <button
+                        type="button"
+                        class="mobile-menu-button"
+                        aria-label="Abrir menu">
+
+                    <i class="fa-solid fa-bars"></i>
+
+                </button>
+
+
+                <div>
+
+                    <span class="page-section">
+                        Patrimônio
+                    </span>
+
+                    <h1
+                            th:text="${ambienteId != null}
+                            ? 'Editar Ambiente'
+                            : 'Novo Ambiente'">
+
+                        Novo Ambiente
+
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <span class="header-system">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    Sistema Patrimonial
+
+                </span>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             PÁGINA
+             ================================================= -->
+
+        <section class="ambiente-form-container">
+
+
+            <!-- =================================================
+                 BREADCRUMB
+                 ================================================= -->
+
+            <nav class="breadcrumb">
+
+                <a th:href="@{/}">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    Início
+
+                </a>
+
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+
+                <a th:href="@{/ambientes}">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    Ambientes
+
+                </a>
+
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+
+                <strong
+                        th:text="${ambienteId != null}
+                        ? 'Editar'
+                        : 'Novo ambiente'">
+
+                    Novo ambiente
+
+                </strong>
+
+            </nav>
+
+
+
+            <!-- =================================================
+                 CABEÇALHO DA PÁGINA
+                 ================================================= -->
+
+            <div class="page-heading">
+
+                <div class="page-heading-main">
+
+                    <div class="page-title-icon">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h2
+                                th:text="${ambienteId != null}
+                                ? 'Editar ambiente'
+                                : 'Cadastrar novo ambiente'">
+
+                            Cadastrar novo ambiente
+
+                        </h2>
+
+
+                        <p
+                                th:text="${ambienteId != null}
+                                ? 'Atualize as informações do ambiente cadastrado.'
+                                : 'Cadastre um ambiente para organizar produtos e leitores.'">
+
+                            Cadastre um ambiente para organizar produtos
+                            e leitores.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FORMULÁRIO
+                 ================================================= -->
+
+            <form th:if="${ambienteId == null}" th:action="@{/ambientes}" th:object="${ambienteRequest}" method="post" class="ambiente-form">
+
+
+                <!-- =================================================
+                     CARD — IDENTIFICAÇÃO
+                     ================================================= -->
+
+                <div class="form-card">
+
+
+                    <div class="form-card-header">
+
+                        <div class="form-card-icon">
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                Identificação
+                            </h3>
+
+                            <p>
+                                Informe os dados principais do ambiente.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-grid">
+
+
+                        <!-- =================================================
+                             NOME
+                             ================================================= -->
+
+                        <div class="form-group form-group-full">
+
+                            <label for="nome">
+
+                                Nome do ambiente
+
+                                <span class="required">*</span>
+
+                            </label>
+
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-location-dot"></i>
+
+                                <input
+                                        type="text"
+                                        id="nome"
+                                        th:field="*{nome}"
+                                        class="form-input"
+                                        placeholder="Ex.: Almoxarifado"
+                                        autocomplete="off"
+                                        maxlength="100"
+                                        autofocus>
+
+                            </div>
+
+
+                            <small class="field-help">
+
+                                Nome utilizado para identificar o ambiente
+                                dentro do sistema.
+
+                            </small>
+
+
+                            <div
+                                    class="field-error"
+                                    th:if="${#fields.hasErrors('nome')}"
+                                    th:errors="*{nome}">
+
+                                Informe o nome do ambiente.
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             DESCRIÇÃO
+                             ================================================= -->
+
+                        <div class="form-group form-group-full">
+
+                            <label for="descricao">
+
+                                Descrição
+
+                            </label>
+
+
+                            <div class="input-wrapper textarea-wrapper">
+
+                                <i class="fa-solid fa-align-left"></i>
+
+                                <textarea
+                                        id="descricao"
+                                        th:field="*{descricao}"
+                                        class="form-input"
+                                        placeholder="Ex.: Local destinado ao armazenamento dos materiais patrimoniais."
+                                        maxlength="255"
+                                        rows="5"></textarea>
+
+                            </div>
+
+
+                            <small class="field-help">
+
+                                Descrição opcional para facilitar a identificação
+                                e utilização do ambiente.
+
+                            </small>
+
+
+                            <div
+                                    class="field-error"
+                                    th:if="${#fields.hasErrors('descricao')}"
+                                    th:errors="*{descricao}">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     CARD — STATUS
+                     ================================================= -->
+
+                <div class="form-card">
+
+
+                    <div class="form-card-header">
+
+                        <div class="form-card-icon">
+
+                            <i class="fa-solid fa-toggle-on"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                Status do ambiente
+                            </h3>
+
+                            <p>
+                                Defina se o ambiente está disponível
+                                para utilização no sistema.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="status-form-section">
+
+
+                        <label class="status-switch">
+
+                            <input
+                                    id="ativo"
+                                    type="checkbox"
+                                    th:field="*{ativo}">
+
+                            <span class="switch-slider"></span>
+
+
+                            <span class="switch-label">
+
+                                Ambiente ativo
+
+                            </span>
+
+                        </label>
+
+
+                        <small class="field-help">
+
+                            Ambientes inativos podem permanecer cadastrados,
+                            mas não devem ser utilizados em novas operações.
+
+                        </small>
+
+
+                        <div
+                                class="field-error"
+                                th:if="${#fields.hasErrors('ativo')}"
+                                th:errors="*{ativo}">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     INFORMAÇÃO
+                     ================================================= -->
+
+                <div class="form-info">
+
+                    <div class="form-info-icon">
+
+                        <i class="fa-solid fa-circle-info"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Sobre os ambientes
+                        </strong>
+
+
+                        <p>
+
+                            Os ambientes representam os locais físicos
+                            utilizados na organização patrimonial.
+                            Produtos e leitores podem ser vinculados
+                            a um ambiente posteriormente.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     AÇÕES
+                     ================================================= -->
+
+                <div class="form-actions">
+
+
+                    <!-- CANCELAR -->
+
+                    <a
+                            th:href="@{/ambientes}"
+                            class="btn btn-secondary">
+
+                        <i class="fa-solid fa-arrow-left"></i>
+
+                        Cancelar
+
+                    </a>
+
+
+
+                    <!-- SALVAR -->
+
+                    <button
+                            type="submit"
+                            class="btn btn-primary">
+
+                        <i class="fa-solid fa-floppy-disk"></i>
+
+
+                        <span
+                                th:text="${ambienteId != null}
+                                ? 'Atualizar ambiente'
+                                : 'Salvar ambiente'">
+
+                            Salvar ambiente
+
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FOOTER
+             ================================================= -->
+
+        <footer class="app-footer">
+
+            <span>
+                © ALMAX — Controle Patrimonial
+            </span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+
+</html>

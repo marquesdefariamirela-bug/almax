@@ -1,0 +1,838 @@
+    /* =========================================================
+       ALMAX — DETALHES DA TAG
+       ========================================================= */
+
+.tag-details-container {
+
+    width: 100%;
+
+    max-width: 1500px;
+
+    margin: 0 auto;
+
+    padding: 2rem;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.details-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 2rem;
+
+    margin-bottom: 1.5rem;
+}
+
+
+.details-header-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1rem;
+}
+
+
+.details-tag-icon {
+
+    width: 54px;
+
+    height: 54px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    color: #ff6b00;
+
+    background: rgba(255, 107, 0, .10);
+
+    border: 1px solid rgba(255, 107, 0, .16);
+
+    border-radius: 11px;
+
+    font-size: 1.1rem;
+}
+
+
+.details-eyebrow {
+
+    margin-bottom: .2rem;
+
+    color: #777;
+
+    font-size: .58rem;
+
+    font-weight: 700;
+
+    letter-spacing: .08em;
+}
+
+
+.details-header h1 {
+
+    margin: 0;
+
+    color: #f5f5f5;
+
+    font-size: 1.7rem;
+
+    font-weight: 750;
+
+    letter-spacing: -.025em;
+}
+
+
+.details-header p {
+
+    margin: .35rem 0 0;
+
+    color: #8c8c8c;
+
+    font-size: .73rem;
+}
+
+
+.details-header-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .65rem;
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.tag-status-banner {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .8rem;
+
+    margin-bottom: 1rem;
+
+    padding: .9rem 1rem;
+
+    background: #151515;
+
+    border: 1px solid #292929;
+
+    border-radius: 10px;
+}
+
+
+.tag-status-icon {
+
+    width: 38px;
+
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    color: #35c76f;
+
+    background: rgba(53, 199, 111, .10);
+
+    border-radius: 8px;
+}
+
+
+.tag-status-content {
+
+    display: flex;
+
+    flex: 1;
+
+    flex-direction: column;
+
+    gap: .2rem;
+}
+
+
+.tag-status-content strong {
+
+    color: #f5f5f5;
+
+    font-size: .75rem;
+}
+
+
+.tag-status-content span {
+
+    color: #777;
+
+    font-size: .65rem;
+}
+
+
+.status-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: .4rem;
+
+    padding: .4rem .65rem;
+
+    border-radius: 999px;
+
+    font-size: .6rem;
+
+    font-weight: 700;
+}
+
+
+.status-badge span {
+
+    width: 5px;
+
+    height: 5px;
+
+    border-radius: 50%;
+}
+
+
+.status-badge.active {
+
+    color: #35c76f;
+
+    background: rgba(53, 199, 111, .10);
+}
+
+
+.status-badge.active span {
+
+    background: #35c76f;
+}
+
+
+.status-badge.inactive {
+
+    color: #ef5350;
+
+    background: rgba(239, 83, 80, .10);
+}
+
+
+.status-badge.inactive span {
+
+    background: #ef5350;
+}
+
+
+/* =========================================================
+   GRID
+   ========================================================= */
+
+.details-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 1rem;
+}
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.details-card {
+
+    overflow: hidden;
+
+    background: #151515;
+
+    border: 1px solid #292929;
+
+    border-radius: 10px;
+}
+
+
+.details-card-wide {
+
+    grid-column: 1 / -1;
+}
+
+
+.details-card-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    padding: 1rem 1.1rem;
+
+    border-bottom: 1px solid #292929;
+}
+
+
+.details-card-header h2 {
+
+    margin: 0;
+
+    color: #f5f5f5;
+
+    font-size: .83rem;
+
+    font-weight: 700;
+}
+
+
+.details-card-header p {
+
+    margin: .25rem 0 0;
+
+    color: #6f6f6f;
+
+    font-size: .64rem;
+}
+
+
+.details-card-header-icon {
+
+    width: 34px;
+
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #4d9fff;
+
+    background: rgba(77, 159, 255, .10);
+
+    border-radius: 7px;
+
+    font-size: .75rem;
+}
+
+
+.details-card-header-icon.purple {
+
+    color: #9b7cff;
+
+    background: rgba(155, 124, 255, .10);
+}
+
+
+.details-card-header-icon.orange {
+
+    color: #f5a623;
+
+    background: rgba(245, 166, 35, .10);
+}
+
+
+.details-card-body {
+
+    padding: 1.1rem;
+}
+
+
+/* =========================================================
+   DETAIL ITEMS
+   ========================================================= */
+
+.detail-item {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: .3rem;
+
+    min-width: 0;
+}
+
+
+.detail-item-full {
+
+    grid-column: 1 / -1;
+}
+
+
+.details-card-body {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 1rem;
+}
+
+
+.detail-label {
+
+    color: #6f6f6f;
+
+    font-size: .61rem;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: .035em;
+}
+
+
+.detail-item strong {
+
+    color: #e8e8e8;
+
+    font-size: .72rem;
+
+    font-weight: 650;
+
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   EPC
+   ========================================================= */
+
+.epc-value {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .55rem;
+
+    min-width: 0;
+
+    padding: .65rem .7rem;
+
+    color: #4d9fff;
+
+    background: rgba(77, 159, 255, .06);
+
+    border: 1px solid rgba(77, 159, 255, .10);
+
+    border-radius: 7px;
+}
+
+
+.epc-value i {
+
+    flex-shrink: 0;
+
+    font-size: .7rem;
+}
+
+
+.epc-value span {
+
+    overflow: hidden;
+
+    color: #9ccaff;
+
+    font-family:
+            "SFMono-Regular",
+            Consolas,
+            monospace;
+
+    font-size: .65rem;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   PRODUTO
+   ========================================================= */
+
+.linked-product {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .8rem;
+
+    padding: .85rem;
+
+    background: rgba(155, 124, 255, .045);
+
+    border: 1px solid rgba(155, 124, 255, .10);
+
+    border-radius: 8px;
+}
+
+
+.linked-product-icon {
+
+    width: 40px;
+
+    height: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    color: #9b7cff;
+
+    background: rgba(155, 124, 255, .10);
+
+    border-radius: 7px;
+}
+
+
+.linked-product-info {
+
+    display: flex;
+
+    min-width: 0;
+
+    flex-direction: column;
+
+    gap: .18rem;
+}
+
+
+.linked-product-info > span {
+
+    color: #777;
+
+    font-size: .59rem;
+}
+
+
+.linked-product-info strong {
+
+    overflow: hidden;
+
+    color: #e8e8e8;
+
+    font-size: .72rem;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+.linked-product-info small {
+
+    color: #9b7cff;
+
+    font-family:
+            "SFMono-Regular",
+            Consolas,
+            monospace;
+
+    font-size: .6rem;
+}
+
+
+/* =========================================================
+   NÃO VINCULADA
+   ========================================================= */
+
+.not-linked-details {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .8rem;
+
+    padding: .85rem;
+
+    background: rgba(245, 166, 35, .045);
+
+    border: 1px solid rgba(245, 166, 35, .10);
+
+    border-radius: 8px;
+}
+
+
+.not-linked-icon {
+
+    width: 40px;
+
+    height: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    color: #f5a623;
+
+    background: rgba(245, 166, 35, .10);
+
+    border-radius: 7px;
+}
+
+
+.not-linked-details div:last-child {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: .2rem;
+}
+
+
+.not-linked-details strong {
+
+    color: #e8e8e8;
+
+    font-size: .72rem;
+}
+
+
+.not-linked-details span {
+
+    color: #777;
+
+    font-size: .64rem;
+}
+
+
+/* =========================================================
+   STATUS NO RESUMO
+   ========================================================= */
+
+.detail-status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: .4rem;
+}
+
+
+.detail-status span {
+
+    width: 6px;
+
+    height: 6px;
+
+    border-radius: 50%;
+}
+
+
+.detail-status.active {
+
+    color: #35c76f;
+}
+
+
+.detail-status.active span {
+
+    background: #35c76f;
+}
+
+
+.detail-status.inactive {
+
+    color: #ef5350;
+}
+
+
+.detail-status.inactive span {
+
+    background: #ef5350;
+}
+
+
+/* =========================================================
+   AÇÕES
+   ========================================================= */
+
+.details-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: .65rem;
+
+    margin-top: 1rem;
+
+    padding-top: 1rem;
+
+    border-top: 1px solid #292929;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .tag-details-container {
+
+        padding: 1.5rem;
+    }
+
+
+    .details-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .details-header-actions {
+
+        width: 100%;
+    }
+
+
+    .details-header-actions .btn {
+
+        flex: 1;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .tag-details-container {
+
+        padding: 1.1rem .9rem 2rem;
+    }
+
+
+    .details-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .details-card-wide {
+
+        grid-column: auto;
+    }
+
+
+    .details-card-body {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .detail-item-full {
+
+        grid-column: auto;
+    }
+
+
+    .tag-status-banner {
+
+        align-items: flex-start;
+
+        flex-wrap: wrap;
+    }
+
+
+    .status-badge {
+
+        margin-left: 46px;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .details-header-left {
+
+        align-items: flex-start;
+    }
+
+
+    .details-tag-icon {
+
+        width: 46px;
+
+        height: 46px;
+    }
+
+
+    .details-header h1 {
+
+        font-size: 1.4rem;
+    }
+
+
+    .details-header-actions {
+
+        flex-direction: column;
+    }
+
+
+    .details-header-actions .btn {
+
+        width: 100%;
+    }
+
+
+    .details-actions {
+
+        flex-direction: column-reverse;
+    }
+
+
+    .details-actions .btn {
+
+        width: 100%;
+    }
+
+}

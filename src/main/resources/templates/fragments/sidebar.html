@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+
+<aside
+        th:fragment="sidebar"
+        class="app-sidebar"
+        id="appSidebar">
+
+    <div class="sidebar-brand">
+
+        <div class="sidebar-logo">
+            A
+        </div>
+
+        <div class="sidebar-brand-info">
+
+            <strong>ALMAX</strong>
+
+            <span>
+                Gestão Patrimonial
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <nav class="sidebar-menu">
+
+
+        <!-- =================================================
+             PRINCIPAL
+             ================================================= -->
+
+        <div class="menu-section">
+
+            <span class="menu-section-title">
+                Principal
+            </span>
+
+
+            <a
+                    th:href="@{/dashboard}"
+                    class="menu-item">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+        </div>
+
+
+        <!-- =================================================
+             PATRIMÔNIO
+             ================================================= -->
+
+        <div class="menu-section">
+
+            <span class="menu-section-title">
+                Patrimônio
+            </span>
+
+
+            <a
+                    th:href="@{/produtos}"
+                    class="menu-item">
+
+                <i class="fa-solid fa-box"></i>
+
+                <span>
+                    Patrimônios
+                </span>
+
+            </a>
+
+
+            <a
+                    th:href="@{/tags}"
+                    class="menu-item">
+
+                <i class="fa-solid fa-tag"></i>
+
+                <span>
+                    Tags RFID
+                </span>
+
+            </a>
+
+
+            <a
+                    th:href="@{/leitores}"
+                    class="menu-item">
+
+                <i class="fa-solid fa-wifi"></i>
+
+                <span>
+                    Leitores
+                </span>
+
+            </a>
+
+
+            <a
+                    th:href="@{/movimentacoes}"
+                    class="menu-item">
+
+                <i class="fa-solid fa-right-left"></i>
+
+                <span>
+                    Movimentações
+                </span>
+
+            </a>
+
+        </div>
+
+
+        <!-- =================================================
+             ESTRUTURA
+             ================================================= -->
+
+        <div class="menu-section">
+
+            <span class="menu-section-title">
+                Estrutura
+            </span>
+
+
+            <a
+                    th:href="@{/ambientes}"
+                    class="menu-item">
+
+                <i class="fa-solid fa-building"></i>
+
+                <span>
+                    Ambientes
+                </span>
+
+            </a>
+
+        </div>
+
+
+        <!-- =================================================
+             ADMINISTRAÇÃO
+             ================================================= -->
+
+        <div class="menu-section">
+
+            <span class="menu-section-title">
+                Administração
+            </span>
+
+
+            <a
+                    th:href="@{/usuarios}"
+                    class="menu-item">
+
+                <i class="fa-solid fa-users"></i>
+
+                <span>
+                    Usuários
+                </span>
+
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =====================================================
+         USUÁRIO
+         ===================================================== -->
+
+    <div class="sidebar-user">
+
+        <div class="sidebar-user-avatar">
+            <i class="fa-solid fa-user"></i>
+        </div>
+
+        <div class="sidebar-user-info">
+
+            <strong sec:authentication="name">
+                Usuário
+            </strong>
+
+            <span>
+            Administrador
+        </span>
+
+        </div>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================================================
+     OVERLAY MOBILE
+     ========================================================= -->
+
+<div
+        th:fragment="sidebar-overlay"
+        class="sidebar-overlay"
+        id="sidebarOverlay">
+</div>
+
+</body>
+</html>

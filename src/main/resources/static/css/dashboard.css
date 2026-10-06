@@ -1,0 +1,1086 @@
+/* =========================================================
+ALMAX — DASHBOARD
+========================================================= */
+
+.dashboard-container {
+
+    
+    width: 100%;
+
+    max-width: 1450px;
+
+    margin: 0 auto;
+
+    padding:
+            2rem
+            2rem
+            3rem;
+    
+
+}
+
+/* =========================================================
+CABEÇALHO
+========================================================= */
+
+.dashboard-header {
+
+    
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    margin-bottom: 1.5rem;
+
+    padding-bottom: 1.25rem;
+
+    border-bottom:
+            1px solid
+            var(--almax-border);
+    
+
+}
+
+.dashboard-title {
+
+    
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.9rem;
+    
+
+}
+
+.dashboard-title-icon {
+
+    
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: var(--almax-accent);
+
+    background:
+            var(--almax-accent-soft);
+
+    border:
+            1px solid
+            rgba(255, 107, 0, 0.18);
+
+    border-radius:
+            var(--radius-md);
+    
+
+}
+
+.dashboard-title-icon svg {
+
+    
+    width: 22px;
+    height: 22px;
+
+    fill: currentColor;
+    
+
+}
+
+.dashboard-title h1 {
+
+    
+    font-size: 1.55rem;
+
+    font-weight: 700;
+
+    line-height: 1.2;
+    
+
+}
+
+.dashboard-title p {
+
+    
+    margin-top: 0.2rem;
+
+    color:
+            var(--almax-text-secondary);
+
+    font-size: 0.8rem;
+    
+
+}
+
+.dashboard-date {
+
+    
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.45rem;
+
+    padding:
+            0.5rem
+            0.7rem;
+
+    color:
+            var(--almax-text-secondary);
+
+    background:
+            var(--almax-bg-card);
+
+    border:
+            1px solid
+            var(--almax-border);
+
+    border-radius:
+            var(--radius-sm);
+
+    font-size: 0.75rem;
+    
+
+}
+
+.dashboard-date svg {
+
+    
+    width: 15px;
+    height: 15px;
+
+    fill: currentColor;
+    
+
+}
+
+/* =========================================================
+CARDS
+========================================================= */
+
+.dashboard-cards {
+
+    
+    display: grid;
+
+    grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+    gap: 1rem;
+
+    margin-bottom: 1rem;
+    
+
+}
+
+.dashboard-card {
+
+    
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.9rem;
+
+    min-height: 125px;
+
+    padding: 1.15rem;
+
+    background:
+            var(--almax-bg-card);
+
+    border:
+            1px solid
+            var(--almax-border);
+
+    border-radius:
+            var(--radius-lg);
+
+    overflow: hidden;
+
+    transition:
+            border-color var(--transition),
+            background-color var(--transition),
+            transform var(--transition);
+    
+
+}
+
+.dashboard-card::before {
+
+    
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background:
+            var(--almax-accent);
+
+    opacity: 0.65;
+    
+
+}
+
+.dashboard-card:hover {
+
+    
+    background:
+            var(--almax-bg-elevated);
+
+    border-color:
+            var(--almax-border-hover);
+
+    transform:
+            translateY(-2px);
+    
+
+}
+
+/* =========================================================
+ÍCONE DO CARD
+========================================================= */
+
+.card-icon {
+
+    
+    width: 44px;
+    height: 44px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color:
+            var(--almax-accent);
+
+    background:
+            var(--almax-accent-soft);
+
+    border:
+            1px solid
+            rgba(255, 107, 0, 0.15);
+
+    border-radius:
+            var(--radius-md);
+    
+
+}
+
+.card-icon svg {
+
+    
+    width: 21px;
+    height: 21px;
+
+    fill: currentColor;
+    
+
+}
+
+/* =========================================================
+CONTEÚDO
+========================================================= */
+
+.card-content {
+
+    
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+    
+
+}
+
+.card-label {
+
+    
+    color:
+            var(--almax-text-secondary);
+
+    font-size: 0.72rem;
+
+    font-weight: 600;
+    
+
+}
+
+.card-value {
+
+    
+    margin-top: 0.05rem;
+
+    color:
+            var(--almax-text);
+
+    font-size: 1.65rem;
+
+    line-height: 1.2;
+    
+
+}
+
+.card-description {
+
+    
+    margin-top: 0.15rem;
+
+    color:
+            var(--almax-text-secondary);
+
+    font-size: 0.68rem;
+    
+
+}
+
+/* =========================================================
+LINK DO CARD
+========================================================= */
+
+.card-link {
+
+    
+    position: absolute;
+
+    right: 0.85rem;
+    bottom: 0.8rem;
+
+    width: 27px;
+    height: 27px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color:
+            var(--almax-text-secondary);
+
+    border-radius: 50%;
+
+    transition:
+            color var(--transition),
+            background-color var(--transition);
+    
+
+}
+
+.card-link:hover {
+
+    
+    color:
+            var(--almax-accent);
+
+    background:
+            var(--almax-accent-soft);
+    
+
+}
+
+.card-link svg {
+
+    
+    width: 15px;
+    height: 15px;
+
+    fill: currentColor;
+    
+
+}
+
+/* =========================================================
+GRID INFERIOR
+========================================================= */
+
+.dashboard-grid {
+
+    
+    display: grid;
+
+    grid-template-columns:
+    minmax(0, 1.65fr)
+    minmax(300px, 1fr);
+
+    gap: 1rem;
+    
+
+}
+
+/* =========================================================
+PAINÉIS
+========================================================= */
+
+.dashboard-panel {
+
+    
+    min-width: 0;
+
+    background:
+            var(--almax-bg-card);
+
+    border:
+            1px solid
+            var(--almax-border);
+
+    border-radius:
+            var(--radius-lg);
+
+    overflow: hidden;
+    
+
+}
+
+.panel-header {
+
+    
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    padding:
+            1rem
+            1.15rem;
+
+    border-bottom:
+            1px solid
+            var(--almax-border);
+    
+
+}
+
+.panel-title {
+
+    
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.7rem;
+    
+
+}
+
+.panel-icon {
+
+    
+    width: 35px;
+    height: 35px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color:
+            var(--almax-accent);
+
+    background:
+            var(--almax-accent-soft);
+
+    border:
+            1px solid
+            rgba(255, 107, 0, 0.12);
+
+    border-radius: 6px;
+    
+
+}
+
+.panel-icon svg {
+
+    
+    width: 17px;
+    height: 17px;
+
+    fill: currentColor;
+    
+
+}
+
+.panel-title h2 {
+
+    
+    font-size: 0.88rem;
+
+    font-weight: 650;
+    
+
+}
+
+.panel-title span {
+
+    
+    display: block;
+
+    margin-top: 0.1rem;
+
+    color:
+            var(--almax-text-secondary);
+
+    font-size: 0.7rem;
+    
+
+}
+
+.panel-link {
+
+    
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 0.25rem;
+
+    color:
+            var(--almax-accent);
+
+    font-size: 0.7rem;
+
+    font-weight: 600;
+
+    text-decoration: none;
+    
+
+}
+
+.panel-link:hover {
+
+    
+    color:
+            var(--almax-accent-hover);
+    
+
+}
+
+.panel-link svg {
+
+    
+    width: 13px;
+    height: 13px;
+
+    fill: currentColor;
+    
+
+}
+
+/* =========================================================
+MOVIMENTAÇÕES
+========================================================= */
+
+.movements-list {
+
+    
+    min-height: 235px;
+    
+
+}
+
+.movement-item {
+
+    
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.75rem;
+
+    padding:
+            0.8rem
+            1.15rem;
+
+    border-bottom:
+            1px solid
+            var(--almax-border);
+    
+
+}
+
+.movement-item:last-child {
+
+    
+    border-bottom: none;
+    
+
+}
+
+.movement-icon {
+
+    
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color:
+            var(--almax-accent);
+
+    background:
+            var(--almax-accent-soft);
+
+    border-radius: 50%;
+    
+
+}
+
+.movement-icon svg {
+
+    
+    width: 15px;
+    height: 15px;
+
+    fill: currentColor;
+    
+
+}
+
+.movement-info {
+
+    
+    min-width: 0;
+
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+    
+
+}
+
+.movement-info strong {
+
+    
+    overflow: hidden;
+
+    color:
+            var(--almax-text);
+
+    font-size: 0.76rem;
+
+    font-weight: 600;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+    
+
+}
+
+.movement-info span {
+
+    
+    margin-top: 0.1rem;
+
+    color:
+            var(--almax-text-secondary);
+
+    font-size: 0.67rem;
+    
+
+}
+
+.movement-item time {
+
+    
+    flex-shrink: 0;
+
+    color:
+            var(--almax-text-secondary);
+
+    font-size: 0.64rem;
+    
+
+}
+
+.movement-empty {
+
+    
+    min-height: 235px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 0.35rem;
+
+    color:
+            var(--almax-text-secondary);
+
+    text-align: center;
+    
+
+}
+
+.movement-empty svg {
+
+    
+    width: 28px;
+    height: 28px;
+
+    margin-bottom: 0.35rem;
+
+    fill: #444;
+    
+
+}
+
+.movement-empty strong {
+
+    
+    color:
+            var(--almax-text-muted);
+
+    font-size: 0.76rem;
+    
+
+}
+
+.movement-empty span {
+
+    
+    font-size: 0.67rem;
+    
+
+}
+
+/* =========================================================
+STATUS
+========================================================= */
+
+.status-list {
+
+    
+    padding:
+            0.5rem
+            1.15rem
+            1rem;
+    
+
+}
+
+.status-row {
+
+    
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    min-height: 48px;
+
+    border-bottom:
+            1px solid
+            var(--almax-border);
+    
+
+}
+
+.status-row:last-child {
+
+    
+    border-bottom: none;
+    
+
+}
+
+.status-row > div {
+
+    
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.55rem;
+
+    color:
+            var(--almax-text-muted);
+
+    font-size: 0.76rem;
+    
+
+}
+
+.status-row strong {
+
+    
+    color:
+            var(--almax-text);
+
+    font-size: 0.85rem;
+    
+
+}
+
+.status-dot {
+
+    
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+    
+
+}
+
+.status-active {
+
+    
+    background:
+            var(--almax-success);
+    
+
+}
+
+.status-inactive {
+
+    
+    background:
+            var(--almax-danger);
+    
+
+}
+
+.status-rfid {
+
+    
+    background:
+            var(--almax-accent);
+    
+
+}
+
+/* =========================================================
+RESPONSIVIDADE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    
+    .dashboard-cards {
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+}
+
+    .dashboard-grid {
+
+        grid-template-columns: 1fr;
+    }
+    
+
+}
+
+@media (max-width: 700px) {
+
+    
+    .dashboard-container {
+
+    padding:
+            1.25rem
+            0.85rem
+            2rem;
+}
+
+
+    .dashboard-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .dashboard-date {
+
+        width: 100%;
+    }
+
+
+    .dashboard-cards {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .dashboard-card {
+
+        min-height: 110px;
+    }
+
+
+    .panel-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .panel-link {
+
+        align-self: flex-end;
+    }
+
+
+    .movement-item time {
+
+        display: none;
+    }
+
+}
+
+/* =========================================================
+REDUÇÃO DE MOVIMENTO
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    
+    .dashboard-card {
+
+    transition: none;
+}
+
+}
+
+/* =========================================================
+   ÍCONES SVG — DASHBOARD
+   ========================================================= */
+
+.dashboard-container svg {
+    width: 20px;
+    height: 20px;
+
+    display: block;
+
+    fill: currentColor;
+
+    flex-shrink: 0;
+}
+
+
+/* Ícone do título */
+
+.dashboard-title-icon svg {
+    width: 22px;
+    height: 22px;
+
+    color: var(--almax-accent, #ff6b00);
+}
+
+
+/* Data */
+
+.dashboard-date svg {
+    width: 16px;
+    height: 16px;
+
+    color: var(--almax-text-secondary, #a4a4a4);
+}
+
+
+/* Ícones dos cards */
+
+.card-icon svg {
+    width: 22px;
+    height: 22px;
+
+    color: currentColor;
+
+    fill: currentColor;
+}
+
+
+/* Seta dos cards */
+
+.card-link svg {
+    width: 17px;
+    height: 17px;
+
+    color: currentColor;
+
+    fill: currentColor;
+}
+
+
+/* Ícone dos painéis */
+
+.panel-icon svg {
+    width: 19px;
+    height: 19px;
+
+    color: currentColor;
+
+    fill: currentColor;
+}
+
+
+/* Link "Ver todas" */
+
+.panel-link svg {
+    width: 15px;
+    height: 15px;
+
+    color: currentColor;
+
+    fill: currentColor;
+}
+
+
+/* Movimentações */
+
+.movement-icon svg {
+    width: 16px;
+    height: 16px;
+
+    color: currentColor;
+
+    fill: currentColor;
+}
+
+
+/* Estado vazio */
+
+.movement-empty > svg {
+    width: 28px;
+    height: 28px;
+
+    margin-bottom: 0.75rem;
+
+    color: var(--almax-text-muted, #6f6f6f);
+
+    fill: currentColor;
+}

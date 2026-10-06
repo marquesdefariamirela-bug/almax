@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title th:text="${modoEdicao} ? 'Editar Leitor | ALMAX' : 'Novo Leitor | ALMAX'">
+        Novo Leitor | ALMAX
+    </title>
+
+
+    <!-- =====================================================
+         FONT AWESOME
+         ===================================================== -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <!-- =====================================================
+         CSS GLOBAL
+         ===================================================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/base.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/layout.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/sidebar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/navbar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/footer.css}">
+
+
+    <!-- =====================================================
+         CSS DA TELA
+         ===================================================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/leitor-cadastro.css}">
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+
+    <!-- =====================================================
+         CONTEÚDO PRINCIPAL
+         ===================================================== -->
+
+    <main class="app-main">
+
+
+        <!-- =================================================
+             HEADER
+             ================================================= -->
+
+        <header class="app-header">
+
+            <div class="header-left">
+
+                <button type="button"
+                        class="mobile-menu-button"
+                        aria-label="Abrir menu">
+
+                    <i class="fa-solid fa-bars"></i>
+
+                </button>
+
+
+                <div>
+
+                    <span class="page-section">
+                        Patrimônio
+                    </span>
+
+                    <h1
+                            th:text="${modoEdicao} ? 'Editar Leitor' : 'Novo Leitor'">
+
+                        Novo Leitor
+
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <span class="header-system">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    Sistema Patrimonial
+
+                </span>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             PÁGINA
+             ================================================= -->
+
+        <section class="leitor-form-container">
+
+
+            <!-- =================================================
+                 BREADCRUMB
+                 ================================================= -->
+
+            <nav class="breadcrumb">
+
+                <a th:href="@{/dashboard}">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    Início
+
+                </a>
+
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+
+                <a th:href="@{/leitores}">
+
+                    <i class="fa-solid fa-tower-broadcast"></i>
+
+                    Leitores
+
+                </a>
+
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+
+                <strong
+                        th:text="${modoEdicao} ? 'Editar' : 'Novo leitor'">
+
+                    Novo leitor
+
+                </strong>
+
+            </nav>
+
+
+
+            <!-- =================================================
+                 CABEÇALHO
+                 ================================================= -->
+
+            <div class="page-heading">
+
+
+                <div class="page-heading-main">
+
+                    <div class="page-title-icon">
+
+                        <i class="fa-solid fa-tower-broadcast"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h2
+                                th:text="${modoEdicao}
+                                ? 'Editar leitor'
+                                : 'Cadastrar novo leitor'">
+
+                            Cadastrar novo leitor
+
+                        </h2>
+
+
+                        <p
+                                th:text="${modoEdicao}
+                                ? 'Atualize as informações e configurações do leitor.'
+                                : 'Cadastre um leitor para utilização no controle patrimonial.'">
+
+                            Cadastre um leitor para utilização no controle patrimonial.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FORMULÁRIO
+                 ================================================= -->
+
+            <form class="leitor-form"
+                  th:object="${leitorRequest}"
+                  th:action="${formAction}"
+                  method="post">
+
+
+                <!-- =================================================
+                     CARD — IDENTIFICAÇÃO
+                     ================================================= -->
+
+                <div class="form-card">
+
+
+                    <div class="form-card-header">
+
+                        <div class="form-card-icon">
+
+                            <i class="fa-solid fa-fingerprint"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                Identificação
+                            </h3>
+
+                            <p>
+                                Informe os dados principais do leitor.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-grid">
+
+
+                        <!-- NOME -->
+
+                        <div class="form-group form-group-full">
+
+                            <label for="nome">
+
+                                Nome do leitor
+
+                                <span class="required">*</span>
+
+                            </label>
+
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-tower-broadcast"></i>
+
+                                <input
+                                        id="nome"
+                                        type="text"
+                                        th:field="*{nome}"
+                                        placeholder="Ex.: Leitor Entrada Principal"
+                                        autocomplete="off"
+                                        maxlength="100"
+                                        autofocus>
+
+                            </div>
+
+
+                            <small class="field-help">
+
+                                Nome utilizado para identificar o leitor
+                                dentro do sistema.
+
+                            </small>
+
+
+                            <div class="field-error"
+                                 th:if="${#fields.hasErrors('nome')}"
+                                 th:errors="*{nome}">
+
+                                Informe o nome do leitor.
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- IDENTIFICADOR -->
+
+                        <div class="form-group">
+
+                            <label for="identificador">
+
+                                Identificador
+
+                                <span class="required">*</span>
+
+                            </label>
+
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-fingerprint"></i>
+
+                                <input
+                                        id="identificador"
+                                        type="text"
+                                        th:field="*{identificador}"
+                                        placeholder="Ex.: READER-001"
+                                        autocomplete="off"
+                                        maxlength="100">
+
+                            </div>
+
+
+                            <small class="field-help">
+
+                                Identificador único do dispositivo.
+
+                            </small>
+
+
+                            <div class="field-error"
+                                 th:if="*{#fields.hasErrors('identificador')}"
+                                 th:errors="*{identificador}">
+
+                                Informe o identificador.
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- STATUS -->
+
+                        <div class="form-group">
+
+                            <label>
+                                Status
+                            </label>
+
+
+                            <label class="status-switch">
+
+                                <input
+                                        id="ativo"
+                                        type="checkbox"
+                                        th:field="*{ativo}">
+
+                                <span class="switch-slider"></span>
+
+
+                                <span class="switch-label">
+
+                                    Leitor ativo
+
+                                </span>
+
+                            </label>
+
+
+                            <small class="field-help">
+
+                                Leitores inativos não devem ser utilizados
+                                nas operações do sistema.
+
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     CARD — REDE
+                     ================================================= -->
+
+                <div class="form-card">
+
+
+                    <div class="form-card-header">
+
+                        <div class="form-card-icon">
+
+                            <i class="fa-solid fa-network-wired"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                Configuração de rede
+                            </h3>
+
+                            <p>
+                                Informe os dados de comunicação do dispositivo.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-grid">
+
+
+                        <!-- IP -->
+
+                        <div class="form-group form-group-full">
+
+                            <label for="ip">
+
+                                Endereço IP
+
+                            </label>
+
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-network-wired"></i>
+
+                                <input
+                                        id="ip"
+                                        type="text"
+                                        th:field="*{ip}"
+                                        placeholder="Ex.: 192.168.0.100"
+                                        autocomplete="off"
+                                        maxlength="50"
+                                        inputmode="decimal">
+
+                            </div>
+
+
+                            <small class="field-help">
+
+                                Endereço IP utilizado pelo leitor na rede.
+
+                            </small>
+
+
+                            <div class="field-error"
+                                 th:if="*{#fields.hasErrors('ip')}"
+                                 th:errors="*{ip}">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     CARD — DISPOSITIVO
+                     ================================================= -->
+
+                <div class="form-card">
+
+
+                    <div class="form-card-header">
+
+                        <div class="form-card-icon">
+
+                            <i class="fa-solid fa-microchip"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                Informações do dispositivo
+                            </h3>
+
+                            <p>
+                                Identifique o fabricante e o modelo do equipamento.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-grid">
+
+
+                        <!-- FABRICANTE -->
+
+                        <div class="form-group">
+
+                            <label for="fabricante">
+
+                                Fabricante
+
+                            </label>
+
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-industry"></i>
+
+                                <input
+                                        id="fabricante"
+                                        type="text"
+                                        th:field="*{fabricante}"
+                                        placeholder="Ex.: Impinj"
+                                        autocomplete="off"
+                                        maxlength="100">
+
+                            </div>
+
+
+                            <small class="field-help">
+
+                                Fabricante do equipamento.
+
+                            </small>
+
+
+                            <div class="field-error"
+                                 th:if="*{#fields.hasErrors('fabricante')}"
+                                 th:errors="*{fabricante}">
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- MODELO -->
+
+                        <div class="form-group">
+
+                            <label for="modelo">
+
+                                Modelo
+
+                            </label>
+
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-microchip"></i>
+
+                                <input
+                                        id="modelo"
+                                        type="text"
+                                        th:field="*{modelo}"
+                                        placeholder="Ex.: R700"
+                                        autocomplete="off"
+                                        maxlength="100">
+
+                            </div>
+
+
+                            <small class="field-help">
+
+                                Modelo ou referência do equipamento.
+
+                            </small>
+
+
+                            <div class="field-error"
+                                 th:if="*{#fields.hasErrors('modelo')}"
+                                 th:errors="*{modelo}">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     CARD — AMBIENTE
+                     ================================================= -->
+
+                <div class="form-card">
+
+
+                    <div class="form-card-header">
+
+                        <div class="form-card-icon">
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                Localização
+                            </h3>
+
+                            <p>
+                                Defina o ambiente onde o leitor está instalado.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+
+                        <label for="ambienteId">
+
+                            Ambiente
+
+                        </label>
+
+
+                        <div class="input-wrapper select-wrapper">
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+
+                            <select
+                                    id="ambienteId"
+                                    th:field="*{ambienteId}">
+
+                                <option value="">
+                                    Nenhum ambiente
+                                </option>
+
+
+                                <option
+                                        th:each="ambiente : ${ambientes}"
+                                        th:value="${ambiente.id}"
+                                        th:text="${ambiente.nome}">
+
+                                    Almoxarifado
+
+                                </option>
+
+                            </select>
+
+
+                            <i class="fa-solid fa-chevron-down select-arrow"></i>
+
+                        </div>
+
+
+                        <small class="field-help">
+
+                            O ambiente permite identificar a localização
+                            física do leitor.
+
+                        </small>
+
+
+                        <div class="field-error"
+                             th:if="*{#fields.hasErrors('ambienteId')}"
+                             th:errors="*{ambienteId}">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     INFORMAÇÃO
+                     ================================================= -->
+
+                <div class="form-info">
+
+
+                    <div class="form-info-icon">
+
+                        <i class="fa-solid fa-circle-info"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Sobre os leitores
+                        </strong>
+
+
+                        <p>
+
+                            O identificador deve ser único no sistema.
+                            Um leitor pode ser cadastrado sem ambiente
+                            e posteriormente vinculado a uma localização.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     AÇÕES
+                     ================================================= -->
+
+                <div class="form-actions">
+
+
+                    <a th:href="@{/leitores}"
+                       class="btn btn-secondary">
+
+                        <i class="fa-solid fa-arrow-left"></i>
+
+                        Cancelar
+
+                    </a>
+
+
+                    <button type="submit"
+                            class="btn btn-primary">
+
+                        <i class="fa-solid fa-floppy-disk"></i>
+
+
+                        <span
+                                th:text="${modoEdicao}
+                                ? 'Salvar alterações'
+                                : 'Cadastrar leitor'">
+
+                            Cadastrar leitor
+
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FOOTER
+             ================================================= -->
+
+        <footer class="app-footer">
+
+            <span>
+                © ALMAX — Controle Patrimonial
+            </span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+
+</html>

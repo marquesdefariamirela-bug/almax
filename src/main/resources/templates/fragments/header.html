@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="header" class="app-header">
+    <div class="header-left">
+        <!-- Botão mobile -->
+        <button
+                type="button"
+                class="sidebar-toggle"
+                id="sidebarToggle"
+                aria-label="Abrir menu"
+        >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 18h18v-2H3v2Zm0-5h18v-2H3v2Zm0-7v2h18V6H3Z"></path>
+            </svg>
+        </button>
+        <div class="header-page-info">
+          <span class="header-page-title" th:text="${pageTitle ?: 'Dashboard'}">
+            Dashboard
+          </span>
+            <span
+                    class="header-page-description"
+                    th:text="${pageDescription ?: 'Visão geral do patrimônio'}"
+            >
+            Visão geral do patrimônio
+          </span>
+        </div>
+    </div>
+    <div class="header-right">
+        <!-- Status do sistema -->
+        <div class="system-status">
+            <span class="status-dot"></span> <span> Sistema online </span>
+        </div>
+        <!-- Usuário -->
+        <div class="header-user">
+            <div class="user-avatar">
+            <span
+                    th:text="${#strings.substring( usuarioLogado.nome, 0, 1 ).toUpperCase()}"
+            >
+              U
+            </span>
+            </div>
+            <div class="user-info">
+                <strong th:text="${usuarioLogado.nome}"> Usuário </strong>
+                <span th:text="${usuarioLogado.perfil}"> ADMIN </span>
+            </div>
+        </div>
+    </div>
+</header>
+</body>
+</html>

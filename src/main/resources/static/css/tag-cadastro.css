@@ -1,0 +1,957 @@
+    /* =========================================================
+       ALMAX - CADASTRO DE TAG
+       ========================================================= */
+
+
+    /* =========================================================
+       VARIÁVEIS
+       ========================================================= */
+
+:root {
+    --tag-bg: #0f0f0f;
+    --tag-surface: #151515;
+    --tag-surface-2: #191919;
+    --tag-surface-3: #202020;
+
+    --tag-border: #292929;
+    --tag-border-light: #343434;
+
+    --tag-text: #f5f5f5;
+    --tag-text-secondary: #a4a4a4;
+    --tag-text-muted: #6f6f6f;
+    --tag-text-dark: #4f4f4f;
+
+    --tag-orange: #ff6b00;
+    --tag-orange-hover: #e85f00;
+    --tag-orange-soft: rgba(255, 107, 0, 0.10);
+    --tag-orange-border: rgba(255, 107, 0, 0.24);
+
+    --tag-green: #35c76f;
+    --tag-red: #ef5350;
+    --tag-blue: #4d9fff;
+
+    --tag-radius: 10px;
+}
+
+
+/* =========================================================
+   PÁGINA
+   ========================================================= */
+
+.tag-form-page {
+    width: 100%;
+    max-width: 1180px;
+
+    margin: 0 auto;
+
+    padding: 32px 36px 40px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   BREADCRUMB
+   ========================================================= */
+
+.tag-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 24px;
+
+    color: var(--tag-text-muted);
+
+    font-size: 13px;
+}
+
+.tag-breadcrumb a {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    color: var(--tag-text-secondary);
+
+    text-decoration: none;
+
+    transition:
+            color 0.2s ease,
+            transform 0.2s ease;
+}
+
+.tag-breadcrumb a:hover {
+    color: var(--tag-orange);
+}
+
+.tag-breadcrumb a i {
+    font-size: 12px;
+}
+
+.tag-breadcrumb > i {
+    color: #454545;
+    font-size: 9px;
+}
+
+.tag-breadcrumb span {
+    color: var(--tag-text);
+}
+
+
+/* =========================================================
+   CABEÇALHO DA PÁGINA
+   ========================================================= */
+
+.tag-page-heading {
+    display: flex;
+    align-items: center;
+
+    gap: 16px;
+
+    margin-bottom: 30px;
+}
+
+.heading-icon {
+    width: 54px;
+    height: 54px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--tag-orange-soft);
+
+    border: 1px solid var(--tag-orange-border);
+
+    border-radius: 12px;
+
+    color: var(--tag-orange);
+
+    font-size: 21px;
+
+    box-shadow:
+            0 8px 25px rgba(0, 0, 0, 0.20);
+}
+
+.tag-page-heading h2 {
+    margin: 0 0 5px;
+
+    color: var(--tag-text);
+
+    font-size: 24px;
+    font-weight: 650;
+    letter-spacing: -0.3px;
+}
+
+.tag-page-heading p {
+    margin: 0;
+
+    color: var(--tag-text-muted);
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   FORMULÁRIO
+   ========================================================= */
+
+.tag-form {
+    display: flex;
+    flex-direction: column;
+
+    gap: 18px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.form-card {
+    width: 100%;
+
+    padding: 26px;
+
+    box-sizing: border-box;
+
+    background:
+            linear-gradient(
+                    180deg,
+                    rgba(255, 255, 255, 0.012),
+                    rgba(255, 255, 255, 0)
+            ),
+            var(--tag-surface);
+
+    border: 1px solid var(--tag-border);
+
+    border-radius: var(--tag-radius);
+
+    box-shadow:
+            0 8px 28px rgba(0, 0, 0, 0.16);
+
+    transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease;
+}
+
+.form-card:hover {
+    border-color: #303030;
+
+    box-shadow:
+            0 10px 32px rgba(0, 0, 0, 0.20);
+}
+
+
+/* =========================================================
+   CABEÇALHO DOS CARDS
+   ========================================================= */
+
+.form-card-header {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid #242424;
+}
+
+.form-card-icon {
+    width: 40px;
+    height: 40px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--tag-surface-3);
+
+    border: 1px solid #2b2b2b;
+
+    border-radius: 9px;
+
+    color: var(--tag-orange);
+
+    font-size: 15px;
+}
+
+.form-card-header h3 {
+    margin: 0 0 4px;
+
+    color: var(--tag-text);
+
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.form-card-header p {
+    margin: 0;
+
+    color: var(--tag-text-muted);
+
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   GRID
+   ========================================================= */
+
+.form-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 24px 22px;
+}
+
+.form-group-full {
+    grid-column: 1 / -1;
+}
+
+
+/* =========================================================
+   FORM GROUP
+   ========================================================= */
+
+.form-group {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group > label:not(.status-switch) {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #d4d4d4;
+
+    font-size: 13px;
+    font-weight: 550;
+}
+
+.required {
+    margin-left: 3px;
+
+    color: var(--tag-orange);
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   INPUT WRAPPER
+   ========================================================= */
+
+.input-wrapper {
+    position: relative;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   ÍCONE DO INPUT
+   ========================================================= */
+
+.input-wrapper > i:first-child {
+    position: absolute;
+
+    left: 14px;
+    top: 50%;
+
+    z-index: 2;
+
+    transform: translateY(-50%);
+
+    color: #626262;
+
+    font-size: 13px;
+
+    pointer-events: none;
+
+    transition: color 0.2s ease;
+}
+
+
+/* =========================================================
+   INPUT E SELECT
+   ========================================================= */
+
+.input-wrapper input,
+.input-wrapper select {
+    width: 100%;
+    height: 46px;
+
+    box-sizing: border-box;
+
+    padding: 0 14px 0 40px;
+
+    background: #101010;
+
+    border: 1px solid #303030;
+
+    border-radius: 8px;
+
+    outline: none;
+
+    color: var(--tag-text);
+
+    font-family: inherit;
+    font-size: 13px;
+
+    transition:
+            border-color 0.2s ease,
+            background 0.2s ease,
+            box-shadow 0.2s ease;
+}
+
+.input-wrapper input::placeholder {
+    color: #555;
+}
+
+.input-wrapper input:hover,
+.input-wrapper select:hover {
+    border-color: #3a3a3a;
+}
+
+.input-wrapper input:focus,
+.input-wrapper select:focus {
+    background: #121212;
+
+    border-color: var(--tag-orange);
+
+    box-shadow:
+            0 0 0 3px rgba(255, 107, 0, 0.08);
+}
+
+.input-wrapper:focus-within > i:first-child {
+    color: var(--tag-orange);
+}
+
+
+/* =========================================================
+   SELECT
+   ========================================================= */
+
+.select-wrapper select {
+    appearance: none;
+
+    cursor: pointer;
+
+    padding-right: 44px;
+}
+
+.select-wrapper select option {
+    background: #151515;
+
+    color: var(--tag-text);
+}
+
+.select-arrow {
+    position: absolute;
+
+    top: 50%;
+    right: 15px;
+
+    transform: translateY(-50%);
+
+    color: #626262;
+
+    font-size: 10px;
+
+    pointer-events: none;
+
+    transition: color 0.2s ease;
+}
+
+.select-wrapper:focus-within .select-arrow {
+    color: var(--tag-orange);
+}
+
+
+/* =========================================================
+   TEXTO DE AJUDA
+   ========================================================= */
+
+.field-help {
+    display: block;
+
+    margin-top: 7px;
+
+    color: var(--tag-text-muted);
+
+    font-size: 11px;
+
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   ERRO DE CAMPO
+   ========================================================= */
+
+.field-error {
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+
+    margin-top: 7px;
+
+    color: var(--tag-red);
+
+    font-size: 11px;
+}
+
+.field-error::before {
+    content: "\f06a";
+
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   SWITCH DE STATUS
+   ========================================================= */
+
+.status-switch {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    min-height: 46px;
+
+    cursor: pointer;
+
+    user-select: none;
+}
+
+.status-switch input {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+.switch-slider {
+    position: relative;
+
+    width: 43px;
+    height: 24px;
+
+    flex-shrink: 0;
+
+    background: #303030;
+
+    border: 1px solid #414141;
+
+    border-radius: 30px;
+
+    transition:
+            background 0.2s ease,
+            border-color 0.2s ease;
+}
+
+.switch-slider::after {
+    content: "";
+
+    position: absolute;
+
+    top: 3px;
+    left: 3px;
+
+    width: 16px;
+    height: 16px;
+
+    background: #858585;
+
+    border-radius: 50%;
+
+    box-shadow:
+            0 2px 5px rgba(0, 0, 0, 0.35);
+
+    transition:
+            transform 0.2s ease,
+            background 0.2s ease;
+}
+
+.status-switch input:checked + .switch-slider {
+    background: rgba(255, 107, 0, 0.16);
+
+    border-color: var(--tag-orange);
+}
+
+.status-switch input:checked + .switch-slider::after {
+    background: var(--tag-orange);
+
+    transform: translateX(19px);
+}
+
+.status-switch input:focus-visible + .switch-slider {
+    box-shadow:
+            0 0 0 3px rgba(255, 107, 0, 0.12);
+}
+
+.switch-label {
+    color: #d0d0d0;
+
+    font-size: 13px;
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   CARD DE VINCULAÇÃO
+   ========================================================= */
+
+.form-card:nth-of-type(2) {
+    padding-bottom: 28px;
+}
+
+
+/* =========================================================
+   INFORMAÇÃO
+   ========================================================= */
+
+.form-info {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 13px;
+
+    padding: 17px 18px;
+
+    background:
+            rgba(77, 159, 255, 0.045);
+
+    border: 1px solid rgba(77, 159, 255, 0.15);
+
+    border-radius: 9px;
+}
+
+.form-info-icon {
+    width: 30px;
+    height: 30px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(77, 159, 255, 0.08);
+
+    border-radius: 7px;
+
+    color: var(--tag-blue);
+
+    font-size: 13px;
+}
+
+.form-info strong {
+    display: block;
+
+    margin: 1px 0 5px;
+
+    color: #dcdcdc;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.form-info p {
+    margin: 0;
+
+    color: #777;
+
+    font-size: 12px;
+
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   AÇÕES
+   ========================================================= */
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    padding-top: 4px;
+}
+
+
+/* =========================================================
+   BOTÕES
+   ========================================================= */
+
+.btn {
+    min-width: 130px;
+    height: 43px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 0 18px;
+
+    box-sizing: border-box;
+
+    border-radius: 8px;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+            background 0.2s ease,
+            border-color 0.2s ease,
+            color 0.2s ease,
+            box-shadow 0.2s ease,
+            transform 0.15s ease;
+}
+
+.btn i {
+    font-size: 12px;
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+
+/* =========================================================
+   BOTÃO SECUNDÁRIO
+   ========================================================= */
+
+.btn-secondary {
+    background: #191919;
+
+    border: 1px solid #303030;
+
+    color: #a4a4a4;
+}
+
+.btn-secondary:hover {
+    background: #202020;
+
+    border-color: #3a3a3a;
+
+    color: #f5f5f5;
+}
+
+.btn-secondary:focus-visible {
+    outline: none;
+
+    border-color: #555;
+
+    box-shadow:
+            0 0 0 3px rgba(255, 255, 255, 0.04);
+}
+
+
+/* =========================================================
+   BOTÃO PRIMÁRIO
+   ========================================================= */
+
+.btn-primary {
+    background: var(--tag-orange);
+
+    border: 1px solid var(--tag-orange);
+
+    color: #ffffff;
+
+    box-shadow:
+            0 5px 16px rgba(255, 107, 0, 0.12);
+}
+
+.btn-primary:hover {
+    background: var(--tag-orange-hover);
+
+    border-color: var(--tag-orange-hover);
+
+    box-shadow:
+            0 7px 20px rgba(255, 107, 0, 0.18);
+}
+
+.btn-primary:focus-visible {
+    outline: none;
+
+    box-shadow:
+            0 0 0 3px rgba(255, 107, 0, 0.16),
+            0 7px 20px rgba(255, 107, 0, 0.14);
+}
+
+
+/* =========================================================
+   ESTADO DE ERRO NOS INPUTS
+   ========================================================= */
+
+.input-wrapper input:has(+ .field-error),
+.input-wrapper select:has(+ .field-error) {
+    border-color: var(--tag-red);
+}
+
+
+/* =========================================================
+   DESKTOP GRANDE
+   ========================================================= */
+
+@media (min-width: 1400px) {
+
+    .tag-form-page {
+        max-width: 1220px;
+
+        padding-top: 40px;
+    }
+
+    .form-card {
+        padding: 30px;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .tag-form-page {
+        padding: 28px 24px 36px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group-full {
+        grid-column: auto;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 640px) {
+
+    .tag-form-page {
+        padding: 22px 16px 30px;
+    }
+
+    .tag-breadcrumb {
+        margin-bottom: 20px;
+
+        font-size: 12px;
+    }
+
+    .tag-page-heading {
+        align-items: flex-start;
+
+        gap: 12px;
+
+        margin-bottom: 22px;
+    }
+
+    .heading-icon {
+        width: 46px;
+        height: 46px;
+
+        border-radius: 10px;
+
+        font-size: 18px;
+    }
+
+    .tag-page-heading h2 {
+        font-size: 20px;
+    }
+
+    .tag-page-heading p {
+        font-size: 12px;
+    }
+
+    .form-card {
+        padding: 20px 17px;
+
+        border-radius: 9px;
+    }
+
+    .form-card-header {
+        align-items: flex-start;
+
+        margin-bottom: 20px;
+        padding-bottom: 17px;
+    }
+
+    .form-card-icon {
+        width: 36px;
+        height: 36px;
+
+        border-radius: 8px;
+    }
+
+    .form-card-header h3 {
+        font-size: 14px;
+    }
+
+    .form-card-header p {
+        font-size: 11px;
+    }
+
+    .form-grid {
+        gap: 20px;
+    }
+
+    .form-info {
+        padding: 15px;
+
+        gap: 10px;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+
+        align-items: stretch;
+
+        gap: 8px;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   MOBILE PEQUENO
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    .tag-form-page {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .form-card {
+        padding: 17px 14px;
+    }
+
+    .tag-page-heading h2 {
+        font-size: 18px;
+    }
+
+    .tag-page-heading p {
+        font-size: 11px;
+    }
+}
+
+
+/* =========================================================
+   REDUÇÃO DE MOVIMENTO
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+        animation: none !important;
+    }
+}

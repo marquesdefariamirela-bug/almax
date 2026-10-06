@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<div th:fragment="alerts"
+     class="alerts-container">
+
+
+    <!-- =====================================================
+         SUCESSO
+         ===================================================== -->
+
+    <div
+            th:if="${successMessage}"
+            class="alert alert-success"
+            role="alert">
+
+        <span class="alert-icon">
+
+            <svg viewBox="0 0 24 24"
+                 aria-hidden="true">
+
+                <path
+                        d="M9 16.17 4.83 12l-1.42
+                           1.41L9 19 21 7l-1.41-1.41Z">
+                </path>
+
+            </svg>
+
+        </span>
+
+        <span
+                th:text="${successMessage}">
+            Operação realizada com sucesso.
+        </span>
+
+        <button
+                type="button"
+                class="alert-close"
+                aria-label="Fechar">
+            ×
+        </button>
+
+    </div>
+
+
+    <!-- =====================================================
+         ERRO
+         ===================================================== -->
+
+    <div
+            th:if="${errorMessage}"
+            class="alert alert-danger"
+            role="alert">
+
+        <span class="alert-icon">
+
+            <svg viewBox="0 0 24 24"
+                 aria-hidden="true">
+
+                <path
+                        d="M12 2a10 10 0 1 0
+                           10 10A10 10 0 0 0
+                           12 2Zm1 15h-2v-2h2Zm0-4h-2V7h2Z">
+                </path>
+
+            </svg>
+
+        </span>
+
+        <span
+                th:text="${errorMessage}">
+            Ocorreu um erro.
+        </span>
+
+        <button
+                type="button"
+                class="alert-close"
+                aria-label="Fechar">
+            ×
+        </button>
+
+    </div>
+
+
+    <!-- =====================================================
+         AVISO
+         ===================================================== -->
+
+    <div
+            th:if="${warningMessage}"
+            class="alert alert-warning"
+            role="alert">
+
+        <span class="alert-icon">
+
+            <svg viewBox="0 0 24 24"
+                 aria-hidden="true">
+
+                <path
+                        d="M1 21h22L12 2 1 21Zm12-3h-2v2h2v-2Zm0-2h-2v-4h2v4Z">
+                </path>
+
+            </svg>
+
+        </span>
+
+        <span
+                th:text="${warningMessage}">
+            Atenção.
+        </span>
+
+        <button
+                type="button"
+                class="alert-close"
+                aria-label="Fechar">
+            ×
+        </button>
+
+    </div>
+
+
+    <!-- =====================================================
+         INFORMAÇÃO
+         ===================================================== -->
+
+    <div
+            th:if="${infoMessage}"
+            class="alert alert-info"
+            role="alert">
+
+        <span class="alert-icon">
+
+            <svg viewBox="0 0 24 24"
+                 aria-hidden="true">
+
+                <path
+                        d="M11 17h2v-6h-2v6Zm1-15a10
+                           10 0 1 0 0 20 10 10 0
+                           0 0 0 0-20Zm0 18a8 8 0
+                           1 1 0-16 8 8 0 0 1 0 16Zm-1-11h2V7h-2v2Z">
+                </path>
+
+            </svg>
+
+        </span>
+
+        <span
+                th:text="${infoMessage}">
+            Informação.
+        </span>
+
+        <button
+                type="button"
+                class="alert-close"
+                aria-label="Fechar">
+            ×
+        </button>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Nova Movimentação | ALMAX</title>
+
+
+    <!-- =====================================================
+         FONT AWESOME
+         ===================================================== -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <!-- =====================================================
+         CSS GLOBAL
+         ===================================================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/base.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/layout.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/sidebar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/navbar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/footer.css}">
+
+
+    <!-- =====================================================
+         CSS DA TELA
+         ===================================================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/movimentacao-form.css}">
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+
+    <!-- =====================================================
+         CONTEÚDO PRINCIPAL
+         ===================================================== -->
+
+    <main class="app-main">
+
+
+        <!-- =================================================
+             HEADER
+             ================================================= -->
+
+        <header class="app-header">
+
+            <div class="header-left">
+
+                <button type="button"
+                        class="mobile-menu-button"
+                        aria-label="Abrir menu">
+
+                    <i class="fa-solid fa-bars"></i>
+
+                </button>
+
+
+                <div>
+
+                    <span class="page-section">
+                        Patrimônio
+                    </span>
+
+                    <h1>
+                        Nova movimentação
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <span class="header-system">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    Sistema Patrimonial
+
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             PÁGINA
+             ================================================= -->
+
+        <section class="movimentacao-form-container">
+
+
+            <!-- =================================================
+                 BREADCRUMB
+                 ================================================= -->
+
+            <nav class="breadcrumb">
+
+                <a th:href="@{/}">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    Início
+
+                </a>
+
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+
+                <a th:href="@{/movimentacoes}">
+
+                    <i class="fa-solid fa-right-left"></i>
+
+                    Movimentações
+
+                </a>
+
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+
+                <strong>
+
+                    Nova movimentação
+
+                </strong>
+
+            </nav>
+
+
+            <!-- =================================================
+                 CABEÇALHO
+                 ================================================= -->
+
+            <div class="page-heading">
+
+                <div class="page-heading-main">
+
+                    <div class="page-title-icon">
+
+                        <i class="fa-solid fa-right-left"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            Registrar movimentação
+                        </h2>
+
+                        <p>
+                            Cadastre manualmente uma movimentação
+                            patrimonial.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- =================================================
+                 FORMULÁRIO
+                 ================================================= -->
+            <form
+                    th:action="@{/movimentacoes}"
+                    th:object="${movimentacaoRequest}"
+                    method="post"
+                    class="movimentacao-form">
+
+
+                <!-- =================================================
+                     ERROS DE VALIDAÇÃO
+                     ================================================= -->
+
+                <div class="alert alert-danger"
+                     th:if="${#fields.hasErrors('*')}">
+
+                    <i class="fa-solid fa-circle-exclamation"></i>
+
+                    <div>
+
+                        <strong>
+                            Verifique os dados informados.
+                        </strong>
+
+                        <ul>
+
+                            <li
+                                    th:each="error : ${#fields.errors('*')}"
+                                    th:text="${error}">
+                                Campo inválido.
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     DADOS DA MOVIMENTAÇÃO
+                     ================================================= -->
+
+                <div class="form-card">
+
+                    <div class="form-card-header">
+
+                        <div class="form-card-title">
+
+                            <div class="form-section-icon">
+
+                                <i class="fa-solid fa-right-left"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    Dados da movimentação
+                                </h3>
+
+                                <p>
+                                    Informe o patrimônio e o tipo
+                                    de movimentação.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+
+                        <!-- =================================================
+                             PRODUTO
+                             ================================================= -->
+
+                        <div class="form-group form-group-full">
+
+                            <label for="produtoId">
+
+                                Produto
+
+                                <span class="required">*</span>
+
+                            </label>
+
+
+                            <div class="input-with-icon">
+
+                                <i class="fa-solid fa-box"></i>
+
+                                <select
+                                        id="produtoId"
+                                        th:field="*{produtoId}"
+                                        required>
+
+                                    <option value="">
+                                        Selecione o produto
+                                    </option>
+
+                                    <option
+                                            th:each="produto : ${produtos}"
+                                            th:value="${produto.id}"
+                                            th:text="${produto.nome}">
+                                        Produto
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <small
+                                    class="field-error"
+                                    th:if="${#fields.hasErrors('produtoId')}"
+                                    th:errors="*{produtoId}">
+                                Informe o produto.
+                            </small>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             TIPO
+                             ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="tipo">
+
+                                Tipo de movimentação
+
+                                <span class="required">*</span>
+
+                            </label>
+
+
+                            <div class="input-with-icon">
+
+                                <i class="fa-solid fa-arrows-left-right"></i>
+
+                                <select
+                                        id="tipo"
+                                        th:field="*{tipo}"
+                                        required>
+
+                                    <option value="">
+                                        Selecione o tipo
+                                    </option>
+
+                                    <option
+                                            th:each="tipo : ${tiposMovimentacao}"
+                                            th:value="${tipo}"
+                                            th:text="${tipo}">
+                                        ENTRADA
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <small class="field-help">
+
+                                Define como o patrimônio será movimentado.
+
+                            </small>
+
+
+                            <small
+                                    class="field-error"
+                                    th:if="${#fields.hasErrors('tipo')}"
+                                    th:errors="*{tipo}">
+                                Informe o tipo.
+                            </small>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             DATA / HORA
+                             ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="dataHora">
+
+                                Data e hora
+
+                                <span class="required">*</span>
+
+                            </label>
+
+
+                            <div class="input-with-icon">
+
+                                <i class="fa-regular fa-calendar"></i>
+
+                                <input
+                                        type="date"
+                                        id="dataHora"
+                                        th:field="*{dataHora}">
+
+                            </div>
+
+
+                            <small class="field-help">
+
+                                Data em que a movimentação ocorreu.
+
+                            </small>
+
+
+                            <small
+                                    class="field-error"
+                                    th:if="${#fields.hasErrors('dataHora')}"
+                                    th:errors="*{dataHora}">
+                                Informe a data.
+                            </small>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             AMBIENTE DE ORIGEM
+                             ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="ambienteOrigemId">
+
+                                Ambiente de origem
+
+                            </label>
+
+
+                            <div class="input-with-icon">
+
+                                <i class="fa-solid fa-location-dot"></i>
+
+                                <select
+                                        id="ambienteOrigemId"
+                                        th:field="*{ambienteOrigemId}">
+
+                                    <option value="">
+                                        Selecione o ambiente
+                                    </option>
+
+                                    <option
+                                            th:each="ambiente : ${ambientes}"
+                                            th:value="${ambiente.id}"
+                                            th:text="${ambiente.nome}">
+                                        Ambiente
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             AMBIENTE DE DESTINO
+                             ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="ambienteDestinoId">
+
+                                Ambiente de destino
+
+                            </label>
+
+
+                            <div class="input-with-icon">
+
+                                <i class="fa-solid fa-location-crosshairs"></i>
+
+                                <select
+                                        id="ambienteDestinoId"
+                                        th:field="*{ambienteDestinoId}">
+
+                                    <option value="">
+                                        Selecione o ambiente
+                                    </option>
+
+                                    <option
+                                            th:each="ambiente : ${ambientes}"
+                                            th:value="${ambiente.id}"
+                                            th:text="${ambiente.nome}">
+                                        Ambiente
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             LEITOR
+                             ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="leitorId">
+
+                                Leitor RFID
+
+                            </label>
+
+
+                            <div class="input-with-icon">
+
+                                <i class="fa-solid fa-tower-broadcast"></i>
+
+                                <select
+                                        id="leitorId"
+                                        th:field="*{leitorId}">
+
+                                    <option value="">
+                                        Selecione o leitor
+                                    </option>
+
+                                    <option
+                                            th:each="leitor : ${leitores}"
+                                            th:value="${leitor.id}"
+                                            th:text="${leitor.nome}">
+                                        Leitor
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             USUÁRIO
+                             ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="usuarioId">
+
+                                Usuário responsável
+
+                            </label>
+
+
+                            <div class="input-with-icon">
+
+                                <i class="fa-solid fa-user"></i>
+
+                                <select
+                                        id="usuarioId"
+                                        th:field="*{usuarioId}">
+
+                                    <option value="">
+                                        Selecione o usuário
+                                    </option>
+
+                                    <option
+                                            th:each="usuario : ${usuarios}"
+                                            th:value="${usuario.id}"
+                                            th:text="${usuario.nome}">
+                                        Usuário
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             OBSERVAÇÃO
+                             ================================================= -->
+
+                        <div class="form-group form-group-full">
+
+                            <label for="observacao">
+
+                                Observação
+
+                            </label>
+
+
+                            <textarea
+                                    id="observacao"
+                                    th:field="*{observacao}"
+                                    maxlength="500"
+                                    rows="4"
+                                    placeholder="Informe alguma observação sobre a movimentação...">
+                </textarea>
+
+
+                            <small class="field-help">
+
+                                <span id="contador">0</span>/500 caracteres.
+
+                            </small>
+
+
+                            <small
+                                    class="field-error"
+                                    th:if="${#fields.hasErrors('observacao')}"
+                                    th:errors="*{observacao}">
+                                Observação inválida.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     PRÉ-VISUALIZAÇÃO DA LOCALIZAÇÃO
+                     ================================================= -->
+
+                <div class="form-card">
+
+                    <div class="form-card-header">
+
+                        <div class="form-card-title">
+
+                            <div class="form-section-icon">
+
+                                <i class="fa-solid fa-map-location-dot"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    Localização
+                                </h3>
+
+                                <p>
+                                    Confira a origem e o destino da movimentação.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="location-preview">
+
+
+                        <div class="location-item">
+
+                <span class="location-label">
+
+                    Origem
+
+                </span>
+
+                            <strong id="origemPreview">
+
+                                Não informado
+
+                            </strong>
+
+                        </div>
+
+
+                        <div class="location-arrow">
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </div>
+
+
+                        <div class="location-item">
+
+                <span class="location-label">
+
+                    Destino
+
+                </span>
+
+                            <strong id="destinoPreview">
+
+                                Não informado
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     AÇÕES
+                     ================================================= -->
+
+                <div class="form-actions">
+
+                    <a
+                            th:href="@{/movimentacoes}"
+                            class="btn btn-secondary">
+
+                        <i class="fa-solid fa-arrow-left"></i>
+
+                        Cancelar
+
+                    </a>
+
+
+                    <button
+                            type="submit"
+                            class="btn btn-primary">
+
+                        <i class="fa-solid fa-floppy-disk"></i>
+
+                        Registrar movimentação
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- =================================================
+             FOOTER
+             ================================================= -->
+
+        <footer class="app-footer">
+
+            <span>
+                © ALMAX — Controle Patrimonial
+            </span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+     ========================================================= -->
+
+<script>
+
+    /*
+     * Preview de origem e destino
+     */
+
+    const origemSelect =
+        document.getElementById("ambienteOrigem");
+
+    const destinoSelect =
+        document.getElementById("ambienteDestino");
+
+    const origemPreview =
+        document.getElementById("origemPreview");
+
+    const destinoPreview =
+        document.getElementById("destinoPreview");
+
+
+    function atualizarLocalizacao() {
+
+        if (origemSelect) {
+
+            const origem =
+                origemSelect.options[
+                    origemSelect.selectedIndex
+                    ];
+
+            origemPreview.textContent =
+                origem && origem.value
+                    ? origem.text
+                    : "Não informado";
+
+        }
+
+
+        if (destinoSelect) {
+
+            const destino =
+                destinoSelect.options[
+                    destinoSelect.selectedIndex
+                    ];
+
+            destinoPreview.textContent =
+                destino && destino.value
+                    ? destino.text
+                    : "Não informado";
+
+        }
+
+    }
+
+
+    if (origemSelect) {
+
+        origemSelect.addEventListener(
+            "change",
+            atualizarLocalizacao
+        );
+
+    }
+
+
+    if (destinoSelect) {
+
+        destinoSelect.addEventListener(
+            "change",
+            atualizarLocalizacao
+        );
+
+    }
+
+
+    /*
+     * Contador da observação
+     */
+
+    const observacao =
+        document.getElementById("observacao");
+
+    const contador =
+        document.getElementById("contador");
+
+
+    function atualizarContador() {
+
+        if (!observacao || !contador) {
+            return;
+        }
+
+        contador.textContent =
+            observacao.value.length;
+
+    }
+
+
+    if (observacao) {
+
+        observacao.addEventListener(
+            "input",
+            atualizarContador
+        );
+
+        atualizarContador();
+
+    }
+
+
+    /*
+     * Inicialização
+     */
+
+    atualizarLocalizacao();
+
+</script>
+
+</body>
+
+</html>

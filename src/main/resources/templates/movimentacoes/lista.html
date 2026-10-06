@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Movimentações | ALMAX</title>
+
+
+    <!-- FONT AWESOME -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <!-- CSS GLOBAL -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/base.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/layout.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/sidebar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/navbar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/footer.css}">
+
+
+    <!-- CSS DA TELA -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/movimentacoes.css}">
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+
+    <!-- =====================================================
+         CONTEÚDO
+         ===================================================== -->
+
+    <main class="app-main">
+
+
+        <!-- =================================================
+             HEADER
+             ================================================= -->
+
+        <header class="app-header">
+
+            <div class="header-left">
+
+                <button type="button"
+                        class="mobile-menu-button"
+                        aria-label="Abrir menu">
+
+                    <i class="fa-solid fa-bars"></i>
+
+                </button>
+
+
+                <div>
+
+                    <span class="page-section">
+                        Patrimônio
+                    </span>
+
+                    <h1>
+                        Movimentações
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <span class="header-system">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    Sistema Patrimonial
+
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             PÁGINA
+             ================================================= -->
+
+        <section class="movimentacoes-container">
+
+
+            <!-- =================================================
+                 BREADCRUMB
+                 ================================================= -->
+
+            <nav class="breadcrumb">
+
+                <a th:href="@{/}">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    Início
+
+                </a>
+
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+
+                <strong>
+
+                    <i class="fa-solid fa-right-left"></i>
+
+                    Movimentações
+
+                </strong>
+
+            </nav>
+
+            <!-- =================================================
+                 CABEÇALHO
+                 ================================================= -->
+
+            <div class="page-heading">
+
+                <div class="page-heading-main">
+
+                    <div class="page-title-icon">
+
+                        <i class="fa-solid fa-right-left"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            Movimentações patrimoniais
+                        </h2>
+
+                        <p>
+                            Acompanhe a movimentação dos patrimônios
+                            identificados pelos leitores RFID.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     AÇÕES DO CABEÇALHO
+                     ================================================= -->
+
+                <div class="page-heading-actions">
+
+                    <a
+                            th:href="@{/movimentacoes/novo}"
+                            class="btn btn-primary">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Nova movimentação
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ALERTA
+                 ================================================= -->
+
+            <div class="alert alert-success"
+                 th:if="${sucesso}">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <span th:text="${sucesso}">
+                    Operação realizada com sucesso.
+                </span>
+
+            </div>
+
+
+            <!-- =================================================
+                 STATUS RFID
+                 ================================================= -->
+
+            <div class="rfid-status-card">
+
+                <div class="rfid-status-icon">
+
+                    <i class="fa-solid fa-wifi"></i>
+
+                </div>
+
+
+                <div class="rfid-status-content">
+
+                    <strong>
+                        Monitoramento RFID
+                    </strong>
+
+                    <span>
+                        Movimentações identificadas automaticamente pelos leitores RFID.
+                    </span>
+
+                </div>
+
+
+                <div class="rfid-status-indicator">
+
+                    <span class="status-dot"></span>
+
+                    <span>
+                        Sistema conectado
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 RESUMO
+                 ================================================= -->
+
+            <div class="summary-grid">
+
+
+                <!-- TOTAL -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon summary-icon-blue">
+
+                        <i class="fa-solid fa-right-left"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <span class="summary-label">
+                            Total de movimentações
+                        </span>
+
+                        <strong th:text="${totalMovimentacoes}">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ENTRADAS -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon summary-icon-green">
+
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <span class="summary-label">
+                            Entradas
+                        </span>
+
+                        <strong th:text="${totalEntradas}">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SAÍDAS -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon summary-icon-orange">
+
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <span class="summary-label">
+                            Saídas
+                        </span>
+
+                        <strong th:text="${totalSaidas}">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- HOJE -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon summary-icon-purple">
+
+                        <i class="fa-solid fa-calendar-day"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <span class="summary-label">
+                            Hoje
+                        </span>
+
+                        <strong th:text="${movimentacoesHoje}">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FILTROS
+                 ================================================= -->
+
+            <div class="filter-card">
+
+                <div class="search-container">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                            type="search"
+                            id="campoBusca"
+                            placeholder="Buscar produto, tag RFID ou leitor..."
+                            autocomplete="off">
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <select id="filtroTipo">
+
+                        <option value="">
+                            Todos os tipos
+                        </option>
+
+                        <option value="ENTRADA">
+                            Entrada
+                        </option>
+
+                        <option value="SAIDA">
+                            Saída
+                        </option>
+
+                        <option value="TRANSFERENCIA">
+                            Transferência
+                        </option>
+
+                    </select>
+
+
+                    <select id="filtroAmbiente">
+
+                        <option value="">
+                            Todos os ambientes
+                        </option>
+
+                        <option
+                                th:each="ambiente : ${ambientes}"
+                                th:value="${ambiente.id}"
+                                th:text="${ambiente.nome}">
+
+                            Almoxarifado
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <!-- =================================================
+                 TABELA
+                 ================================================= -->
+
+            <div class="content-card">
+
+                <!-- CABEÇALHO -->
+
+                <div class="content-card-header">
+
+                    <div>
+
+                        <h3>
+                            Histórico de movimentações
+                        </h3>
+
+                        <p>
+                            Registros capturados pelos leitores RFID.
+                        </p>
+
+                    </div>
+
+
+                    <div class="content-card-count">
+
+                        <i class="fa-solid fa-list"></i>
+
+                        <span
+                                th:text="${#lists.size(movimentacoes)}
+                    + ' movimentação(ões)'">
+
+                0 movimentação(ões)
+
+            </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     TABELA
+                     ================================================= -->
+
+                <div class="table-wrapper"
+                     th:if="${not #lists.isEmpty(movimentacoes)}">
+
+                    <table class="data-table">
+
+                        <thead>
+
+                        <tr>
+
+                            <th>
+                                Patrimônio
+                            </th>
+
+                            <th>
+                                Produto
+                            </th>
+
+                            <th>
+                                Origem
+                            </th>
+
+                            <th>
+                                Destino
+                            </th>
+
+                            <th>
+                                Leitor
+                            </th>
+
+                            <th class="text-center">
+                                Tipo
+                            </th>
+
+                            <th>
+                                Data / Hora
+                            </th>
+
+                            <th>
+                                Usuário
+                            </th>
+
+                        </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                        <tr th:each="mov : ${movimentacoes}">
+
+
+                            <!-- =================================================
+                                 PATRIMÔNIO
+                                 ================================================= -->
+
+                            <td>
+
+                                <div class="produto-cell">
+
+                                    <div class="produto-icon">
+
+                                        <i class="fa-solid fa-box"></i>
+
+                                    </div>
+
+                                    <div>
+
+                                        <strong
+                                                th:text="${mov.produtoNome != null
+                        ? mov.produtoNome
+                        : 'Produto não informado'}">
+                                            Produto
+                                        </strong>
+
+                                        <small
+                                                th:text="${mov.numeroPatrimonio != null
+                        ? 'Patrimônio #' + mov.numeroPatrimonio
+                        : 'Patrimônio não informado'}">
+                                            Patrimônio #0001
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <!-- =================================================
+                                 PRODUTO
+                                 ================================================= -->
+
+                            <td>
+
+                    <span
+                            th:text="${mov.produtoNome}">
+                        Produto
+                    </span>
+
+                            </td>
+
+
+                            <!-- =================================================
+                                 ORIGEM
+                                 ================================================= -->
+
+                            <td>
+
+                    <span class="location">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        <span
+                                th:if="${mov.ambienteOrigemNome != null}"
+                                th:text="${mov.ambienteOrigemNome}">
+                            Almoxarifado
+                        </span>
+
+                        <span
+                                class="muted"
+                                th:unless="${mov.ambienteOrigemNome != null}">
+                            —
+                        </span>
+
+                    </span>
+
+                            </td>
+
+
+                            <!-- =================================================
+                                 DESTINO
+                                 ================================================= -->
+
+                            <td>
+
+                    <span class="location destination">
+
+                        <i class="fa-solid fa-location-arrow"></i>
+
+                        <span
+                                th:if="${mov.ambienteDestinoNome != null}"
+                                th:text="${mov.ambienteDestinoNome}">
+                            Sala
+                        </span>
+
+                        <span
+                                class="muted"
+                                th:unless="${mov.ambienteDestinoNome != null}">
+                            —
+                        </span>
+
+                    </span>
+
+                            </td>
+
+
+                            <!-- =================================================
+                                 LEITOR
+                                 ================================================= -->
+
+                            <td>
+
+                                <div class="leitor-cell">
+
+                                    <i class="fa-solid fa-satellite-dish"></i>
+
+                                    <span
+                                            th:if="${mov.leitorNome != null}"
+                                            th:text="${mov.leitorNome}">
+                            Leitor RFID
+                        </span>
+
+                                    <span
+                                            class="muted"
+                                            th:unless="${mov.leitorNome != null}">
+                            Não informado
+                        </span>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- =================================================
+                                 TIPO
+                                 ================================================= -->
+
+                            <td class="text-center">
+
+                                <span
+                                        class="movement-badge"
+                                        th:classappend="${mov.tipo != null and mov.tipo.name() == 'ENTRADA'}
+                                        ? ' movement-entry'
+                                        : (${mov.tipo != null and mov.tipo.name() == 'SAIDA'}
+                                            ? ' movement-exit'
+                                            : ' movement-transfer')">
+
+                                        <i th:if="${mov.tipo != null and mov.tipo.name() == 'ENTRADA'}"
+                                           class="fa-solid fa-arrow-right-to-bracket">
+                                        </i>
+
+                                        <i th:if="${mov.tipo != null and mov.tipo.name() == 'SAIDA'}"
+                                           class="fa-solid fa-arrow-right-from-bracket">
+                                        </i>
+
+                                        <i th:if="${mov.tipo != null and mov.tipo.name() == 'TRANSFERENCIA'}"
+                                           class="fa-solid fa-right-left">
+                                        </i>
+
+                                        <span th:text="${mov.tipo != null ? mov.tipo : 'Não informado'}">
+                                            ENTRADA
+                                        </span>
+
+                                </span>
+
+                            </td>
+
+
+                            <!-- =================================================
+                                 DATA / HORA
+                                 ================================================= -->
+
+                            <td>
+
+                    <span class="datetime">
+
+                        <i class="fa-regular fa-clock"></i>
+
+                        <span
+                                th:if="${mov.dataHora != null}"
+                                th:text="${#temporals.format(
+                                    mov.dataHora,
+                                    'dd/MM/yyyy HH:mm:ss'
+                                )}">
+                            06/10/2026 10:30:00
+                        </span>
+
+                        <span
+                                class="muted"
+                                th:unless="${mov.dataHora != null}">
+                            —
+                        </span>
+
+                    </span>
+
+                            </td>
+
+
+                            <!-- =================================================
+                                 USUÁRIO
+                                 ================================================= -->
+
+                            <td>
+
+                    <span
+                            class="usuario-cell"
+                            th:if="${mov.usuarioNome != null}">
+
+                        <i class="fa-solid fa-user"></i>
+
+                        <span
+                                th:text="${mov.usuarioNome}">
+                            Usuário
+                        </span>
+
+                    </span>
+
+                                <span
+                                        class="muted"
+                                        th:unless="${mov.usuarioNome != null}">
+                        Automático
+                    </span>
+
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <!-- =================================================
+                     ESTADO VAZIO
+                     ================================================= -->
+
+                <div
+                        class="empty-state"
+                        th:if="${#lists.isEmpty(movimentacoes)}">
+
+                    <div>
+
+                        <div class="empty-icon">
+
+                            <i class="fa-solid fa-satellite-dish"></i>
+
+                        </div>
+
+
+                        <strong>
+                            Nenhuma movimentação registrada
+                        </strong>
+
+
+                        <span>
+                As movimentações aparecerão aqui
+                quando uma movimentação for registrada.
+            </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- =================================================
+                 INFORMAÇÃO
+                 ================================================= -->
+
+            <div class="form-info">
+
+                <div class="form-info-icon">
+
+                    <i class="fa-solid fa-circle-info"></i>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Como funciona a movimentação?
+                    </strong>
+
+
+                    <p>
+                        Quando um leitor RFID identifica uma tag,
+                        o sistema localiza o patrimônio associado,
+                        identifica o ambiente e registra
+                        automaticamente a movimentação.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             FOOTER
+             ================================================= -->
+
+        <footer class="app-footer">
+
+            <span>
+                © ALMAX — Controle Patrimonial
+            </span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- =========================================================
+     FILTROS CLIENT-SIDE
+     ========================================================= -->
+
+<script>
+
+    const campoBusca =
+        document.getElementById("campoBusca");
+
+    const filtroTipo =
+        document.getElementById("filtroTipo");
+
+    const filtroAmbiente =
+        document.getElementById("filtroAmbiente");
+
+    function filtrarMovimentacoes() {
+
+        const busca =
+            campoBusca.value.toLowerCase().trim();
+
+        const tipo =
+            filtroTipo.value.toLowerCase();
+
+        const ambiente =
+            filtroAmbiente.value.toLowerCase();
+
+        const linhas =
+            document.querySelectorAll(
+                ".data-table tbody tr"
+            );
+
+        linhas.forEach(linha => {
+
+            const texto =
+                linha.textContent.toLowerCase();
+
+            const correspondeBusca =
+                !busca ||
+                texto.includes(busca);
+
+            const correspondeTipo =
+                !tipo ||
+                texto.includes(tipo);
+
+            const correspondeAmbiente =
+                !ambiente ||
+                texto.includes(ambiente);
+
+            linha.style.display =
+                correspondeBusca &&
+                correspondeTipo &&
+                correspondeAmbiente
+                    ? ""
+                    : "none";
+
+        });
+
+    }
+
+
+    if (campoBusca) {
+
+        campoBusca.addEventListener(
+            "input",
+            filtrarMovimentacoes
+        );
+
+    }
+
+
+    if (filtroTipo) {
+
+        filtroTipo.addEventListener(
+            "change",
+            filtrarMovimentacoes
+        );
+
+    }
+
+
+    if (filtroAmbiente) {
+
+        filtroAmbiente.addEventListener(
+            "change",
+            filtrarMovimentacoes
+        );
+
+    }
+
+</script>
+
+</body>
+
+</html>

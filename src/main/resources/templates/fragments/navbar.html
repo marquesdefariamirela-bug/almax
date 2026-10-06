@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<header
+        th:fragment="navbar"
+        class="app-header">
+
+    <div class="header-left">
+
+
+        <!-- MENU MOBILE -->
+
+        <button
+                type="button"
+                class="sidebar-toggle"
+                aria-label="Abrir menu"
+                aria-controls="appSidebar"
+                aria-expanded="false">
+
+            <i class="fa-solid fa-bars"></i>
+
+        </button>
+
+
+        <!-- TÍTULO -->
+
+        <div class="header-page-info">
+
+            <strong
+                    class="header-page-title"
+                    th:text="${pageTitle ?: 'Dashboard'}">
+
+                Dashboard
+
+            </strong>
+
+
+            <span
+                    class="header-page-description"
+                    th:text="${pageDescription ?: 'Gestão Patrimonial'}">
+
+                Gestão Patrimonial
+
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-right">
+
+
+        <!-- STATUS -->
+
+        <div class="system-status">
+
+            <span class="status-dot"></span>
+
+            <span>
+                Sistema online
+            </span>
+
+        </div>
+
+
+        <!-- USUÁRIO -->
+
+        <div class="header-user">
+
+            <div class="user-avatar">
+
+                <i class="fa-solid fa-user"></i>
+
+            </div>
+
+
+            <div class="user-info">
+
+                <strong
+                        th:text="${#authentication.name}">
+                    Usuário
+                </strong>
+
+                <span>
+                    Administrador
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+</body>
+</html>

@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	
+	<meta charset="UTF-8">
+	
+	<meta name="viewport"
+	      content="width=device-width, initial-scale=1.0">
+	
+	<title>
+		Detalhes do Leitor | ALMAX
+	</title>
+	
+	<!-- Font Awesome -->
+	<link rel="stylesheet"
+	      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+	
+	<!-- CSS global da aplicação -->
+	<link rel="stylesheet"
+	      th:href="@{/css/base.css}">
+	
+	<!-- CSS da sidebar -->
+	<link rel="stylesheet"
+	      th:href="@{/css/sidebar.css}">
+	
+	<!-- CSS dos leitores -->
+	<link rel="stylesheet"
+	      th:href="@{/css/leitores-detalhes.css}">
+
+</head>
+
+
+<body>
+
+<!-- =========================================================
+     SIDEBAR
+     ========================================================= -->
+
+<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+<div th:replace="~{fragments/sidebar :: sidebar-overlay}"></div>
+
+
+<!-- =========================================================
+     CONTEÚDO PRINCIPAL
+     ========================================================= -->
+
+<main class="app-main">
+	
+	
+	<div class="leitor-details-container">
+		
+		
+		<!-- =================================================
+			 BREADCRUMB
+			 ================================================= -->
+		
+		<div class="breadcrumb">
+			
+			<a th:href="@{/leitores}">
+				
+				<i class="fa-solid fa-wifi"></i>
+				
+				Leitores
+			
+			</a>
+			
+			<i class="fa-solid fa-chevron-right"></i>
+			
+			<strong>
+				Detalhes
+			</strong>
+		
+		</div>
+		
+		
+		<!-- =================================================
+			 HEADER
+			 ================================================= -->
+		
+		<div class="details-header">
+			
+			<div class="details-header-main">
+				
+				<div class="details-icon">
+					
+					<i class="fa-solid fa-wifi"></i>
+				
+				</div>
+				
+				
+				<div>
+					
+					<h1 th:text="${leitor.nome}">
+						Leitor RFID
+					</h1>
+					
+					<p>
+						Informações e configurações do leitor
+					</p>
+				
+				</div>
+			
+			</div>
+			
+			
+			<div class="details-actions">
+				
+				<a
+						th:href="@{/leitores}"
+						class="btn btn-secondary">
+					
+					<i class="fa-solid fa-arrow-left"></i>
+					
+					Voltar
+				
+				</a>
+				
+				
+				<a
+						th:href="@{/leitores/{id}/editar(id=${leitor.id})}"
+						class="btn btn-primary">
+					
+					<i class="fa-solid fa-pen"></i>
+					
+					Editar
+				
+				</a>
+			
+			</div>
+		
+		</div>
+		
+		
+		<!-- =================================================
+			 STATUS
+			 ================================================= -->
+		
+		<div class="status-card">
+			
+			<div class="status-card-icon">
+				
+				<i class="fa-solid fa-circle-info"></i>
+			
+			</div>
+			
+			
+			<div class="status-card-content">
+				
+				<strong>
+					Status do leitor
+				</strong>
+				
+				
+				<span th:if="${leitor.ativo}">
+
+                    Este leitor está ativo e disponível
+                    para operação.
+
+                </span>
+				
+				
+				<span th:unless="${leitor.ativo}">
+
+                    Este leitor está inativo no sistema.
+
+                </span>
+			
+			</div>
+			
+			
+			<span
+					th:if="${leitor.ativo}"
+					class="status-badge status-active">
+
+                <span class="status-dot"></span>
+
+                Ativo
+
+            </span>
+			
+			
+			<span
+					th:unless="${leitor.ativo}"
+					class="status-badge status-inactive">
+
+                <span class="status-dot"></span>
+
+                Inativo
+
+            </span>
+		
+		</div>
+		
+		
+		<!-- =================================================
+			 RESUMO
+			 ================================================= -->
+		
+		<div class="details-summary">
+			
+			
+			<div class="summary-card">
+				
+				<div class="summary-icon summary-blue">
+					
+					<i class="fa-solid fa-right-left"></i>
+				
+				</div>
+				
+				
+				<div>
+
+                    <span>
+                        Movimentações
+                    </span>
+					
+					<strong
+							th:text="${leitor.quantidadeMovimentacoes ?: 0}">
+						0
+					</strong>
+				
+				</div>
+			
+			</div>
+			
+			
+			<div class="summary-card">
+				
+				<div class="summary-icon summary-green">
+					
+					<i class="fa-solid fa-location-dot"></i>
+				
+				</div>
+				
+				
+				<div>
+
+                    <span>
+                        Ambiente
+                    </span>
+					
+					<strong
+							th:text="${leitor.ambienteNome ?: 'Não definido'}">
+						Não definido
+					</strong>
+				
+				</div>
+			
+			</div>
+			
+			
+			<div class="summary-card">
+				
+				<div class="summary-icon summary-orange">
+					
+					<i class="fa-solid fa-network-wired"></i>
+				
+				</div>
+				
+				
+				<div>
+
+                    <span>
+                        Endereço IP
+                    </span>
+					
+					<strong
+							th:text="${leitor.ip ?: 'Não informado'}">
+						Não informado
+					</strong>
+				
+				</div>
+			
+			</div>
+		
+		</div>
+		
+		
+		<!-- =================================================
+			 DETALHES
+			 ================================================= -->
+		
+		<div class="details-grid">
+			
+			
+			<!-- =============================================
+				 IDENTIFICAÇÃO
+				 ============================================= -->
+			
+			<section class="details-card">
+				
+				<div class="details-card-header">
+					
+					<div>
+						
+						<h2>
+							Identificação
+						</h2>
+						
+						<p>
+							Dados utilizados para identificar
+							o leitor
+						</p>
+					
+					</div>
+					
+					<i class="fa-solid fa-fingerprint"></i>
+				
+				</div>
+				
+				
+				<div class="details-list">
+					
+					
+					<div class="detail-item">
+
+                        <span class="detail-label">
+                            ID
+                        </span>
+						
+						<strong th:text="${leitor.id}">
+							1
+						</strong>
+					
+					</div>
+					
+					
+					<div class="detail-item">
+
+                        <span class="detail-label">
+                            Nome
+                        </span>
+						
+						<strong th:text="${leitor.nome}">
+							Leitor Principal
+						</strong>
+					
+					</div>
+					
+					
+					<div class="detail-item">
+
+                        <span class="detail-label">
+                            Identificador
+                        </span>
+						
+						<span
+								class="identifier-value"
+								th:text="${leitor.identificador}">
+                            READER-001
+                        </span>
+					
+					</div>
+					
+					
+					<div class="detail-item">
+
+                        <span class="detail-label">
+                            Status
+                        </span>
+						
+						
+						<span
+								th:if="${leitor.ativo}"
+								class="status-badge status-active">
+
+                            <span class="status-dot"></span>
+
+                            Ativo
+
+                        </span>
+						
+						
+						<span
+								th:unless="${leitor.ativo}"
+								class="status-badge status-inactive">
+
+                            <span class="status-dot"></span>
+
+                            Inativo
+
+                        </span>
+					
+					</div>
+				
+				</div>
+			
+			</section>
+			
+			
+			<!-- =============================================
+				 CONECTIVIDADE
+				 ============================================= -->
+			
+			<section class="details-card">
+				
+				<div class="details-card-header">
+					
+					<div>
+						
+						<h2>
+							Conectividade
+						</h2>
+						
+						<p>
+							Informações de rede e comunicação
+						</p>
+					
+					</div>
+					
+					<i class="fa-solid fa-network-wired"></i>
+				
+				</div>
+				
+				
+				<div class="details-list">
+					
+					
+					<div class="detail-item">
+
+                        <span class="detail-label">
+                            Endereço IP
+                        </span>
+						
+						<strong
+								th:text="${leitor.ip ?: 'Não informado'}">
+							192.168.0.100
+						</strong>
+					
+					</div>
+					
+					
+					<div class="detail-item">
+
+                        <span class="detail-label">
+                            Identificador
+                        </span>
+						
+						<span
+								class="identifier-value"
+								th:text="${leitor.identificador}">
+                            READER-001
+                        </span>
+					
+					</div>
+					
+					
+					<div class="connection-status">
+						
+						<div class="connection-icon">
+							
+							<i class="fa-solid fa-wifi"></i>
+						
+						</div>
+						
+						
+						<div>
+							
+							<strong>
+								Comunicação RFID
+							</strong>
+							
+							<span th:if="${leitor.ativo}">
+
+                                Leitor habilitado para operação
+
+                            </span>
+							
+							
+							<span th:unless="${leitor.ativo}">
+
+                                Leitor desabilitado
+
+                            </span>
+						
+						</div>
+					
+					</div>
+				
+				</div>
+			
+			</section>
+			
+			
+			<!-- =============================================
+				 EQUIPAMENTO
+				 ============================================= -->
+			
+			<section class="details-card">
+				
+				<div class="details-card-header">
+					
+					<div>
+						
+						<h2>
+							Equipamento
+						</h2>
+						
+						<p>
+							Informações do hardware RFID
+						</p>
+					
+					</div>
+					
+					<i class="fa-solid fa-server"></i>
+				
+				</div>
+				
+				
+				<div class="details-list">
+					
+					
+					<div class="detail-item">
+
+                        <span class="detail-label">
+                            Fabricante
+                        </span>
+						
+						<strong
+								th:text="${leitor.fabricante ?: 'Não informado'}">
+							Fabricante
+						</strong>
+					
+					</div>
+					
+					
+					<div class="detail-item">
+
+                        <span class="detail-label">
+                            Modelo
+                        </span>
+						
+						<strong
+								th:text="${leitor.modelo ?: 'Não informado'}">
+							Modelo
+						</strong>
+					
+					</div>
+				
+				</div>
+			
+			</section>
+			
+			
+			<!-- =============================================
+				 LOCALIZAÇÃO
+				 ============================================= -->
+			
+			<section class="details-card">
+				
+				<div class="details-card-header">
+					
+					<div>
+						
+						<h2>
+							Localização
+						</h2>
+						
+						<p>
+							Ambiente associado ao leitor
+						</p>
+					
+					</div>
+					
+					<i class="fa-solid fa-location-dot"></i>
+				
+				</div>
+				
+				
+				<div class="details-list">
+					
+					
+					<div class="detail-item">
+
+                        <span class="detail-label">
+                            Ambiente
+                        </span>
+						
+						<strong
+								th:text="${leitor.ambienteNome ?: 'Não definido'}">
+							Almoxarifado
+						</strong>
+					
+					</div>
+					
+					
+					<div class="detail-item">
+
+                        <span class="detail-label">
+                            Ambiente ID
+                        </span>
+						
+						<span
+								th:text="${leitor.ambienteId ?: 'Não definido'}">
+                            1
+                        </span>
+					
+					</div>
+					
+					
+					<div
+							class="location-box"
+							th:if="${leitor.ambienteNome != null}">
+						
+						<i class="fa-solid fa-location-crosshairs"></i>
+						
+						<span th:text="${leitor.ambienteNome}">
+                            Almoxarifado
+                        </span>
+					
+					</div>
+					
+					
+					<div
+							class="location-box location-empty"
+							th:unless="${leitor.ambienteNome != null}">
+						
+						<i class="fa-solid fa-location-dot"></i>
+						
+						<span>
+                            Nenhum ambiente associado
+                        </span>
+					
+					</div>
+				
+				</div>
+			
+			</section>
+		
+		</div>
+		
+		
+		<!-- =================================================
+			 MOVIMENTAÇÕES
+			 ================================================= -->
+		
+		<section class="details-card movements-card">
+			
+			<div class="details-card-header">
+				
+				<div>
+					
+					<h2>
+						Movimentações
+					</h2>
+					
+					<p>
+						Histórico de movimentações
+						registradas por este leitor
+					</p>
+				
+				</div>
+				
+				
+				<div class="movement-counter">
+					
+					<i class="fa-solid fa-right-left"></i>
+					
+					<strong
+							th:text="${leitor.quantidadeMovimentacoes ?: 0}">
+						0
+					</strong>
+				
+				</div>
+			
+			</div>
+			
+			
+			<div class="movement-info">
+				
+				<div class="movement-info-icon">
+					
+					<i class="fa-solid fa-circle-info"></i>
+				
+				</div>
+				
+				
+				<div>
+					
+					<strong>
+						Histórico de movimentações
+					</strong>
+					
+					
+					<p
+							th:if="${leitor.quantidadeMovimentacoes != null
+                            and leitor.quantidadeMovimentacoes > 0}">
+						
+						Este leitor já registrou
+						
+						<strong
+								th:text="${leitor.quantidadeMovimentacoes}">
+							0
+						</strong>
+						
+						movimentações no sistema.
+					
+					</p>
+					
+					
+					<p
+							th:unless="${leitor.quantidadeMovimentacoes != null
+                            and leitor.quantidadeMovimentacoes > 0}">
+						
+						Nenhuma movimentação foi registrada
+						por este leitor.
+					
+					</p>
+				
+				</div>
+			
+			</div>
+		
+		</section>
+		
+		
+		<!-- =================================================
+			 FOOTER
+			 ================================================= -->
+		
+		<div class="details-footer">
+			
+			
+			<a
+					th:href="@{/leitores}"
+					class="btn btn-secondary">
+				
+				<i class="fa-solid fa-arrow-left"></i>
+				
+				Voltar para leitores
+			
+			</a>
+			
+			
+			<a
+					th:href="@{/leitores/{id}/editar(id=${leitor.id})}"
+					class="btn btn-primary">
+				
+				<i class="fa-solid fa-pen"></i>
+				
+				Editar leitor
+			
+			</a>
+		
+		</div>
+	
+	
+	</div>
+
+</main>
+
+
+<!-- =========================================================
+     JAVASCRIPT DA SIDEBAR
+     ========================================================= -->
+
+<script th:src="@{/js/sidebar.js}"></script>
+
+</body>
+
+</html>

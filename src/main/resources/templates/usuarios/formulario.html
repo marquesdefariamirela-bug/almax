@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title
+            th:text="${usuarioId != null}
+            ? 'Editar Usuário | ALMAX'
+            : 'Novo Usuário | ALMAX'">
+        Novo Usuário | ALMAX
+    </title>
+
+
+    <!-- FONT AWESOME -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <!-- CSS GLOBAL -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/base.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/layout.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/sidebar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/navbar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/footer.css}">
+
+
+    <!-- CSS DA TELA -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/usuario-formulario.css}">
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+
+    <!-- =====================================================
+         CONTEÚDO
+         ===================================================== -->
+
+    <main class="app-main">
+
+
+        <!-- =================================================
+             HEADER
+             ================================================= -->
+
+        <header class="app-header">
+
+            <div class="header-left">
+
+                <button type="button"
+                        class="mobile-menu-button"
+                        aria-label="Abrir menu">
+
+                    <i class="fa-solid fa-bars"></i>
+
+                </button>
+
+
+                <div>
+
+                    <span class="page-section">
+                        Administração
+                    </span>
+
+                    <h1
+                            th:text="${usuarioId != null}
+                            ? 'Editar Usuário'
+                            : 'Novo Usuário'">
+
+                        Novo Usuário
+
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <span class="header-system">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    Sistema Patrimonial
+
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             PÁGINA
+             ================================================= -->
+
+        <section class="usuario-form-container">
+
+
+            <!-- =================================================
+                 BREADCRUMB
+                 ================================================= -->
+
+            <nav class="breadcrumb">
+
+                <a th:href="@{/}">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    Início
+
+                </a>
+
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+
+                <a th:href="@{/usuarios}">
+
+                    <i class="fa-solid fa-users"></i>
+
+                    Usuários
+
+                </a>
+
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+
+                <strong
+                        th:text="${usuarioId != null}
+                        ? 'Editar'
+                        : 'Novo usuário'">
+
+                    Novo usuário
+
+                </strong>
+
+            </nav>
+
+
+            <!-- =================================================
+                 CABEÇALHO
+                 ================================================= -->
+
+            <div class="page-heading">
+
+                <div class="page-heading-main">
+
+                    <div class="page-title-icon">
+
+                        <i class="fa-solid fa-user-plus"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h2
+                                th:text="${usuarioId != null}
+                                ? 'Editar usuário'
+                                : 'Cadastrar novo usuário'">
+
+                            Cadastrar novo usuário
+
+                        </h2>
+
+
+                        <p
+                                th:text="${usuarioId != null}
+                                ? 'Atualize as informações do usuário cadastrado.'
+                                : 'Cadastre um usuário para permitir o acesso ao sistema.'">
+
+                            Cadastre um usuário para permitir o acesso
+                            ao sistema.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FORMULÁRIO
+                 ================================================= -->
+
+            <form class="usuario-form"
+                  th:object="${usuarioRequest}"
+                  th:action="${usuarioId != null}
+                      ? '/usuarios/' + ${usuarioId}
+                      : '/usuarios'"
+                  method="post">
+
+
+                <!-- =================================================
+                     CARD — DADOS DO USUÁRIO
+                     ================================================= -->
+
+                <div class="form-card">
+
+                    <div class="form-card-header">
+
+                        <div class="form-card-icon">
+
+                            <i class="fa-solid fa-user"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                Dados do usuário
+                            </h3>
+
+                            <p>
+                                Informe os dados básicos para identificação.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+
+                        <!-- NOME -->
+
+                        <div class="form-group form-group-full">
+
+                            <label for="nome">
+
+                                Nome completo
+
+                                <span class="required">*</span>
+
+                            </label>
+
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-user"></i>
+
+                                <input
+                                        id="nome"
+                                        type="text"
+                                        th:field="*{nome}"
+                                        placeholder="Ex.: João da Silva"
+                                        autocomplete="name"
+                                        maxlength="100"
+                                        autofocus>
+
+                            </div>
+
+
+                            <small class="field-help">
+
+                                Informe o nome que será utilizado
+                                para identificar o usuário.
+
+                            </small>
+
+
+                            <div class="field-error"
+                                 th:if="${#fields.hasErrors('nome')}"
+                                 th:errors="*{nome}">
+
+                                Informe o nome do usuário.
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- E-MAIL -->
+
+                        <div class="form-group">
+
+                            <label for="email">
+
+                                E-mail
+
+                                <span class="required">*</span>
+
+                            </label>
+
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-envelope"></i>
+
+                                <input
+                                        id="email"
+                                        type="email"
+                                        th:field="*{email}"
+                                        placeholder="usuario@empresa.com"
+                                        autocomplete="email"
+                                        maxlength="150">
+
+                            </div>
+
+
+                            <small class="field-help">
+
+                                O e-mail será utilizado para identificação
+                                e acesso ao sistema.
+
+                            </small>
+
+
+                            <div class="field-error"
+                                 th:if="${#fields.hasErrors('email')}"
+                                 th:errors="*{email}">
+
+                                Informe um e-mail válido.
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PERFIL -->
+
+                        <div class="form-group">
+
+                            <label for="perfil">
+
+                                Perfil
+
+                                <span class="required">*</span>
+
+                            </label>
+
+
+                            <div class="input-wrapper select-wrapper">
+
+                                <i class="fa-solid fa-user-shield"></i>
+
+                                <select
+                                        id="perfil"
+                                        th:field="*{perfil}">
+
+                                    <option value="">
+                                        Selecione um perfil
+                                    </option>
+
+                                    <option value="ADMIN">
+                                        Administrador
+                                    </option>
+
+                                    <option value="USUARIO">
+                                        Usuário
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <small class="field-help">
+
+                                O perfil determina as permissões
+                                disponíveis para o usuário.
+
+                            </small>
+
+
+                            <div class="field-error"
+                                 th:if="${#fields.hasErrors('perfil')}"
+                                 th:errors="*{perfil}">
+
+                                Selecione um perfil.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     CARD — ACESSO
+                     ================================================= -->
+
+                <div class="form-card">
+
+                    <div class="form-card-header">
+
+                        <div class="form-card-icon">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                Dados de acesso
+                            </h3>
+
+                            <p>
+                                Defina a senha utilizada para acessar o sistema.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+
+                        <!-- SENHA -->
+
+                        <div class="form-group">
+
+                            <label for="senha">
+
+                                Senha
+
+                                <span class="required">*</span>
+
+                            </label>
+
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-key"></i>
+
+                                <input
+                                        id="senha"
+                                        type="password"
+                                        th:field="*{senha}"
+                                        placeholder="Digite a senha"
+                                        autocomplete="new-password"
+                                        maxlength="100">
+
+                            </div>
+
+
+                            <small class="field-help">
+
+                                Utilize uma senha segura para proteger
+                                o acesso ao sistema.
+
+                            </small>
+
+
+                            <div class="field-error"
+                                 th:if="${#fields.hasErrors('senha')}"
+                                 th:errors="*{senha}">
+
+                                Informe uma senha válida.
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- STATUS -->
+
+                        <div class="form-group status-group">
+
+                            <label>
+                                Status
+                            </label>
+
+
+                            <label class="status-switch">
+
+                                <input
+                                        id="ativo"
+                                        type="checkbox"
+                                        th:field="*{ativo}">
+
+                                <span class="switch-slider"></span>
+
+
+                                <span class="switch-label">
+
+                                    Usuário ativo
+
+                                </span>
+
+                            </label>
+
+
+                            <small class="field-help">
+
+                                Usuários inativos não devem acessar
+                                o sistema.
+
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     INFORMAÇÃO
+                     ================================================= -->
+
+                <div class="form-info">
+
+                    <div class="form-info-icon">
+
+                        <i class="fa-solid fa-circle-info"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Sobre os usuários
+                        </strong>
+
+
+                        <p>
+
+                            O usuário poderá acessar o sistema de acordo
+                            com o perfil definido. Mantenha os dados
+                            atualizados e desative usuários que não
+                            devem mais possuir acesso.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     AÇÕES
+                     ================================================= -->
+
+                <div class="form-actions">
+
+                    <a
+                            th:href="@{/usuarios}"
+                            class="btn btn-secondary">
+
+                        <i class="fa-solid fa-arrow-left"></i>
+
+                        Cancelar
+
+                    </a>
+
+
+                    <button
+                            type="submit"
+                            class="btn btn-primary">
+
+                        <i class="fa-solid fa-floppy-disk"></i>
+
+
+                        <span
+                                th:text="${usuarioId != null}
+                                ? 'Salvar alterações'
+                                : 'Cadastrar usuário'">
+
+                            Cadastrar usuário
+
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </section>
+
+
+        <!-- =================================================
+             FOOTER
+             ================================================= -->
+
+        <footer class="app-footer">
+
+            <span>
+                © ALMAX — Controle Patrimonial
+            </span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+
+</html>

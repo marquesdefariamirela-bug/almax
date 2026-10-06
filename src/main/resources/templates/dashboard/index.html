@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+            name="description"
+            content="ALMAX — Dashboard de Gestão Patrimonial"
+    >
+
+    <title>Dashboard | ALMAX</title>
+
+    <!-- CSS GLOBAL -->
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/layout.css}">
+
+    <!-- CSS DOS FRAGMENTS -->
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/alerts.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+
+    <!-- CSS DA PÁGINA -->
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <!-- =====================================================
+         ÁREA PRINCIPAL
+         ===================================================== -->
+    <div class="app-main">
+
+        <!-- NAVBAR -->
+        <header class="app-header">
+            <div th:replace="~{fragments/navbar :: navbar}"></div>
+        </header>
+
+
+        <!-- CONTEÚDO -->
+        <main class="dashboard-container">
+
+            <!-- =================================================
+                 CABEÇALHO
+                 ================================================= -->
+            <section class="dashboard-header">
+
+                <div class="dashboard-title">
+
+                    <div class="dashboard-title-icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                    d="M3 13h8V3H3v10Zm0 8h8v-6H3v6Zm10 0h8V11h-8v10Zm0-18v6h8V3h-8Z">
+                            </path>
+                        </svg>
+                    </div>
+
+                    <div>
+                        <h1>Dashboard</h1>
+                        <p>Visão geral do patrimônio da instituição</p>
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-date">
+
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                                d="M19 4h-1V2h-2v2H8V2H6v2H5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm1 15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7h16v7Zm0-9H4V7a1 1 0 0 1 1-1h1v2h2V6h8v2h2V6h1a1 1 0 0 1 1 1v3Z">
+                        </path>
+                    </svg>
+
+                    <span id="currentDate">--</span>
+
+                </div>
+
+            </section>
+
+
+            <!-- ALERTAS -->
+            <div th:replace="~{fragments/alerts :: alerts}"></div>
+
+
+            <!-- =================================================
+                 CARDS
+                 ================================================= -->
+            <section class="dashboard-cards">
+
+                <!-- Patrimônios -->
+                <article class="dashboard-card">
+
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                    d="M21 8.5 12 3 3 8.5v7L12 21l9-5.5v-7ZM12 5.3l6.4 3.9L12 13.1 5.6 9.2 12 5.3ZM5 10.9l6 3.7v3.7l-6-3.7v-3.7Zm8 7.4v-3.7l6-3.7v3.7l-6 3.7Z">
+                            </path>
+                        </svg>
+                    </div>
+
+                    <div class="card-content">
+
+                        <span class="card-label">
+                            Patrimônios
+                        </span>
+
+                        <strong
+                                class="card-value"
+                                th:text="${dashboard.totalProdutos}">
+                            0
+                        </strong>
+
+                        <span class="card-description">
+                            Produtos cadastrados
+                        </span>
+
+                    </div>
+
+                    <a
+                            th:href="@{/produtos}"
+                            class="card-link"
+                            aria-label="Visualizar patrimônios">
+
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                    d="m12 4-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8Z">
+                            </path>
+                        </svg>
+
+                    </a>
+
+                </article>
+
+
+                <!-- Ambientes -->
+                <article class="dashboard-card">
+
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                    d="M4 4h16v16H4V4Zm2 2v12h12V6H6Zm2 2h8v2H8V8Zm0 4h8v2H8v-2Zm0 4h5v2H8v-2Z">
+                            </path>
+                        </svg>
+                    </div>
+
+                    <div class="card-content">
+
+                        <span class="card-label">
+                            Ambientes
+                        </span>
+
+                        <strong
+                                class="card-value"
+                                th:text="${dashboard.totalAmbientes}">
+                            0
+                        </strong>
+
+                        <span class="card-description">
+                            Ambientes cadastrados
+                        </span>
+
+                    </div>
+
+                    <a
+                            th:href="@{/ambientes}"
+                            class="card-link"
+                            aria-label="Visualizar ambientes">
+
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                    d="m12 4-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8Z">
+                            </path>
+                        </svg>
+
+                    </a>
+
+                </article>
+
+
+                <!-- Tags RFID -->
+                <article class="dashboard-card">
+
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                    d="M20.59 13.41 11 3.83V3H4v7h.83l9.58 9.59a2 2 0 0 0 2.83 0l3.35-3.35a2 2 0 0 0 0-2.83ZM6 8V5h3l3 3-3 3-3-3Zm10.83 10.17L9.41 10.76l1.41-1.41 7.42 7.41-1.41 1.41Z">
+                            </path>
+                        </svg>
+                    </div>
+
+                    <div class="card-content">
+
+                        <span class="card-label">
+                            Tags RFID
+                        </span>
+
+                        <strong
+                                class="card-value"
+                                th:text="${dashboard.totalTags}">
+                            0
+                        </strong>
+
+                        <span class="card-description">
+                            Tags cadastradas
+                        </span>
+
+                    </div>
+
+                    <a
+                            th:href="@{/tags}"
+                            class="card-link"
+                            aria-label="Visualizar tags">
+
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                    d="m12 4-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8Z">
+                            </path>
+                        </svg>
+
+                    </a>
+
+                </article>
+
+
+                <!-- Leitores -->
+                <article class="dashboard-card">
+
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                    d="M12 3a9 9 0 0 1 9 9h-2a7 7 0 0 0-7-7V3Zm0 4a5 5 0 0 1 5 5h-2a3 3 0 0 0-3-3V7Zm0 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm0 10a9 9 0 0 1-9-9h2a7 7 0 0 0 7 7v2Z">
+                            </path>
+                        </svg>
+                    </div>
+
+                    <div class="card-content">
+
+                        <span class="card-label">
+                            Leitores
+                        </span>
+
+                        <strong
+                                class="card-value"
+                                th:text="${dashboard.totalLeitores}">
+                            0
+                        </strong>
+
+                        <span class="card-description">
+                            Leitores RFID
+                        </span>
+
+                    </div>
+
+                    <a
+                            th:href="@{/leitores}"
+                            class="card-link"
+                            aria-label="Visualizar leitores">
+
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                    d="m12 4-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8Z">
+                            </path>
+                        </svg>
+
+                    </a>
+
+                </article>
+
+            </section>
+
+
+            <!-- =================================================
+                 ÁREA INFERIOR
+                 ================================================= -->
+            <section class="dashboard-grid">
+
+                <!-- MOVIMENTAÇÕES -->
+                <article class="dashboard-panel">
+
+                    <div class="panel-header">
+
+                        <div class="panel-title">
+
+                            <div class="panel-icon">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path
+                                            d="M13 3h-2v10l8 5 1-1.73-7-4.27V3ZM12 21a9 9 0 1 1 9-9h-2a7 7 0 1 0-7 7v2Zm0-4v-2h5v2h-5Z">
+                                    </path>
+                                </svg>
+                            </div>
+
+                            <div>
+                                <h2>Movimentações recentes</h2>
+                                <span>Últimas movimentações registradas</span>
+                            </div>
+
+                        </div>
+
+                        <a
+                                th:href="@{/movimentacoes}"
+                                class="panel-link">
+
+                            Ver todas
+
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                        d="m12 4-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8Z">
+                                </path>
+                            </svg>
+
+                        </a>
+
+                    </div>
+
+
+                    <div class="movements-list">
+
+                        <div
+                                class="movement-empty"
+                                th:if="${#lists.isEmpty(dashboard.movimentacoesRecentes)}">
+
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                        d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm1 15h-2v-2h2Zm0-4h-2V7h2Z">
+                                </path>
+                            </svg>
+
+                            <strong>
+                                Nenhuma movimentação recente
+                            </strong>
+
+                            <span>
+                                As movimentações aparecerão aqui.
+                            </span>
+
+                        </div>
+
+
+                        <div
+                                class="movement-item"
+                                th:each="movimentacao : ${dashboard.movimentacoesRecentes}">
+
+                            <div class="movement-icon">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path
+                                            d="m12 4-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8Z">
+                                    </path>
+                                </svg>
+                            </div>
+
+                            <div class="movement-info">
+
+                                <strong th:text="${movimentacao.produto}">
+                                    Produto
+                                </strong>
+
+                                <span
+                                        th:text="${movimentacao.ambienteOrigem + ' → ' + movimentacao.ambienteDestino}">
+                                    Origem → Destino
+                                </span>
+
+                            </div>
+
+                            <time
+                                    th:text="${#temporals.format(
+                                    movimentacao.dataMovimentacao,
+                                    'dd/MM/yyyy HH:mm'
+                                )}">
+                                00/00/0000 00:00
+                            </time>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- STATUS -->
+                <article class="dashboard-panel status-panel">
+
+                    <div class="panel-header">
+
+                        <div class="panel-title">
+
+                            <div class="panel-icon">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path
+                                            d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm-1 15-5-5 1.41-1.41L11 14.17l6.59-6.58L19 9l-8 8Z">
+                                    </path>
+                                </svg>
+                            </div>
+
+                            <div>
+                                <h2>Status do patrimônio</h2>
+                                <span>Situação dos ativos cadastrados</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="status-list">
+
+                        <div class="status-row">
+                            <div>
+                                <span class="status-dot status-active"></span>
+                                <span>Ativos</span>
+                            </div>
+
+                            <strong th:text="${dashboard.produtosAtivos}">
+                                0
+                            </strong>
+                        </div>
+
+
+                        <div class="status-row">
+                            <div>
+                                <span class="status-dot status-inactive"></span>
+                                <span>Inativos</span>
+                            </div>
+
+                            <strong th:text="${dashboard.produtosInativos}">
+                                0
+                            </strong>
+                        </div>
+
+
+                        <div class="status-row">
+                            <div>
+                                <span class="status-dot status-rfid"></span>
+                                <span>Com RFID</span>
+                            </div>
+
+                            <strong th:text="${dashboard.produtosComTag}">
+                                0
+                            </strong>
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+        </main>
+
+
+        <!-- FOOTER -->
+        <footer class="app-footer">
+            <div th:replace="~{fragments/footer :: footer}"></div>
+        </footer>
+
+    </div>
+
+</div>
+
+
+<!-- SCRIPTS -->
+<script th:src="@{/js/app.js}"></script>
+<script th:src="@{/js/dashboard.js}"></script>
+
+</body>
+</html>

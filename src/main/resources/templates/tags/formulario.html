@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title th:text="${modoEdicao} ? 'Editar Tag | ALMAX' : 'Nova Tag | ALMAX'">
+        Nova Tag | ALMAX
+    </title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- CSS global -->
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/layout.css}">
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+
+    <!-- CSS da tela -->
+    <link rel="stylesheet" th:href="@{/css/tag-cadastro.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- =========================================================
+         SIDEBAR
+         ========================================================= -->
+    <aside th:replace="fragments/sidebar :: sidebar"></aside>
+
+
+    <!-- =========================================================
+         CONTEÚDO
+         ========================================================= -->
+    <main class="app-main">
+
+        <!-- HEADER -->
+        <header class="app-header">
+
+            <div class="header-left">
+
+                <button type="button"
+                        class="mobile-menu-button"
+                        aria-label="Abrir menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <div>
+                    <span class="page-section">
+                        Tags
+                    </span>
+
+                    <h1 th:text="${modoEdicao} ? 'Editar Tag' : 'Nova Tag'">
+                        Nova Tag
+                    </h1>
+                </div>
+
+            </div>
+
+            <div class="header-right">
+                <span class="header-system">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    Sistema Patrimonial
+                </span>
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             PÁGINA
+             ===================================================== -->
+        <section class="tag-form-page">
+
+            <!-- Breadcrumb -->
+            <div class="tag-breadcrumb">
+
+                <a th:href="@{/tags}">
+                    <i class="fa-solid fa-tags"></i>
+                    Tags
+                </a>
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+                <span th:text="${modoEdicao} ? 'Editar' : 'Nova Tag'">
+                    Nova Tag
+                </span>
+
+            </div>
+
+
+            <!-- Cabeçalho -->
+            <div class="tag-page-heading">
+
+                <div class="heading-icon">
+                    <i class="fa-solid fa-tag"></i>
+                </div>
+
+                <div>
+                    <h2 th:text="${modoEdicao} ? 'Editar Tag' : 'Cadastrar nova Tag'">
+                        Cadastrar nova Tag
+                    </h2>
+
+                    <p th:text="${modoEdicao}
+                        ? 'Atualize as informações da tag patrimonial.'
+                        : 'Cadastre uma nova tag para utilização no controle patrimonial.'">
+                        Cadastre uma nova tag para utilização no controle patrimonial.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FORMULÁRIO
+                 ================================================= -->
+            <form class="tag-form"
+                  th:object="${tagRequest}"
+                  th:action="${formAction}"
+                  method="post">
+
+                <!-- CARD: IDENTIFICAÇÃO -->
+                <div class="form-card">
+
+                    <div class="form-card-header">
+
+                        <div class="form-card-icon">
+                            <i class="fa-solid fa-fingerprint"></i>
+                        </div>
+
+                        <div>
+                            <h3>Identificação da Tag</h3>
+                            <p>Informe os dados de identificação da etiqueta.</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+                        <!-- EPC -->
+                        <div class="form-group form-group-full">
+
+                            <label for="epc">
+                                EPC
+                                <span class="required">*</span>
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-barcode"></i>
+
+                                <input
+                                        id="epc"
+                                        type="text"
+                                        th:field="*{epc}"
+                                        placeholder="Digite o código EPC"
+                                        autocomplete="off"
+                                        maxlength="100"
+                                        autofocus>
+
+                            </div>
+
+                            <small class="field-help">
+                                Código eletrônico único da tag.
+                            </small>
+
+                            <div class="field-error"
+                                 th:if="${#fields.hasErrors('epc')}"
+                                 th:errors="*{epc}">
+                                Informe o EPC.
+                            </div>
+
+                        </div>
+
+
+                        <!-- CÓDIGO -->
+                        <div class="form-group">
+
+                            <label for="codigo">
+                                Código da Tag
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-hashtag"></i>
+
+                                <input
+                                        id="codigo"
+                                        type="text"
+                                        th:field="*{codigo}"
+                                        placeholder="Ex.: TAG-0001"
+                                        autocomplete="off"
+                                        maxlength="100">
+
+                            </div>
+
+                            <small class="field-help">
+                                Código interno opcional.
+                            </small>
+
+                            <div class="field-error"
+                                 th:if="${#fields.hasErrors('codigo')}"
+                                 th:errors="*{codigo}">
+                            </div>
+
+                        </div>
+
+
+                        <!-- STATUS -->
+                        <div class="form-group">
+
+                            <label for="ativa">
+                                Status
+                            </label>
+
+                            <label class="status-switch">
+
+                                <input
+                                        id="ativa"
+                                        type="checkbox"
+                                        th:field="*{ativa}">
+
+                                <span class="switch-slider"></span>
+
+                                <span class="switch-label">
+                                    Tag ativa
+                                </span>
+
+                            </label>
+
+                            <small class="field-help">
+                                Tags inativas não ficam disponíveis para uso.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CARD: VINCULAÇÃO -->
+                <div class="form-card">
+
+                    <div class="form-card-header">
+
+                        <div class="form-card-icon">
+                            <i class="fa-solid fa-box"></i>
+                        </div>
+
+                        <div>
+                            <h3>Vinculação patrimonial</h3>
+                            <p>Associe a tag a um produto, se necessário.</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="produtoId">
+                            Produto
+                        </label>
+
+                        <div class="input-wrapper select-wrapper">
+
+                            <i class="fa-solid fa-box-open"></i>
+
+                            <select id="produtoId"
+                                    th:field="*{produtoId}">
+
+                                <option value="">
+                                    Nenhum produto
+                                </option>
+
+                                <option th:each="produto : ${produtos}"
+                                        th:value="${produto.id}"
+                                        th:text="${produto.numeroPatrimonio + ' - ' + produto.nome}">
+                                    000001 - Produto
+                                </option>
+
+                            </select>
+
+                            <i class="fa-solid fa-chevron-down select-arrow"></i>
+
+                        </div>
+
+                        <small class="field-help">
+                            Um produto só pode possuir uma tag vinculada.
+                        </small>
+
+                        <div class="field-error"
+                             th:if="${#fields.hasErrors('produtoId')}"
+                             th:errors="*{produtoId}">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     INFORMAÇÃO
+                     ================================================= -->
+                <div class="form-info">
+
+                    <div class="form-info-icon">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </div>
+
+                    <div>
+                        <strong>Sobre as Tags</strong>
+
+                        <p>
+                            O EPC deve ser único no sistema.
+                            Uma tag pode permanecer sem produto e ser
+                            vinculada posteriormente.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     AÇÕES
+                     ================================================= -->
+                <div class="form-actions">
+
+                    <a th:href="@{/tags}"
+                       class="btn btn-secondary">
+
+                        <i class="fa-solid fa-arrow-left"></i>
+
+                        Cancelar
+
+                    </a>
+
+
+                    <button type="submit"
+                            class="btn btn-primary">
+
+                        <i class="fa-solid fa-floppy-disk"></i>
+
+                        <span th:text="${modoEdicao} ? 'Salvar alterações' : 'Cadastrar Tag'">
+                            Cadastrar Tag
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="app-footer">
+            <span>© ALMAX — Controle Patrimonial</span>
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

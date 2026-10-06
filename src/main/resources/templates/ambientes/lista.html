@@ -1,0 +1,2302 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Ambientes | ALMAX</title>
+
+
+    <!-- =====================================================
+         FONT AWESOME
+         ===================================================== -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <!-- =====================================================
+         CSS GLOBAL
+         ===================================================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/base.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/layout.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/sidebar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/navbar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/footer.css}">
+
+
+    <!-- =====================================================
+         CSS DA TELA
+         ===================================================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/ambientes.css}">
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+
+    <!-- =====================================================
+         CONTEÚDO PRINCIPAL
+         ===================================================== -->
+
+    <main class="app-main">
+
+
+        <!-- =================================================
+             HEADER
+             ================================================= -->
+
+        <header class="app-header">
+
+            <div class="header-left">
+
+                <button type="button"
+                        class="mobile-menu-button"
+                        aria-label="Abrir menu">
+
+                    <i class="fa-solid fa-bars"></i>
+
+                </button>
+
+
+                <div>
+
+                    <span class="page-section">
+                        Patrimônio
+                    </span>
+
+                    <h1>
+                        Ambientes
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <span class="header-system">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    Sistema Patrimonial
+
+                </span>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             PÁGINA
+             ================================================= -->
+
+        <section class="ambientes-container">
+
+
+            <!-- =================================================
+                 BREADCRUMB
+                 ================================================= -->
+
+            <nav class="breadcrumb">
+
+                <a th:href="@{/}">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    Início
+
+                </a>
+
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+
+                <strong>
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    Ambientes
+
+                </strong>
+
+            </nav>
+
+
+
+            <!-- =================================================
+                 CABEÇALHO DA PÁGINA
+                 ================================================= -->
+
+            <div class="page-heading">
+
+
+                <div class="page-heading-main">
+
+                    <div class="page-title-icon">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            Ambientes
+                        </h2>
+
+                        <p>
+                            Gerencie os ambientes utilizados para
+                            organizar produtos e leitores.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="page-heading-actions">
+
+                    <a th:href="@{/ambientes/novo}"
+                       class="btn btn-primary">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Novo ambiente
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 MENSAGEM DE SUCESSO
+                 ================================================= -->
+
+            <div class="alert alert-success"
+                 th:if="${sucesso}">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <span th:text="${sucesso}">
+                    Operação realizada com sucesso.
+                </span>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RESUMO
+                 ================================================= -->
+
+            <div class="summary-grid">
+
+
+                <!-- TOTAL -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span class="summary-label">
+                            Total de ambientes
+                        </span>
+
+                        <strong
+                                th:text="${#lists.size(ambientes)}">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+                <!-- ATIVOS -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+
+                    <div>
+
+                        <span class="summary-label">
+                            Ambientes ativos
+                        </span>
+
+                        <strong th:text="${ambientesAtivos}">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- INATIVOS -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon">
+                        <i class="fa-solid fa-circle-pause"></i>
+                    </div>
+
+                    <div>
+
+                        <strong th:text="${ambientesInativos}">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 LISTAGEM
+                 ================================================= -->
+
+            <div class="content-card">
+
+
+                <!-- =================================================
+                     CABEÇALHO DA LISTAGEM
+                     ================================================= -->
+
+                <div class="content-card-header">
+
+                    <div>
+
+                        <h3>
+                            Ambientes cadastrados
+                        </h3>
+
+                        <p>
+                            Lista de ambientes disponíveis no sistema.
+                        </p>
+
+                    </div>
+
+
+                    <div class="content-card-count">
+
+                        <i class="fa-solid fa-list"></i>
+
+                        <span
+                                th:text="${#lists.size(ambientes)} + ' ambiente(s)'">
+                            0 ambiente(s)
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <!-- =====================================================
+                     FILTROS
+                     ===================================================== -->
+
+                <div class="ambientes-filtros">
+
+                    <div class="filtro-busca">
+
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                        <input
+                                type="text"
+                                id="ambienteSearch"
+                                placeholder="Buscar ambiente ou descrição..."
+                                autocomplete="off">
+
+                    </div>
+
+
+                    <div class="filtro-status">
+
+                        <select id="ambienteStatusFilter">
+
+                            <option value="">
+                                Todos os status
+                            </option>
+
+                            <option value="ATIVO">
+                                Ativos
+                            </option>
+
+                            <option value="INATIVO">
+                                Inativos
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <button
+                            type="button"
+                            id="limparFiltrosAmbientes"
+                            class="btn btn-secondary">
+
+                        <i class="fa-solid fa-filter-circle-xmark"></i>
+
+                        Limpar
+
+                    </button>
+
+                </div>
+
+
+                <!-- CONTAGEM DOS RESULTADOS -->
+
+                <div class="ambientes-resultado">
+
+                    <span id="ambientesResultCount">
+                        Mostrando ambientes
+                    </span>
+
+                </div>
+
+
+                <!-- =================================================
+                     TABELA
+                     ================================================= -->
+
+                <div class="table-wrapper"
+                     th:if="${not #lists.isEmpty(ambientes)}">
+
+                    <table class="data-table">
+
+                        <thead>
+
+                        <tr>
+
+                            <th>
+                                Ambiente
+                            </th>
+
+                            <th>
+                                Descrição
+                            </th>
+
+                            <th class="text-center">
+                                Produtos
+                            </th>
+
+                            <th class="text-center">
+                                Leitores
+                            </th>
+
+                            <th class="text-center">
+                                Status
+                            </th>
+
+                            <th class="text-right">
+                                Ações
+                            </th>
+
+                        </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                        <tr th:each="ambiente : ${ambientes}" data-ambiente-row th:attr=" data-nome=${ambiente.nome}, data-descricao=${ambiente.descricao}, data-status=${ambiente.ativo ? 'ATIVO' : 'INATIVO'} ">
+
+
+                            <!-- NOME -->
+
+                            <td>
+
+                                <div class="item-main">
+
+                                    <div class="item-icon">
+
+                                        <i class="fa-solid fa-location-dot"></i>
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <strong
+                                                th:text="${ambiente.nome}">
+                                            Almoxarifado
+                                        </strong>
+
+                                        <small
+                                                th:text="'ID #' + ${ambiente.id}">
+                                            ID #1
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+
+                            <!-- DESCRIÇÃO -->
+
+                            <td>
+
+                                <span
+                                        class="description-text"
+                                        th:if="${ambiente.descricao != null and !#strings.isEmpty(ambiente.descricao)}"
+                                        th:text="${ambiente.descricao}">
+
+                                    Descrição do ambiente.
+
+                                </span>
+
+
+                                <span
+                                        class="description-empty"
+                                        th:if="${ambiente.descricao == null or #strings.isEmpty(ambiente.descricao)}">
+
+                                    Sem descrição
+
+                                </span>
+
+                            </td>
+
+
+
+                            <!-- PRODUTOS -->
+                            <td class="text-center">
+
+                                    <span
+                                            class="quantity-badge"
+                                            role="button"
+                                            tabindex="0"
+                                            th:attr="
+                                                data-ambiente-id=${ambiente.id},
+                                                data-ambiente-nome=${ambiente.nome}
+                                            "
+                                            title="Ver produtos deste ambiente">
+
+                                        <i class="fa-solid fa-box"></i>
+
+                                        <span class="quantidade-produtos">
+                                            0
+                                        </span>
+
+                                    </span>
+
+                            </td>
+
+
+                            <!-- LEITORES -->
+                            <td class="text-center">
+
+                                <span class="quantity-badge">
+
+                                    <i class="fa-solid fa-tower-broadcast"></i>
+
+                                    <span class="quantidade-leitores">
+                                        0
+                                    </span>
+
+                                </span>
+
+                            </td>
+
+
+
+
+                            <!-- STATUS -->
+
+                            <td class="text-center">
+
+                                <span
+                                        class="status-badge status-active"
+                                        th:if="${ambiente.ativo}">
+
+                                    <i class="fa-solid fa-circle-check"></i>
+
+                                    Ativo
+
+                                </span>
+
+
+                                <span
+                                        class="status-badge status-inactive"
+                                        th:unless="${ambiente.ativo}">
+
+                                    <i class="fa-solid fa-circle-pause"></i>
+
+                                    Inativo
+
+                                </span>
+
+                            </td>
+
+
+
+                            <!-- AÇÕES -->
+
+                            <td>
+
+                                <div class="table-actions">
+
+
+                                    <!-- EDITAR -->
+
+                                    <a
+                                            th:href="@{/ambientes/{id}/editar(id=${ambiente.id})}"
+                                            class="action-button action-edit"
+                                            title="Editar ambiente"
+                                            aria-label="Editar ambiente">
+
+                                        <i class="fa-solid fa-pen"></i>
+
+                                    </a>
+
+
+
+                                    <!-- EXCLUIR -->
+
+                                    <form
+                                            th:action="@{/ambientes/{id}/excluir(id=${ambiente.id})}"
+                                            method="post"
+                                            onsubmit="return confirm('Deseja realmente excluir este ambiente?');">
+
+                                        <button
+                                                type="submit"
+                                                class="action-button action-delete"
+                                                title="Excluir ambiente"
+                                                aria-label="Excluir ambiente">
+
+                                            <i class="fa-solid fa-trash"></i>
+
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     ESTADO VAZIO
+                     ================================================= -->
+
+                <div
+                        class="empty-state"
+                        th:if="${#lists.isEmpty(ambientes)}">
+
+                    <div class="empty-state-icon">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                    </div>
+
+
+                    <h3>
+                        Nenhum ambiente cadastrado
+                    </h3>
+
+
+                    <p>
+                        Cadastre o primeiro ambiente para começar
+                        a organizar os produtos e leitores.
+                    </p>
+
+
+                    <a
+                            th:href="@{/ambientes/novo}"
+                            class="btn btn-primary">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Cadastrar ambiente
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 INFORMAÇÃO
+                 ================================================= -->
+
+            <div class="form-info">
+
+                <div class="form-info-icon">
+
+                    <i class="fa-solid fa-circle-info"></i>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Sobre os ambientes
+                    </strong>
+
+
+                    <p>
+                        Os ambientes representam os locais físicos
+                        utilizados na organização patrimonial.
+                        Produtos e leitores podem ser vinculados
+                        a um ambiente.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FOOTER
+             ================================================= -->
+
+        <footer class="app-footer">
+
+            <span>
+                © ALMAX — Controle Patrimonial
+            </span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        /* =========================================================
+           CONFIGURAÇÃO
+           ========================================================= */
+
+        const PRODUTOS_API = "/api/produtos";
+
+
+        async function carregarProdutosPorAmbiente() {
+
+            try {
+
+                const response = await fetch(
+                    PRODUTOS_API,
+                    {
+                        method: "GET",
+                        headers: {
+                            "Accept": "application/json"
+                        }
+                    }
+                );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Erro ao buscar produtos: HTTP " +
+                        response.status
+                    );
+
+                }
+
+
+                const dados = await response.json();
+
+
+                const produtos =
+                    Array.isArray(dados)
+                        ? dados
+                        : Array.isArray(dados.content)
+                            ? dados.content
+                            : [];
+
+
+                /*
+                 * Agrupa a quantidade de produtos
+                 * por ambiente.
+                 */
+                const quantidadePorAmbiente = {};
+
+
+                produtos.forEach(function (produto) {
+
+                    if (produto.ambienteId == null) {
+                        return;
+                    }
+
+
+                    const ambienteId =
+                        String(produto.ambienteId);
+
+
+                    if (
+                        !quantidadePorAmbiente[ambienteId]
+                    ) {
+
+                        quantidadePorAmbiente[ambienteId] = 0;
+
+                    }
+
+
+                    quantidadePorAmbiente[ambienteId]++;
+
+                });
+
+
+                /*
+                 * Atualiza a quantidade exibida
+                 * na tabela de ambientes.
+                 */
+                document
+                    .querySelectorAll(
+                        "[data-ambiente-id]"
+                    )
+                    .forEach(function (elemento) {
+
+                        const ambienteId =
+                            elemento.dataset.ambienteId;
+
+
+                        const quantidade =
+                            quantidadePorAmbiente[ambienteId] || 0;
+
+
+                        const contador =
+                            elemento.querySelector(
+                                ".quantidade-produtos"
+                            );
+
+
+                        if (contador) {
+
+                            contador.textContent =
+                                quantidade;
+
+                        }
+
+                    });
+
+
+            } catch (error) {
+
+                console.error(
+                    "Erro ao carregar produtos por ambiente:",
+                    error
+                );
+
+            }
+
+            await carregarProdutosPorAmbiente();
+
+        }
+
+        /* =========================================================
+           ELEMENTOS
+           ========================================================= */
+
+        const searchInput =
+            document.getElementById(
+                "ambienteSearch"
+            );
+
+        const statusFilter =
+            document.getElementById(
+                "ambienteStatusFilter"
+            );
+
+        const limparButton =
+            document.getElementById(
+                "limparFiltrosAmbientes"
+            );
+
+        const resultCount =
+            document.getElementById(
+                "ambientesResultCount"
+            );
+
+
+        /* =========================================================
+           LINHAS DOS AMBIENTES
+           ========================================================= */
+
+        function obterLinhasAmbientes() {
+
+            return Array.from(
+                document.querySelectorAll(
+                    "tr[data-ambiente-row]"
+                )
+            );
+
+        }
+
+
+        /* =========================================================
+           NORMALIZAR TEXTO
+           ========================================================= */
+
+        function normalizarTexto(texto) {
+
+            return (
+                texto || ""
+            )
+                .toString()
+                .normalize("NFD")
+                .replace(
+                    /[\u0300-\u036f]/g,
+                    ""
+                )
+                .toLowerCase()
+                .trim();
+
+        }
+
+
+        /* =========================================================
+           APLICAR FILTROS
+           ========================================================= */
+
+        function aplicarFiltrosAmbientes() {
+
+            const busca =
+                normalizarTexto(
+                    searchInput?.value
+                );
+
+            const statusSelecionado =
+                statusFilter?.value || "";
+
+
+            const linhas =
+                obterLinhasAmbientes();
+
+
+            let quantidadeVisivel = 0;
+
+
+            linhas.forEach(
+                function (linha) {
+
+                    const nome =
+                        normalizarTexto(
+                            linha.dataset.nome
+                        );
+
+                    const descricao =
+                        normalizarTexto(
+                            linha.dataset.descricao
+                        );
+
+                    const status =
+                        linha.dataset.status || "";
+
+
+                    /*
+                     * BUSCA
+                     *
+                     * Procura tanto no nome
+                     * quanto na descrição.
+                     */
+                    const correspondeBusca =
+                        !busca ||
+                        nome.includes(busca) ||
+                        descricao.includes(busca);
+
+
+                    /*
+                     * STATUS
+                     */
+                    const correspondeStatus =
+                        !statusSelecionado ||
+                        status === statusSelecionado;
+
+
+                    /*
+                     * RESULTADO FINAL
+                     */
+                    const corresponde =
+                        correspondeBusca &&
+                        correspondeStatus;
+
+
+                    if (corresponde) {
+
+                        linha.style.display = "";
+
+                        quantidadeVisivel++;
+
+                    } else {
+
+                        linha.style.display = "none";
+
+                    }
+
+                }
+            );
+
+
+            atualizarContagem(
+                quantidadeVisivel,
+                linhas.length
+            );
+
+
+            atualizarEstadoVazio(
+                quantidadeVisivel
+            );
+
+        }
+
+
+        /* =========================================================
+           CONTAGEM
+           ========================================================= */
+
+        function atualizarContagem(
+            quantidadeVisivel,
+            quantidadeTotal
+        ) {
+
+            if (!resultCount) {
+                return;
+            }
+
+
+            if (quantidadeTotal === 0) {
+
+                resultCount.textContent =
+                    "Nenhum ambiente cadastrado";
+
+                return;
+            }
+
+
+            if (quantidadeVisivel === 0) {
+
+                resultCount.textContent =
+                    "Nenhum ambiente encontrado";
+
+                return;
+            }
+
+
+            if (
+                quantidadeVisivel ===
+                quantidadeTotal
+            ) {
+
+                resultCount.textContent =
+                    `${quantidadeTotal} ambiente(s) cadastrado(s)`;
+
+                return;
+            }
+
+
+            resultCount.textContent =
+                `${quantidadeVisivel} de ${quantidadeTotal} ambiente(s)`;
+
+        }
+
+
+        /* =========================================================
+           ESTADO VAZIO DOS FILTROS
+           ========================================================= */
+
+        function atualizarEstadoVazio(
+            quantidade
+        ) {
+
+            const tbody =
+                document.querySelector(
+                    ".data-table tbody"
+                );
+
+
+            if (!tbody) {
+                return;
+            }
+
+
+            let linhaSemResultado =
+                document.getElementById(
+                    "linhaSemAmbientesFiltrados"
+                );
+
+
+            if (
+                quantidade === 0
+            ) {
+
+                if (!linhaSemResultado) {
+
+                    linhaSemResultado =
+                        document.createElement(
+                            "tr"
+                        );
+
+                    linhaSemResultado.id =
+                        "linhaSemAmbientesFiltrados";
+
+
+                    linhaSemResultado.innerHTML = `
+
+            <td
+            colspan="6"
+            class="empty-state">
+
+                <div class="empty-state-icon">
+
+                <i class="fa-solid fa-filter-circle-xmark"></i>
+
+        </div>
+
+            <h3>
+                Nenhum ambiente encontrado
+            </h3>
+
+            <p>
+                Tente alterar os filtros
+                para encontrar outro ambiente.
+            </p>
+
+        </td>
+
+            `;
+
+                    tbody.appendChild(
+                        linhaSemResultado
+                    );
+
+                }
+
+
+                linhaSemResultado.style.display =
+                    "";
+
+            } else {
+
+                if (
+                    linhaSemResultado
+                ) {
+
+                    linhaSemResultado.style.display =
+                        "none";
+
+                }
+
+            }
+
+        }
+
+
+        /* =========================================================
+           LIMPAR FILTROS
+           ========================================================= */
+
+        function limparFiltrosAmbientes() {
+
+            if (searchInput) {
+
+                searchInput.value = "";
+
+            }
+
+
+            if (statusFilter) {
+
+                statusFilter.value = "";
+
+            }
+
+
+            aplicarFiltrosAmbientes();
+
+        }
+
+
+        /* =========================================================
+           EVENTO - BUSCA
+           ========================================================= */
+
+        if (searchInput) {
+
+            searchInput.addEventListener(
+                "input",
+                function () {
+
+                    aplicarFiltrosAmbientes();
+
+                }
+            );
+
+        }
+
+
+        /* =========================================================
+           EVENTO - STATUS
+           ========================================================= */
+
+        if (statusFilter) {
+
+            statusFilter.addEventListener(
+                "change",
+                function () {
+
+                    aplicarFiltrosAmbientes();
+
+                }
+            );
+
+        }
+
+
+        /* =========================================================
+           EVENTO - LIMPAR
+           ========================================================= */
+
+        if (limparButton) {
+
+            limparButton.addEventListener(
+                "click",
+                function () {
+
+                    limparFiltrosAmbientes();
+
+                }
+            );
+
+        }
+
+
+        /* =========================================================
+           INICIALIZAÇÃO
+           ========================================================= */
+
+        aplicarFiltrosAmbientes();
+
+
+        /* =========================================================
+           CRIAR MODAL
+           ========================================================= */
+
+        function criarModal() {
+
+            if (document.getElementById("modalProdutosAmbiente")) {
+                return;
+            }
+
+            const modal = document.createElement("div");
+
+            modal.id = "modalProdutosAmbiente";
+
+            modal.innerHTML = `
+        <div class="modal-produtos-overlay">
+
+            <div class="modal-produtos">
+
+            <div class="modal-produtos-header">
+
+            <div>
+            <span class="modal-produtos-label">
+            Ambiente
+            </span>
+
+        <h2 id="modalAmbienteNome">
+            Produtos do ambiente
+        </h2>
+        </div>
+
+        <button
+            type="button"
+            id="fecharModalProdutos"
+            class="modal-produtos-fechar"
+            aria-label="Fechar">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+        </div>
+
+
+        <div class="modal-produtos-resumo">
+
+            <div class="modal-resumo-icon">
+                <i class="fa-solid fa-box"></i>
+            </div>
+
+            <div>
+
+                                <span>
+                                    Patrimônios no ambiente
+                                </span>
+
+                <strong id="modalTotalProdutos">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="modalProdutosLoading"
+            class="modal-produtos-loading">
+
+            <i class="fa-solid fa-spinner fa-spin"></i>
+
+            <span>
+                                Carregando produtos...
+                            </span>
+
+        </div>
+
+
+        <div
+            id="modalProdutosErro"
+            class="modal-produtos-erro"
+            style="display: none;">
+
+            <i class="fa-solid fa-circle-exclamation"></i>
+
+            <span>
+                                Não foi possível carregar os produtos.
+                            </span>
+
+        </div>
+
+
+        <div
+            id="modalProdutosVazio"
+            class="modal-produtos-vazio"
+            style="display: none;">
+
+            <i class="fa-solid fa-box-open"></i>
+
+            <strong>
+                Nenhum produto encontrado
+            </strong>
+
+            <span>
+                                Este ambiente não possui patrimônios cadastrados.
+                            </span>
+
+        </div>
+
+
+        <div
+            id="modalProdutosLista"
+            class="modal-produtos-lista">
+        </div>
+
+        </div>
+
+        </div>
+        `;
+
+            document.body.appendChild(modal);
+
+
+            /* =====================================================
+               FECHAR
+               ===================================================== */
+
+            const overlay =
+                modal.querySelector(
+                    ".modal-produtos-overlay"
+                );
+
+            const botaoFechar =
+                document.getElementById(
+                    "fecharModalProdutos"
+                );
+
+
+            botaoFechar.addEventListener(
+                "click",
+                fecharModal
+            );
+
+
+            overlay.addEventListener(
+                "click",
+                function (event) {
+
+                    if (
+                        event.target === overlay
+                    ) {
+
+                        fecharModal();
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        /* =========================================================
+           ABRIR MODAL
+           ========================================================= */
+
+        async function abrirModal(
+            ambienteId,
+            ambienteNome
+        ) {
+
+            criarModal();
+
+
+            const modal =
+                document.getElementById(
+                    "modalProdutosAmbiente"
+                );
+
+            const nome =
+                document.getElementById(
+                    "modalAmbienteNome"
+                );
+
+            const total =
+                document.getElementById(
+                    "modalTotalProdutos"
+                );
+
+            const loading =
+                document.getElementById(
+                    "modalProdutosLoading"
+                );
+
+            const erro =
+                document.getElementById(
+                    "modalProdutosErro"
+                );
+
+            const vazio =
+                document.getElementById(
+                    "modalProdutosVazio"
+                );
+
+            const lista =
+                document.getElementById(
+                    "modalProdutosLista"
+                );
+
+
+            nome.textContent =
+                ambienteNome || "Ambiente";
+
+
+            total.textContent = "0";
+
+
+            loading.style.display = "flex";
+
+            erro.style.display = "none";
+
+            vazio.style.display = "none";
+
+            lista.innerHTML = "";
+
+
+            modal.classList.add("aberto");
+
+            document.body.classList.add(
+                "modal-produtos-aberto"
+            );
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        PRODUTOS_API,
+                        {
+                            method: "GET",
+                            headers: {
+                                "Accept":
+                                    "application/json"
+                            }
+                        }
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Erro HTTP " +
+                        response.status
+                    );
+
+                }
+
+
+                const dados =
+                    await response.json();
+
+
+                /*
+                 * Aceita tanto:
+                 *
+                 * [
+                 *   {...},
+                 *   {...}
+                 * ]
+                 *
+                 * quanto uma resposta paginada:
+                 *
+                 * {
+                 *   content: [...]
+                 * }
+                 */
+
+                const produtos =
+                    Array.isArray(dados)
+                        ? dados
+                        : Array.isArray(dados.content)
+                            ? dados.content
+                            : [];
+
+
+                /*
+                 * FILTRA PELO AMBIENTE
+                 */
+
+                const produtosDoAmbiente =
+                    produtos.filter(
+                        function (produto) {
+
+                            return (
+                                produto.ambienteId != null &&
+                                String(
+                                    produto.ambienteId
+                                ) ===
+                                String(
+                                    ambienteId
+                                )
+                            );
+
+                        }
+                    );
+
+
+                loading.style.display = "none";
+
+
+                total.textContent =
+                    produtosDoAmbiente.length;
+
+                /*
+                 * NENHUM PRODUTO
+                 */
+
+                if (
+                    produtosDoAmbiente.length === 0
+                ) {
+
+                    vazio.style.display =
+                        "flex";
+
+                    return;
+                }
+
+
+                /*
+                 * MONTAR LISTA
+                 */
+
+                produtosDoAmbiente.forEach(
+                    function (produto) {
+
+                        const item =
+                            criarProdutoItem(
+                                produto
+                            );
+
+                        lista.appendChild(item);
+
+                    }
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Erro ao carregar produtos:",
+                    error
+                );
+
+
+                loading.style.display = "none";
+
+                erro.style.display = "flex";
+
+            }
+
+        }
+
+
+        /* =========================================================
+           CRIAR ITEM DO PRODUTO
+           ========================================================= */
+
+        function criarProdutoItem(produto) {
+
+            const item =
+                document.createElement("div");
+
+            item.className =
+                "modal-produto-item";
+
+
+            const patrimonio =
+                produto.numeroPatrimonio ||
+                "Sem patrimônio";
+
+
+            const nome =
+                produto.nome ||
+                "Produto sem nome";
+
+
+            const marca =
+                produto.marca ||
+                "Marca não informada";
+
+
+            const modelo =
+                produto.modelo ||
+                "Modelo não informado";
+
+
+            const status =
+                produto.status ||
+                "Sem status";
+
+
+            let classeStatus =
+                "status-default";
+
+
+            if (
+                status === "ATIVO"
+            ) {
+
+                classeStatus =
+                    "status-ativo";
+
+            } else if (
+                status === "MANUTENCAO"
+            ) {
+
+                classeStatus =
+                    "status-manutencao";
+
+            } else if (
+                status === "INATIVO"
+            ) {
+
+                classeStatus =
+                    "status-inativo";
+
+            }
+
+
+            item.innerHTML = `
+
+        <div class="modal-produto-icon">
+
+            <i class="fa-solid fa-box"></i>
+
+        </div>
+
+
+        <div class="modal-produto-info">
+
+            <strong>
+                ${escaparHTML(patrimonio)}
+            </strong>
+
+            <span class="modal-produto-nome">
+                        ${escaparHTML(nome)}
+                    </span>
+
+            <small>
+                ${escaparHTML(marca)}
+                •
+                ${escaparHTML(modelo)}
+            </small>
+
+        </div>
+
+
+        <span class="modal-produto-status ${classeStatus}">
+
+                    ${escaparHTML(status)}
+
+                </span>
+
+            `;
+
+
+            return item;
+
+        }
+
+
+        /* =========================================================
+           ESCAPAR HTML
+           ========================================================= */
+
+        function escaparHTML(valor) {
+
+            const div =
+                document.createElement("div");
+
+            div.textContent =
+                valor == null
+                    ? ""
+                    : String(valor);
+
+            return div.innerHTML;
+
+        }
+
+
+        /* =========================================================
+           FECHAR MODAL
+           ========================================================= */
+
+        function fecharModal() {
+
+            const modal =
+                document.getElementById(
+                    "modalProdutosAmbiente"
+                );
+
+            if (!modal) {
+                return;
+            }
+
+
+            modal.classList.remove("aberto");
+
+            document.body.classList.remove(
+                "modal-produtos-aberto"
+            );
+
+        }
+
+
+        /* =========================================================
+           EVENTOS DOS AMBIENTES
+           ========================================================= */
+
+        const botoesProdutos =
+            document.querySelectorAll(
+                ".quantity-badge[data-ambiente-id]"
+            );
+
+
+        botoesProdutos.forEach(
+            function (botao) {
+
+                botao.addEventListener(
+                    "click",
+                    function () {
+
+                        const ambienteId =
+                            this.dataset.ambienteId;
+
+                        const ambienteNome =
+                            this.dataset.ambienteNome;
+
+
+                        if (!ambienteId) {
+
+                            console.warn(
+                                "Ambiente sem ID."
+                            );
+
+                            return;
+                        }
+
+
+                        abrirModal(
+                            ambienteId,
+                            ambienteNome
+                        );
+
+                    }
+                );
+
+
+                /*
+                 * Permite abrir com ENTER
+                 * quando usando teclado.
+                 */
+
+                botao.addEventListener(
+                    "keydown",
+                    function (event) {
+
+                        if (
+                            event.key === "Enter" ||
+                            event.key === " "
+                        ) {
+
+                            event.preventDefault();
+
+                            this.click();
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+        /* =========================================================
+           ESC FECHA
+           ========================================================= */
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "Escape"
+                ) {
+
+                    fecharModal();
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           ESTILOS DO MODAL
+           ========================================================= */
+
+        const style =
+            document.createElement("style");
+
+        style.textContent = `
+
+            .modal-produtos-overlay {
+
+            position: fixed;
+            inset: 0;
+
+            display: none;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            background: rgba(0, 0, 0, 0.78);
+
+            backdrop-filter: blur(4px);
+
+            z-index: 9999;
+
+        }
+
+
+        #modalProdutosAmbiente.aberto
+            .modal-produtos-overlay {
+
+            display: flex;
+
+        }
+
+
+        .modal-produtos {
+
+            width: min(760px, 100%);
+
+            max-height: 85vh;
+
+            overflow: hidden;
+
+            background: #151515;
+
+            border: 1px solid #2d2d2d;
+
+            border-radius: 16px;
+
+            box-shadow:
+            0 25px 70px rgba(0,0,0,.55);
+
+            color: #f5f5f5;
+
+        }
+
+
+        .modal-produtos-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 22px 24px;
+
+            border-bottom: 1px solid #2d2d2d;
+
+        }
+
+
+        .modal-produtos-label {
+
+            display: block;
+
+            margin-bottom: 5px;
+
+            color: #ff6b00;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: .08em;
+
+        }
+
+
+        .modal-produtos-header h2 {
+
+            margin: 0;
+
+            font-size: 22px;
+
+        }
+
+
+        .modal-produtos-fechar {
+
+            width: 38px;
+            height: 38px;
+
+            border: 1px solid #333;
+
+            border-radius: 9px;
+
+            background: #1d1d1d;
+
+            color: #aaa;
+
+            cursor: pointer;
+
+            font-size: 16px;
+
+        }
+
+
+        .modal-produtos-fechar:hover {
+
+            color: #fff;
+
+            border-color: #ff6b00;
+
+        }
+
+
+        .modal-produtos-resumo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            margin: 20px 24px;
+
+            padding: 15px;
+
+            border: 1px solid #2d2d2d;
+
+            border-radius: 12px;
+
+            background: #101010;
+
+        }
+
+
+        .modal-resumo-icon {
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            width: 46px;
+            height: 46px;
+
+            border-radius: 10px;
+
+            background: rgba(255,107,0,.12);
+
+            color: #ff6b00;
+
+        }
+
+
+        .modal-produtos-resumo span {
+
+            display: block;
+
+            color: #888;
+
+            font-size: 12px;
+
+        }
+
+
+        .modal-produtos-resumo strong {
+
+            display: block;
+
+            margin-top: 2px;
+
+            font-size: 20px;
+
+        }
+
+
+        .modal-produtos-lista {
+
+            max-height: 48vh;
+
+            overflow-y: auto;
+
+            padding: 0 24px 24px;
+
+        }
+
+
+        .modal-produto-item {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            padding: 15px;
+
+            margin-bottom: 10px;
+
+            border: 1px solid #2b2b2b;
+
+            border-radius: 11px;
+
+            background: #1b1b1b;
+
+        }
+
+
+        .modal-produto-icon {
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 9px;
+
+            background: rgba(255,107,0,.1);
+
+            color: #ff6b00;
+
+        }
+
+
+        .modal-produto-info {
+
+            min-width: 0;
+
+            flex: 1;
+
+        }
+
+
+        .modal-produto-info strong {
+
+            display: block;
+
+            color: #ff6b00;
+
+            font-size: 13px;
+
+        }
+
+
+        .modal-produto-nome {
+
+            display: block;
+
+            margin-top: 2px;
+
+            font-weight: 600;
+
+        }
+
+
+        .modal-produto-info small {
+
+            display: block;
+
+            margin-top: 4px;
+
+            color: #888;
+
+        }
+
+
+        .modal-produto-status {
+
+            flex-shrink: 0;
+
+            padding: 6px 10px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+        }
+
+
+        .status-ativo {
+
+            background: rgba(34,197,94,.12);
+
+            color: #4ade80;
+
+        }
+
+
+        .status-manutencao {
+
+            background: rgba(234,179,8,.12);
+
+            color: #facc15;
+
+        }
+
+
+        .status-inativo {
+
+            background: rgba(239,68,68,.12);
+
+            color: #f87171;
+
+        }
+
+
+        .status-default {
+
+            background: #292929;
+
+            color: #aaa;
+
+        }
+
+
+        .modal-produtos-loading,
+        .modal-produtos-erro,
+        .modal-produtos-vazio {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-direction: column;
+
+            gap: 10px;
+
+            padding: 45px 24px;
+
+            color: #888;
+
+            text-align: center;
+
+        }
+
+
+        .modal-produtos-loading i,
+        .modal-produtos-erro i,
+        .modal-produtos-vazio i {
+
+            font-size: 30px;
+
+            color: #ff6b00;
+
+        }
+
+
+        .modal-produtos-erro i {
+
+            color: #ef4444;
+
+        }
+
+
+        .modal-produtos-vazio strong {
+
+            color: #ddd;
+
+        }
+
+
+        body.modal-produtos-aberto {
+
+            overflow: hidden;
+
+        }
+
+
+        .quantity-badge {
+
+            cursor: pointer;
+
+        }
+
+
+        .quantity-badge:hover {
+
+            border-color: #ff6b00;
+
+            transform: translateY(-1px);
+
+        }
+
+
+        @media (max-width: 600px) {
+
+        .modal-produtos {
+
+                max-height: 90vh;
+
+            }
+
+        .modal-produtos-header {
+
+                padding: 18px;
+
+            }
+
+        .modal-produtos-resumo {
+
+                margin: 15px 18px;
+
+            }
+
+        .modal-produtos-lista {
+
+                padding: 0 18px 18px;
+
+            }
+
+        .modal-produto-item {
+
+                align-items: flex-start;
+
+            }
+
+        .modal-produto-status {
+
+                display: none;
+
+            }
+
+        }
+
+        `;
+
+        document.head.appendChild(style);
+
+    });
+</script>
+</body>
+
+</html>

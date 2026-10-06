@@ -1,0 +1,192 @@
+    /* =========================================================
+       ALMAX — LAYOUT GLOBAL
+       ========================================================= */
+
+.app-layout {
+    width: 100%;
+    min-height: 100vh;
+
+    /*
+     * A sidebar é position: fixed.
+     * Portanto, o layout precisa reservar o espaço dela.
+     */
+    padding-left: var(--sidebar-width);
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.app-sidebar {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    bottom: 0;
+
+    width: var(--sidebar-width);
+
+    min-width: var(--sidebar-width);
+
+    z-index: 1000;
+}
+
+
+/* =========================================================
+   ÁREA PRINCIPAL
+   ========================================================= */
+
+.app-main {
+    width: 100%;
+
+    min-width: 0;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   HEADER / NAVBAR
+   ========================================================= */
+
+.app-main > header {
+    width: 100%;
+
+    min-height: var(--navbar-height);
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 90;
+}
+
+
+/* =========================================================
+   CONTEÚDO
+   ========================================================= */
+
+.app-main > main {
+    width: 100%;
+
+    min-width: 0;
+
+    flex: 1;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.app-main > footer {
+    width: 100%;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   CONTAINER PADRÃO
+   ========================================================= */
+
+.page-container {
+    width: 100%;
+
+    max-width: 1450px;
+
+    margin: 0 auto;
+
+    padding:
+            2.5rem
+            2rem
+            4rem;
+}
+
+
+/* =========================================================
+   CONTAINER COMPACTO
+   ========================================================= */
+
+.page-container-compact {
+    max-width: 1100px;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    :root {
+        --sidebar-width: 220px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    /*
+     * No mobile a sidebar sai da área principal
+     * e fica escondida lateralmente.
+     */
+    .app-layout {
+        padding-left: 0;
+    }
+
+
+    .app-sidebar {
+        width: var(--sidebar-width);
+        min-width: var(--sidebar-width);
+
+        transform: translateX(-100%);
+
+        box-shadow:
+                8px 0 30px
+                rgba(0, 0, 0, 0.3);
+
+        transition:
+                transform var(--transition);
+    }
+
+
+    .app-sidebar.open {
+        transform: translateX(0);
+    }
+
+
+    .page-container {
+        padding:
+                2rem
+                1.25rem
+                3rem;
+    }
+
+}
+
+
+/* =========================================================
+   CELULAR
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .page-container {
+        padding:
+                1.25rem
+                0.85rem
+                2.5rem;
+    }
+
+}

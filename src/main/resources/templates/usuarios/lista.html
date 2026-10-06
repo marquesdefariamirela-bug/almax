@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Usuários | ALMAX</title>
+
+
+    <!-- FONT AWESOME -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <!-- CSS GLOBAL -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/base.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/layout.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/sidebar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/navbar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/footer.css}">
+
+
+    <!-- CSS DA TELA -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/usuarios.css}">
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- SIDEBAR -->
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+
+    <!-- CONTEÚDO -->
+
+    <main class="app-main">
+
+
+        <!-- HEADER -->
+
+        <header class="app-header">
+
+            <div class="header-left">
+
+                <button type="button"
+                        class="mobile-menu-button"
+                        aria-label="Abrir menu">
+
+                    <i class="fa-solid fa-bars"></i>
+
+                </button>
+
+
+                <div>
+
+                    <span class="page-section">
+                        Administração
+                    </span>
+
+                    <h1>
+                        Usuários
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <span class="header-system">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    Sistema Patrimonial
+
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- PÁGINA -->
+
+        <section class="usuarios-container">
+
+
+            <!-- BREADCRUMB -->
+
+            <nav class="breadcrumb">
+
+                <a th:href="@{/}">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    Início
+
+                </a>
+
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+
+                <strong>
+
+                    <i class="fa-solid fa-users"></i>
+
+                    Usuários
+
+                </strong>
+
+            </nav>
+
+
+            <!-- CABEÇALHO -->
+
+            <div class="page-heading">
+
+                <div class="page-heading-main">
+
+                    <div class="page-title-icon">
+
+                        <i class="fa-solid fa-users"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            Usuários
+                        </h2>
+
+                        <p>
+                            Gerencie os usuários que possuem acesso
+                            ao sistema patrimonial.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="page-heading-actions">
+
+                    <a th:href="@{/usuarios/novo}"
+                       class="btn btn-primary">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Novo usuário
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- MENSAGEM -->
+
+            <div class="alert alert-success"
+                 th:if="${sucesso}">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <span th:text="${sucesso}">
+                    Operação realizada com sucesso.
+                </span>
+
+            </div>
+
+
+            <!-- RESUMO -->
+
+            <div class="summary-grid">
+
+                <!-- TOTAL -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+
+                    <div>
+
+            <span class="summary-label">
+                Total de usuários
+            </span>
+
+                        <strong th:text="${totalUsuarios}">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ATIVOS -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+
+                    <div>
+
+            <span class="summary-label">
+                Usuários ativos
+            </span>
+
+                        <strong th:text="${usuariosAtivos}">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- INATIVOS -->
+
+                <div class="summary-card">
+
+                    <div class="summary-icon">
+                        <i class="fa-solid fa-circle-pause"></i>
+                    </div>
+
+                    <div>
+
+            <span class="summary-label">
+                Usuários inativos
+            </span>
+
+                        <strong th:text="${usuariosInativos}">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- LISTAGEM -->
+
+            <div class="content-card">
+
+
+                <!-- CABEÇALHO DA LISTA -->
+
+                <div class="content-card-header">
+
+                    <div>
+
+                        <h3>
+                            Usuários cadastrados
+                        </h3>
+
+                        <p>
+                            Lista de usuários registrados no sistema.
+                        </p>
+
+                    </div>
+
+
+                    <div class="content-card-count">
+
+                        <i class="fa-solid fa-list"></i>
+
+                        <span
+                                th:text="${#lists.size(usuarios)} + ' usuário(s)'">
+
+                            0 usuário(s)
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TABELA -->
+
+                <div class="table-wrapper"
+                     th:if="${not #lists.isEmpty(usuarios)}">
+
+                    <table class="data-table">
+
+                        <thead>
+
+                        <tr>
+
+                            <th>
+                                Usuário
+                            </th>
+
+                            <th>
+                                E-mail
+                            </th>
+
+                            <th class="text-center">
+                                Perfil
+                            </th>
+
+                            <th class="text-center">
+                                Status
+                            </th>
+
+                            <th class="text-right">
+                                Ações
+                            </th>
+
+                        </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                        <tr th:each="usuario : ${usuarios}">
+
+
+                            <!-- USUÁRIO -->
+
+                            <td>
+
+                                <div class="item-main">
+
+                                    <div class="item-icon">
+
+                                        <i class="fa-solid fa-user"></i>
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <strong
+                                                th:text="${usuario.nome}">
+                                            Usuário
+                                        </strong>
+
+                                        <small
+                                                th:text="'ID #' + ${usuario.id}">
+                                            ID #1
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- E-MAIL -->
+
+                            <td>
+
+                                <span class="email-text"
+                                      th:text="${usuario.email}">
+
+                                    usuario@email.com
+
+                                </span>
+
+                            </td>
+
+
+                            <!-- PERFIL -->
+
+                            <td class="text-center">
+
+                                <span class="profile-badge">
+
+                                    <i class="fa-solid fa-user-shield"></i>
+
+                                    <span th:text="${usuario.perfil}">
+                                        ADMIN
+                                    </span>
+
+                                </span>
+
+                            </td>
+
+
+                            <!-- STATUS -->
+
+                            <td class="text-center">
+
+                                <span
+                                        class="status-badge status-active"
+                                        th:if="${usuario.ativo}">
+
+                                    <i class="fa-solid fa-circle-check"></i>
+
+                                    Ativo
+
+                                </span>
+
+
+                                <span
+                                        class="status-badge status-inactive"
+                                        th:unless="${usuario.ativo}">
+
+                                    <i class="fa-solid fa-circle-pause"></i>
+
+                                    Inativo
+
+                                </span>
+
+                            </td>
+
+
+                            <!-- AÇÕES -->
+
+                            <td>
+
+                                <div class="table-actions">
+
+
+                                    <!-- EDITAR -->
+
+                                    <a
+                                            th:href="@{/usuarios/{id}/editar(id=${usuario.id})}"
+                                            class="action-button action-edit"
+                                            title="Editar usuário"
+                                            aria-label="Editar usuário">
+
+                                        <i class="fa-solid fa-pen"></i>
+
+                                    </a>
+
+
+                                    <!-- EXCLUIR -->
+
+                                    <form
+                                            th:action="@{/usuarios/{id}/excluir(id=${usuario.id})}"
+                                            method="post"
+                                            onsubmit="return confirm('Deseja realmente excluir este usuário?');">
+
+                                        <button
+                                                type="submit"
+                                                class="action-button action-delete"
+                                                title="Excluir usuário"
+                                                aria-label="Excluir usuário">
+
+                                            <i class="fa-solid fa-trash"></i>
+
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <!-- ESTADO VAZIO -->
+
+                <div
+                        class="empty-state"
+                        th:if="${#lists.isEmpty(usuarios)}">
+
+                    <div class="empty-state-icon">
+
+                        <i class="fa-solid fa-users"></i>
+
+                    </div>
+
+
+                    <h3>
+                        Nenhum usuário cadastrado
+                    </h3>
+
+
+                    <p>
+                        Cadastre o primeiro usuário para permitir
+                        o acesso ao sistema.
+                    </p>
+
+
+                    <a
+                            th:href="@{/usuarios/novo}"
+                            class="btn btn-primary">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Cadastrar usuário
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- INFORMAÇÃO -->
+
+            <div class="form-info">
+
+                <div class="form-info-icon">
+
+                    <i class="fa-solid fa-circle-info"></i>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Sobre os usuários
+                    </strong>
+
+
+                    <p>
+                        Os usuários cadastrados podem acessar o sistema
+                        de acordo com o perfil atribuído. Usuários
+                        inativos não devem ser utilizados para novas
+                        operações.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- FOOTER -->
+
+        <footer class="app-footer">
+
+            <span>
+                © ALMAX — Controle Patrimonial
+            </span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+
+</html>

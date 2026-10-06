@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="ALMAX — Cadastro de Patrimônio">
+
+    <title>Novo Patrimônio | ALMAX</title>
+
+
+    <!-- =====================================================
+         CSS GLOBAL
+         ===================================================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/base.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/layout.css}">
+
+
+    <!-- =====================================================
+         FRAGMENTS
+         ===================================================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/sidebar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/navbar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/footer.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/alerts.css}">
+
+
+    <!-- =====================================================
+         FONT AWESOME
+         ===================================================== -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <!-- =====================================================
+         CSS DA PÁGINA
+         ===================================================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/produto-form.css}">
+
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+
+    <!-- =====================================================
+         OVERLAY MOBILE
+         ===================================================== -->
+
+    <div th:replace="~{fragments/sidebar :: sidebar-overlay}"></div>
+
+
+    <!-- =====================================================
+         ÁREA PRINCIPAL
+         ===================================================== -->
+
+    <div class="app-main">
+
+
+        <!-- =================================================
+             NAVBAR
+             ================================================= -->
+
+        <header class="app-header">
+
+            <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+        </header>
+
+
+        <!-- =================================================
+             CONTEÚDO
+             ================================================= -->
+
+        <main class="produto-form-page">
+
+            <div class="page-container">
+
+
+                <!-- =================================================
+                     CABEÇALHO
+                     ================================================= -->
+
+                <section class="page-heading">
+
+                    <div class="page-heading-info">
+
+                        <div class="page-title-icon">
+
+                            <i class="fa-solid fa-box-open"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h1>
+                                Novo patrimônio
+                            </h1>
+
+                            <p>
+                                Cadastre um novo patrimônio no sistema.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <a th:href="@{/produtos}"
+                       class="btn btn-secondary">
+
+                        <i class="fa-solid fa-arrow-left"></i>
+
+                        <span>
+                        Voltar
+                    </span>
+
+                    </a>
+
+                </section>
+
+
+                <!-- =================================================
+                     MENSAGEM DE ERRO GERAL
+                     ================================================= -->
+
+                <div class="alert alert-danger"
+                     th:if="${erro}"
+                     role="alert">
+
+                    <i class="fa-solid fa-circle-exclamation"></i>
+
+                    <span th:text="${erro}">
+                    Não foi possível cadastrar o patrimônio.
+                </span>
+
+                </div>
+
+
+                <!-- =================================================
+                     FORMULÁRIO
+                     ================================================= -->
+
+                <form
+                        class="produto-form"
+                        th:action="${produtoId != null ? '/produtos/' + produtoId : '/produtos'}"
+                        method="post"
+                        th:object="${produtoRequest}">
+
+
+                    <!-- NÚMERO DO PATRIMÔNIO -->
+
+                    <div class="form-group">
+
+                        <label for="numeroPatrimonio">
+                            Número do patrimônio
+                            <span class="required">*</span>
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-barcode"></i>
+
+                            <input
+                                    type="text"
+                                    id="numeroPatrimonio"
+                                    th:field="*{numeroPatrimonio}"
+                                    placeholder="Ex.: PAT-2026-0001"
+                                    maxlength="50"
+                                    required>
+
+                        </div>
+
+                        <small>
+                            Informe o número de identificação patrimonial.
+                        </small>
+
+                        <div
+                                class="field-error"
+                                th:if="${#fields.hasErrors('numeroPatrimonio')}"
+                                th:errors="*{numeroPatrimonio}">
+                        </div>
+
+                    </div>
+
+
+                    <!-- NOME -->
+
+                    <div class="form-group">
+
+                        <label for="nome">
+                            Nome do produto
+                            <span class="required">*</span>
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-box"></i>
+
+                            <input
+                                    type="text"
+                                    id="nome"
+                                    th:field="*{nome}"
+                                    placeholder="Ex.: Notebook Dell Latitude"
+                                    maxlength="150"
+                                    required>
+
+                        </div>
+
+                        <div
+                                class="field-error"
+                                th:if="${#fields.hasErrors('nome')}"
+                                th:errors="*{nome}">
+                        </div>
+
+                    </div>
+
+
+                    <!-- DESCRIÇÃO -->
+
+                    <div class="form-group full-width">
+
+                        <label for="descricao">
+                            Descrição
+                        </label>
+
+                        <textarea
+                                id="descricao"
+                                th:field="*{descricao}"
+                                rows="5"
+                                maxlength="500"
+                                placeholder="Descreva detalhes adicionais do patrimônio...">
+        </textarea>
+
+                        <div
+                                class="field-error"
+                                th:if="${#fields.hasErrors('descricao')}"
+                                th:errors="*{descricao}">
+                        </div>
+
+                    </div>
+
+
+                    <!-- MARCA -->
+
+                    <div class="form-group">
+
+                        <label for="marca">
+                            Marca
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-copyright"></i>
+
+                            <input
+                                    type="text"
+                                    id="marca"
+                                    th:field="*{marca}"
+                                    placeholder="Ex.: Dell"
+                                    maxlength="100">
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- MODELO -->
+
+                    <div class="form-group">
+
+                        <label for="modelo">
+                            Modelo
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-tag"></i>
+
+                            <input
+                                    type="text"
+                                    id="modelo"
+                                    th:field="*{modelo}"
+                                    placeholder="Ex.: Latitude 5420"
+                                    maxlength="100">
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- NÚMERO DE SÉRIE -->
+
+                    <div class="form-group">
+
+                        <label for="numeroSerie">
+                            Número de série
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-hashtag"></i>
+
+                            <input
+                                    type="text"
+                                    id="numeroSerie"
+                                    th:field="*{numeroSerie}"
+                                    placeholder="Ex.: ABC123456"
+                                    maxlength="100">
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- VALOR -->
+
+                    <div class="form-group">
+
+                        <label for="valor">
+                            Valor de aquisição
+                        </label>
+
+                        <div class="input-wrapper">
+
+            <span class="input-prefix">
+                R$
+            </span>
+
+                            <input
+                                    type="number"
+                                    id="valor"
+                                    th:field="*{valor}"
+                                    placeholder="0.00"
+                                    min="0"
+                                    step="0.01">
+
+                        </div>
+
+                        <small>
+                            Informe o valor pago pelo patrimônio.
+                        </small>
+
+                        <div
+                                class="field-error"
+                                th:if="${#fields.hasErrors('valor')}"
+                                th:errors="*{valor}">
+                        </div>
+
+                    </div>
+
+
+                    <!-- DATA DE AQUISIÇÃO -->
+
+                    <div class="form-group">
+
+                        <label for="dataAquisicao">
+                            Data de aquisição
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-regular fa-calendar"></i>
+
+                            <input
+                                    type="date"
+                                    id="dataAquisicao"
+                                    th:field="*{dataAquisicao}">
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- AMBIENTE -->
+
+                    <div class="form-group">
+
+                        <label for="ambienteId">
+                            Ambiente
+                        </label>
+
+                        <div class="input-wrapper select-input">
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            <select
+                                    id="ambienteId"
+                                    th:field="*{ambienteId}">
+
+                                <option value="">
+                                    Selecione um ambiente
+                                </option>
+
+                                <option
+                                        th:each="ambiente : ${ambientes}"
+                                        th:value="${ambiente.id}"
+                                        th:text="${ambiente.nome}">
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <small>
+                            Ambiente onde o patrimônio está localizado.
+                        </small>
+
+                        <div
+                                class="field-error"
+                                th:if="${#fields.hasErrors('ambienteId')}"
+                                th:errors="*{ambienteId}">
+                        </div>
+
+                    </div>
+
+
+                    <!-- TAG -->
+
+                    <div class="form-group">
+
+                        <label for="tagId">
+                            Tag
+                        </label>
+
+                        <div class="input-wrapper select-input">
+
+                            <i class="fa-solid fa-tag"></i>
+
+                            <select
+                                    id="tagId"
+                                    th:field="*{tagId}">
+
+                                <option value="">
+                                    Sem tag
+                                </option>
+
+                                <option
+                                        th:each="tag : ${tags}"
+                                        th:value="${tag.id}"
+                                        th:text="${tag.epc}">
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <small>
+                            Opcional. Vincule uma tag RFID disponível.
+                        </small>
+
+                        <div
+                                class="field-error"
+                                th:if="${#fields.hasErrors('tagId')}"
+                                th:errors="*{tagId}">
+                        </div>
+
+                    </div>
+
+
+                    <!-- AÇÕES -->
+
+                    <div class="form-actions">
+
+                        <a
+                                th:href="@{/produtos}"
+                                class="btn btn-secondary">
+
+                            <i class="fa-solid fa-xmark"></i>
+
+                            Cancelar
+
+                        </a>
+
+                        <button
+                                type="submit"
+                                class="btn btn-primary">
+
+                            <i class="fa-solid fa-check"></i>
+
+                            <span
+                                    th:text="${produtoId != null}
+                        ? 'Salvar alterações'
+                        : 'Cadastrar patrimônio'">
+                Cadastrar patrimônio
+            </span>
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </main>
+
+
+        <!-- =================================================
+             FOOTER
+             ================================================= -->
+
+        <footer class="app-footer">
+
+            <div th:replace="~{fragments/footer :: footer}"></div>
+
+        </footer>
+
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

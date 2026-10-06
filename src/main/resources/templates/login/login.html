@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="ALMAX — Sistema de Gestão Patrimonial" />
+    <title>Login | ALMAX</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}" />
+</head>
+<body>
+<main class="login-page">
+    <section class="login-container">
+        <!-- ===================================================== LOGO / IDENTIDADE ===================================================== -->
+        <div class="brand">
+            <div class="brand-mark">A</div>
+            <div class="brand-info">
+                <span class="brand-name"> ALMAX </span>
+                <span class="brand-description"> Gestão Patrimonial </span>
+            </div>
+        </div>
+        <!-- ===================================================== CARD DE LOGIN ===================================================== -->
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                                d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2 c-4.42 0-8 2.24-8 5v1 h16v-1c0-2.76-3.58-5-8-5Z"
+                        ></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1>Entrar</h1>
+                    <p>Acesse o sistema de gestão patrimonial</p>
+                </div>
+            </div>
+            <!-- ================================================= MENSAGEM DE ERRO ================================================= -->
+            <div class="alert alert-danger" th:if="${param.error}">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                            d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm1 15h-2v-2h2Zm0-4h-2V7h2Z"
+                    ></path>
+                </svg>
+                <span> E-mail ou senha inválidos. </span>
+            </div>
+            <!-- ================================================= MENSAGEM DE LOGOUT ================================================= -->
+            <div class="alert alert-success" th:if="${param.logout}">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                            d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41Z"
+                    ></path>
+                </svg>
+                <span> Você saiu do sistema com sucesso. </span>
+            </div>
+            <!-- ================================================= FORMULÁRIO ================================================= -->
+            <form
+                    id="loginForm"
+                    class="login-form"
+                    th:action="@{/login}"
+                    method="post"
+            >
+                <!-- ================================================= E-MAIL ================================================= -->
+                <div class="form-group">
+                    <label for="username">
+                        E-mail <span class="required">*</span>
+                    </label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                    d="M20 4H4a2 2 0 0 0-2 2v12 a2 2 0 0 0 2 2h16a2 2 0 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z"
+                            ></path>
+                        </svg>
+                        <input
+                                id="username"
+                                name="username"
+                                type="email"
+                                class="form-control"
+                                placeholder="seu@email.com"
+                                autocomplete="username"
+                                required
+                                autofocus
+                        />
+                    </div>
+                </div>
+                <!-- ================================================= SENHA ================================================= -->
+                <div class="form-group">
+                    <div class="password-label">
+                        <label for="password">
+                            Senha <span class="required">*</span>
+                        </label>
+                    </div>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                    d="M17 8h-1V6a4 4 0 0 0-8 0v2H7 a2 2 0 0 0-2 2v8a2 2 0 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2Zm-7-2 a2 2 0 0 1 4 0v2h-4V6Zm3 9h-2v-2h2v2Z"
+                            ></path>
+                        </svg>
+                        <input
+                                id="password"
+                                name="password"
+                                type="password"
+                                class="form-control password-input"
+                                placeholder="Digite sua senha"
+                                autocomplete="current-password"
+                                required
+                        />
+                        <button
+                                type="button"
+                                id="togglePassword"
+                                class="password-toggle"
+                                aria-label="Mostrar senha"
+                        >
+                            <svg id="eyeIcon" viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                        d="M12 5c-5 0-9.27 3.11-11 7 1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Zm0-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"
+                                ></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <!-- ================================================= BOTÃO ================================================= -->
+                <button type="submit" id="loginButton" class="btn-login">
+                    <span id="buttonText"> Entrar </span>
+                    <span id="buttonLoader" class="loader" aria-hidden="true"> </span>
+                    <svg id="loginArrow" viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                                d="m12 4-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8Z"
+                        ></path>
+                    </svg>
+                </button>
+            </form>
+            <!-- ================================================= RODAPÉ ================================================= -->
+            <div class="login-footer">
+                <span> Sistema de Gestão Patrimonial </span>
+                <span class="separator"> • </span> <span> ALMAX </span>
+            </div>
+        </div>
+        <!-- ===================================================== COPYRIGHT ===================================================== -->
+        <p class="copyright">
+            © <span id="currentYear"></span> ALMAX. Todos os direitos reservados.
+        </p>
+    </section>
+</main>
+<script th:src="@{/js/login.js}"></script>
+</body>
+</html>

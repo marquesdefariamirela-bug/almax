@@ -1,0 +1,190 @@
+/* =========================================================
+   ALMAX — FOOTER
+   ========================================================= */
+
+.app-footer {
+
+    width: 100%;
+
+    min-height: 58px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding:
+            1rem 2rem;
+
+    border-top:
+            1px solid
+            var(--almax-border);
+
+    background:
+            rgba(18, 18, 18, 0.75);
+}
+
+
+/* =========================================================
+   CONTEÚDO
+   ========================================================= */
+
+.footer-content {
+
+    width: 100%;
+
+    max-width: 1450px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    color:
+            var(--almax-text-secondary);
+
+    font-size:
+            0.72rem;
+}
+
+
+/* =========================================================
+   LADO ESQUERDO
+   ========================================================= */
+
+.footer-brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.5rem;
+
+    white-space: nowrap;
+}
+
+
+.footer-brand strong {
+
+    color:
+            var(--almax-text-muted);
+
+    font-weight:
+            700;
+}
+
+
+.footer-brand .footer-dot {
+
+    color:
+            var(--almax-accent);
+}
+
+
+/* =========================================================
+   LADO DIREITO
+   ========================================================= */
+
+.footer-info {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.5rem;
+
+    white-space: nowrap;
+}
+
+
+.footer-info span {
+
+    color:
+            var(--almax-text-secondary);
+}
+
+
+.footer-version {
+
+    color:
+            var(--almax-text-muted) !important;
+
+    font-family:
+            Consolas,
+            "Courier New",
+            monospace;
+
+    font-size:
+            0.68rem;
+}
+
+
+/* =========================================================
+   LINKS
+   ========================================================= */
+
+.footer-link {
+
+    color:
+            var(--almax-text-secondary);
+
+    transition:
+            color var(--transition);
+}
+
+
+.footer-link:hover {
+
+    color:
+            var(--almax-accent);
+}
+
+
+/* =========================================================
+   SEPARADOR
+   ========================================================= */
+
+.footer-separator {
+
+    color:
+            var(--almax-border-hover);
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .app-footer {
+
+        padding:
+                1rem;
+    }
+
+
+    .footer-content {
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        gap: 0.4rem;
+
+        text-align: center;
+    }
+
+
+    .footer-brand,
+    .footer-info {
+
+        justify-content: center;
+
+        flex-wrap: wrap;
+    }
+}

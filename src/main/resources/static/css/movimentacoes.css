@@ -1,0 +1,1570 @@
+    /* =========================================================
+       ALMAX — MOVIMENTAÇÕES
+       ========================================================= */
+
+:root {
+
+    --mov-bg: #0f0f0f;
+
+    --mov-surface: #151515;
+
+    --mov-surface-hover: #1b1b1b;
+
+    --mov-border: #292929;
+
+    --mov-border-hover: #383838;
+
+    --mov-text: #f5f5f5;
+
+    --mov-text-secondary: #a4a4a4;
+
+    --mov-text-muted: #6f6f6f;
+
+    --mov-accent: #ff6b00;
+
+    --mov-accent-hover: #ff7b1a;
+
+    --mov-accent-soft: rgba(255, 107, 0, .10);
+
+    --mov-success: #35c76f;
+
+    --mov-success-soft: rgba(53, 199, 111, .10);
+
+    --mov-danger: #ef5350;
+
+    --mov-danger-soft: rgba(239, 83, 80, .10);
+
+    --mov-info: #4d9fff;
+
+    --mov-info-soft: rgba(77, 159, 255, .10);
+
+    --mov-purple: #9b7cff;
+
+    --mov-purple-soft: rgba(155, 124, 255, .10);
+
+    --mov-warning: #f5a623;
+
+    --mov-warning-soft: rgba(245, 166, 35, .10);
+
+    --mov-radius: 10px;
+
+    --mov-radius-sm: 7px;
+
+    --mov-transition: 180ms ease;
+}
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.movimentacoes-container {
+
+    width: 100%;
+
+    max-width: 1600px;
+
+    margin: 0 auto;
+
+    padding: 2rem 2rem 3rem;
+}
+           /* =========================================================
+              AÇÕES DO CABEÇALHO
+              ========================================================= */
+
+       .page-heading-actions {
+
+           display: flex;
+
+           align-items: center;
+
+           justify-content: flex-end;
+
+           margin-left: auto;
+
+       }
+
+
+    .page-heading-actions .btn {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 8px;
+
+        white-space: nowrap;
+
+    }
+
+
+    .page-heading-actions .btn i {
+
+        font-size: 13px;
+
+    }
+
+
+    /* =========================================================
+       RESPONSIVO
+       ========================================================= */
+
+    @media (max-width: 700px) {
+
+        .page-heading {
+
+            flex-direction: column;
+
+            align-items: stretch;
+
+            gap: 16px;
+
+        }
+
+
+        .page-heading-actions {
+
+            width: 100%;
+
+            margin-left: 0;
+
+        }
+
+
+        .page-heading-actions .btn {
+
+            width: 100%;
+
+        }
+
+    }
+
+
+/* =========================================================
+   BREADCRUMB
+   ========================================================= */
+
+.breadcrumb {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .55rem;
+
+    margin-bottom: .85rem;
+
+    color: var(--mov-text-muted);
+
+    font-size: .72rem;
+}
+
+
+.breadcrumb a {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: .4rem;
+
+    color: var(--mov-text-muted);
+
+    text-decoration: none;
+
+    transition: color var(--mov-transition);
+}
+
+
+.breadcrumb a:hover {
+
+    color: var(--mov-accent);
+}
+
+
+.breadcrumb > i {
+
+    color: #555;
+
+    font-size: .55rem;
+}
+
+
+.breadcrumb strong {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: .4rem;
+
+    color: var(--mov-text-secondary);
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   PAGE HEADING
+   ========================================================= */
+
+.page-heading {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 2rem;
+
+    margin-bottom: 1.5rem;
+}
+
+
+.page-heading-main {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .85rem;
+}
+
+
+.page-title-icon {
+
+    width: 46px;
+
+    height: 46px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    color: var(--mov-accent);
+
+    background: var(--mov-accent-soft);
+
+    border: 1px solid rgba(255, 107, 0, .15);
+
+    border-radius: var(--mov-radius);
+
+    font-size: 1rem;
+}
+
+
+.page-heading h2 {
+
+    margin: 0;
+
+    color: var(--mov-text);
+
+    font-size: clamp(1.5rem, 2vw, 2rem);
+
+    font-weight: 750;
+
+    letter-spacing: -.025em;
+}
+
+
+.page-heading p {
+
+    margin: .35rem 0 0;
+
+    color: var(--mov-text-secondary);
+
+    font-size: .78rem;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   ALERT
+   ========================================================= */
+
+.alert {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .65rem;
+
+    margin-bottom: 1rem;
+
+    padding: .8rem .9rem;
+
+    border-radius: var(--mov-radius-sm);
+
+    font-size: .74rem;
+}
+
+
+.alert-success {
+
+    color: var(--mov-success);
+
+    background: var(--mov-success-soft);
+
+    border: 1px solid rgba(53, 199, 111, .15);
+}
+
+
+/* =========================================================
+   RFID STATUS
+   ========================================================= */
+
+.rfid-status-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .85rem;
+
+    margin-bottom: 1rem;
+
+    padding: .9rem 1rem;
+
+    background:
+            linear-gradient(
+                    135deg,
+                    rgba(77, 159, 255, .055),
+                    rgba(255, 107, 0, .025)
+            );
+
+    border: 1px solid rgba(77, 159, 255, .14);
+
+    border-radius: var(--mov-radius);
+
+    box-shadow:
+            0 8px 25px rgba(0, 0, 0, .12);
+}
+
+
+.rfid-status-icon {
+
+    width: 40px;
+
+    height: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    color: var(--mov-info);
+
+    background: var(--mov-info-soft);
+
+    border-radius: var(--mov-radius-sm);
+
+    font-size: .9rem;
+}
+
+
+.rfid-status-content {
+
+    display: flex;
+
+    flex: 1;
+
+    flex-direction: column;
+
+    gap: .18rem;
+}
+
+
+.rfid-status-content strong {
+
+    color: var(--mov-text);
+
+    font-size: .75rem;
+
+    font-weight: 700;
+}
+
+
+.rfid-status-content span {
+
+    color: var(--mov-text-secondary);
+
+    font-size: .67rem;
+}
+
+
+.rfid-status-indicator {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: .45rem;
+
+    padding: .4rem .65rem;
+
+    color: var(--mov-success);
+
+    background: var(--mov-success-soft);
+
+    border: 1px solid rgba(53, 199, 111, .12);
+
+    border-radius: 999px;
+
+    font-size: .62rem;
+
+    font-weight: 650;
+
+    white-space: nowrap;
+}
+
+
+.status-dot {
+
+    width: 6px;
+
+    height: 6px;
+
+    display: block;
+
+    background: var(--mov-success);
+
+    border-radius: 50%;
+
+    box-shadow:
+            0 0 0 3px rgba(53, 199, 111, .08);
+
+    animation: rfidPulse 2s infinite;
+}
+
+
+@keyframes rfidPulse {
+
+    0%,
+    100% {
+
+        opacity: 1;
+    }
+
+    50% {
+
+        opacity: .45;
+    }
+}
+
+
+/* =========================================================
+   RESUMO
+   ========================================================= */
+
+.summary-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 1rem;
+
+    margin-bottom: 1rem;
+}
+
+
+.summary-card {
+
+    min-height: 104px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .85rem;
+
+    padding: 1rem;
+
+    background: var(--mov-surface);
+
+    border: 1px solid var(--mov-border);
+
+    border-radius: var(--mov-radius);
+
+    transition:
+            background var(--mov-transition),
+            border-color var(--mov-transition),
+            transform var(--mov-transition);
+}
+
+
+.summary-card:hover {
+
+    background: var(--mov-surface-hover);
+
+    border-color: var(--mov-border-hover);
+
+    transform: translateY(-1px);
+}
+
+
+.summary-icon {
+
+    width: 42px;
+
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: var(--mov-radius-sm);
+
+    font-size: .95rem;
+}
+
+
+.summary-icon-blue {
+
+    color: var(--mov-info);
+
+    background: var(--mov-info-soft);
+}
+
+
+.summary-icon-green {
+
+    color: var(--mov-success);
+
+    background: var(--mov-success-soft);
+}
+
+
+.summary-icon-orange {
+
+    color: var(--mov-warning);
+
+    background: var(--mov-warning-soft);
+}
+
+
+.summary-icon-purple {
+
+    color: var(--mov-purple);
+
+    background: var(--mov-purple-soft);
+}
+
+
+.summary-card > div:last-child {
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.summary-label {
+
+    color: var(--mov-text-secondary);
+
+    font-size: .7rem;
+}
+
+
+.summary-card strong {
+
+    margin-top: .15rem;
+
+    color: var(--mov-text);
+
+    font-size: 1.35rem;
+
+    font-weight: 750;
+}
+
+
+/* =========================================================
+   FILTROS
+   ========================================================= */
+
+.filter-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    margin-bottom: 1rem;
+
+    padding: 1rem;
+
+    background: var(--mov-surface);
+
+    border: 1px solid var(--mov-border);
+
+    border-radius: var(--mov-radius);
+}
+
+
+.search-container {
+
+    position: relative;
+
+    flex: 1;
+
+    min-width: 260px;
+}
+
+
+.search-container > i {
+
+    position: absolute;
+
+    top: 50%;
+
+    left: .9rem;
+
+    color: var(--mov-text-muted);
+
+    font-size: .78rem;
+
+    transform: translateY(-50%);
+}
+
+
+.search-container input {
+
+    width: 100%;
+
+    height: 40px;
+
+    padding: 0 .9rem 0 2.35rem;
+
+    color: var(--mov-text);
+
+    background: #101010;
+
+    border: 1px solid var(--mov-border);
+
+    border-radius: var(--mov-radius-sm);
+
+    outline: none;
+
+    font-family: inherit;
+
+    font-size: .73rem;
+
+    transition:
+            border-color var(--mov-transition),
+            box-shadow var(--mov-transition);
+}
+
+
+.search-container input::placeholder {
+
+    color: #626262;
+}
+
+
+.search-container input:focus {
+
+    border-color: rgba(255, 107, 0, .55);
+
+    box-shadow:
+            0 0 0 3px rgba(255, 107, 0, .08);
+}
+
+
+.filter-group {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .65rem;
+}
+
+
+.filter-group select {
+
+    min-width: 170px;
+
+    height: 40px;
+
+    padding: 0 .75rem;
+
+    color: var(--mov-text);
+
+    background: #101010;
+
+    border: 1px solid var(--mov-border);
+
+    border-radius: var(--mov-radius-sm);
+
+    outline: none;
+
+    font-family: inherit;
+
+    font-size: .73rem;
+
+    cursor: pointer;
+
+    transition:
+            border-color var(--mov-transition),
+            box-shadow var(--mov-transition);
+}
+
+
+.filter-group select:focus {
+
+    border-color: rgba(255, 107, 0, .55);
+
+    box-shadow:
+            0 0 0 3px rgba(255, 107, 0, .08);
+}
+
+
+/* =========================================================
+   CONTENT CARD
+   ========================================================= */
+
+.content-card {
+
+    overflow: hidden;
+
+    margin-bottom: 1rem;
+
+    background: var(--mov-surface);
+
+    border: 1px solid var(--mov-border);
+
+    border-radius: var(--mov-radius);
+
+    box-shadow:
+            0 10px 30px rgba(0, 0, 0, .18);
+}
+
+
+.content-card-header {
+
+    min-height: 76px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    padding: 1rem 1.25rem;
+
+    border-bottom: 1px solid var(--mov-border);
+}
+
+
+.content-card-header h3 {
+
+    margin: 0;
+
+    color: var(--mov-text);
+
+    font-size: .92rem;
+
+    font-weight: 700;
+}
+
+
+.content-card-header p {
+
+    margin: .25rem 0 0;
+
+    color: var(--mov-text-muted);
+
+    font-size: .68rem;
+}
+
+
+.content-card-count {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: .45rem;
+
+    color: var(--mov-text-secondary);
+
+    font-size: .67rem;
+
+    white-space: nowrap;
+}
+
+
+.content-card-count i {
+
+    color: var(--mov-accent);
+}
+
+
+/* =========================================================
+   TABELA
+   ========================================================= */
+
+.table-wrapper {
+
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+
+.table-wrapper::-webkit-scrollbar {
+
+    height: 6px;
+}
+
+
+.table-wrapper::-webkit-scrollbar-track {
+
+    background: #101010;
+}
+
+
+.table-wrapper::-webkit-scrollbar-thumb {
+
+    background: var(--mov-border-hover);
+
+    border-radius: 10px;
+}
+
+
+.data-table {
+
+    width: 100%;
+
+    min-width: 1350px;
+
+    border-collapse: collapse;
+}
+
+
+.data-table thead {
+
+    background: #111;
+}
+
+
+.data-table th {
+
+    padding: .85rem 1rem;
+
+    color: var(--mov-text-muted);
+
+    border-bottom: 1px solid var(--mov-border);
+
+    font-size: .62rem;
+
+    font-weight: 700;
+
+    letter-spacing: .045em;
+
+    text-align: left;
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
+}
+
+
+.data-table td {
+
+    padding: .9rem 1rem;
+
+    color: var(--mov-text-secondary);
+
+    border-bottom:
+            1px solid rgba(255, 255, 255, .045);
+
+    font-size: .7rem;
+
+    vertical-align: middle;
+}
+
+
+.data-table tbody tr {
+
+    transition:
+            background var(--mov-transition);
+}
+
+
+.data-table tbody tr:hover {
+
+    background:
+            rgba(255, 255, 255, .018);
+}
+
+
+.data-table tbody tr:last-child td {
+
+    border-bottom: none;
+}
+
+
+.text-center {
+
+    text-align: center !important;
+}
+
+
+/* =========================================================
+   PRODUTO
+   ========================================================= */
+
+.produto-cell {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .65rem;
+
+    min-width: 190px;
+}
+
+
+.produto-icon {
+
+    width: 36px;
+
+    height: 36px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    color: var(--mov-info);
+
+    background: var(--mov-info-soft);
+
+    border-radius: var(--mov-radius-sm);
+
+    font-size: .78rem;
+}
+
+
+.produto-cell > div:last-child {
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.produto-cell strong {
+
+    color: var(--mov-text);
+
+    font-size: .7rem;
+
+    font-weight: 650;
+
+    white-space: nowrap;
+}
+
+
+.produto-cell small {
+
+    margin-top: .18rem;
+
+    color: var(--mov-text-muted);
+
+    font-size: .62rem;
+}
+
+
+/* =========================================================
+   TAG RFID
+   ========================================================= */
+
+.rfid-tag {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: .45rem;
+
+    padding: .4rem .55rem;
+
+    color: var(--mov-info);
+
+    background: var(--mov-info-soft);
+
+    border: 1px solid rgba(77, 159, 255, .10);
+
+    border-radius: var(--mov-radius-sm);
+
+    font-family:
+            "SFMono-Regular",
+            Consolas,
+            monospace;
+
+    font-size: .61rem;
+
+    white-space: nowrap;
+}
+
+
+.rfid-tag i {
+
+    font-size: .65rem;
+}
+
+
+/* =========================================================
+   LOCALIZAÇÃO
+   ========================================================= */
+
+.location {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: .4rem;
+
+    color: var(--mov-text-secondary);
+
+    white-space: nowrap;
+}
+
+
+.location i {
+
+    color: var(--mov-accent);
+
+    font-size: .65rem;
+}
+
+
+.location.destination i {
+
+    color: var(--mov-success);
+}
+
+
+.muted {
+
+    color: var(--mov-text-muted);
+}
+
+
+/* =========================================================
+   LEITOR
+   ========================================================= */
+
+.leitor-cell {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: .45rem;
+
+    color: var(--mov-text-secondary);
+
+    white-space: nowrap;
+}
+
+
+.leitor-cell > i {
+
+    color: var(--mov-purple);
+
+    font-size: .7rem;
+}
+
+
+.leitor-cell span {
+
+    font-size: .68rem;
+}
+
+
+/* =========================================================
+   TIPO DE MOVIMENTAÇÃO
+   ========================================================= */
+
+.movement-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: .4rem;
+
+    min-width: 105px;
+
+    padding: .35rem .55rem;
+
+    border-radius: 999px;
+
+    font-size: .6rem;
+
+    font-weight: 650;
+
+    white-space: nowrap;
+}
+
+
+.movement-entry {
+
+    color: var(--mov-success);
+
+    background: var(--mov-success-soft);
+
+    border: 1px solid rgba(53, 199, 111, .10);
+}
+
+
+.movement-exit {
+
+    color: var(--mov-danger);
+
+    background: var(--mov-danger-soft);
+
+    border: 1px solid rgba(239, 83, 80, .10);
+}
+
+
+.movement-transfer {
+
+    color: var(--mov-info);
+
+    background: var(--mov-info-soft);
+
+    border: 1px solid rgba(77, 159, 255, .10);
+}
+
+
+/* =========================================================
+   DATA / HORA
+   ========================================================= */
+
+.datetime {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: .4rem;
+
+    color: var(--mov-text-secondary);
+
+    white-space: nowrap;
+}
+
+
+.datetime i {
+
+    color: var(--mov-text-muted);
+
+    font-size: .65rem;
+}
+
+
+.datetime span {
+
+    font-family:
+            "SFMono-Regular",
+            Consolas,
+            monospace;
+
+    font-size: .63rem;
+}
+
+
+/* =========================================================
+   USUÁRIO
+   ========================================================= */
+
+.usuario-cell {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: .4rem;
+
+    color: var(--mov-text-secondary);
+
+    white-space: nowrap;
+}
+
+
+.usuario-cell i {
+
+    color: var(--mov-accent);
+
+    font-size: .65rem;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.empty-state {
+
+    min-height: 300px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+}
+
+
+.empty-state > div {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: .4rem;
+
+    max-width: 420px;
+
+    padding: 2rem;
+}
+
+
+.empty-icon {
+
+    width: 52px;
+
+    height: 52px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-bottom: .5rem;
+
+    color: var(--mov-text-muted);
+
+    background: rgba(255, 255, 255, .035);
+
+    border: 1px solid var(--mov-border);
+
+    border-radius: 50%;
+
+    font-size: 1rem;
+}
+
+
+.empty-state strong {
+
+    color: var(--mov-text);
+
+    font-size: .82rem;
+}
+
+
+.empty-state span {
+
+    color: var(--mov-text-muted);
+
+    font-size: .7rem;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   INFORMAÇÃO
+   ========================================================= */
+
+.form-info {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: .75rem;
+
+    padding: 1rem;
+
+    background:
+            rgba(77, 159, 255, .045);
+
+    border: 1px solid rgba(77, 159, 255, .10);
+
+    border-radius: var(--mov-radius);
+}
+
+
+.form-info-icon {
+
+    width: 34px;
+
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    color: var(--mov-info);
+
+    background: var(--mov-info-soft);
+
+    border-radius: 50%;
+
+    font-size: .75rem;
+}
+
+
+.form-info strong {
+
+    display: block;
+
+    margin-bottom: .25rem;
+
+    color: var(--mov-text);
+
+    font-size: .73rem;
+}
+
+
+.form-info p {
+
+    margin: 0;
+
+    color: var(--mov-text-secondary);
+
+    font-size: .68rem;
+
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   RESPONSIVO — 1200px
+   ========================================================= */
+
+@media (max-width: 1200px) {
+
+    .movimentacoes-container {
+
+        padding:
+                1.75rem 1.5rem 2.5rem;
+    }
+
+
+    .summary-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+
+    .filter-card {
+
+        align-items: stretch;
+
+        flex-direction: column;
+    }
+
+
+    .filter-group {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+
+    .filter-group select {
+
+        width: 100%;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVO — 900px
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .page-heading {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .rfid-status-card {
+
+        align-items: flex-start;
+
+        flex-wrap: wrap;
+    }
+
+
+    .rfid-status-indicator {
+
+        margin-left: 48px;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVO — 700px
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .movimentacoes-container {
+
+        padding:
+                1.25rem .9rem 2rem;
+    }
+
+
+    .summary-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .filter-group {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .content-card-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .content-card-count {
+
+        align-self: flex-start;
+    }
+
+
+    .rfid-status-card {
+
+        flex-direction: column;
+    }
+
+
+    .rfid-status-content {
+
+        width: 100%;
+    }
+
+
+    .rfid-status-indicator {
+
+        margin-left: 0;
+    }
+
+
+    .form-info {
+
+        align-items: flex-start;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVO — 480px
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .page-title-icon {
+
+        width: 42px;
+
+        height: 42px;
+    }
+
+
+    .page-heading h2 {
+
+        font-size: 1.4rem;
+    }
+
+
+    .page-heading p {
+
+        font-size: .72rem;
+    }
+
+
+    .summary-card {
+
+        min-height: 90px;
+
+        padding: .85rem;
+    }
+
+
+    .summary-icon {
+
+        width: 38px;
+
+        height: 38px;
+    }
+
+
+    .form-info {
+
+        padding: .85rem;
+    }
+
+}
