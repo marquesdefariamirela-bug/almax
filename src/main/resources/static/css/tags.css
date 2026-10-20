@@ -4,21 +4,23 @@
 
 :root {
 
-    --tags-bg: #0f0f0f;
+    --tags-bg: #f3f5f7;
 
-    --tags-surface: #151515;
+    --tags-surface: #ffffff;
 
-    --tags-surface-hover: #1a1a1a;
+    --tags-surface-hover: #f8fafc;
 
-    --tags-border: #292929;
+    --tags-border: #d9dee7;
 
-    --tags-border-hover: #383838;
+    --tags-border-hover: #b9c2d0;
 
-    --tags-text: #f5f5f5;
+    --tags-text: #1f2937;
 
-    --tags-text-secondary: #a4a4a4;
+    --tags-text-secondary: #475467;
 
-    --tags-text-muted: #6f6f6f;
+    --tags-text-muted: #667085;
+
+    --tags-input: #ffffff;
 
     --tags-accent: #ff6b00;
 
@@ -123,7 +125,7 @@
 
 .breadcrumb i {
 
-    color: #555;
+    color: #667085;
 
     font-size: .55rem;
 }
@@ -288,7 +290,7 @@
 
     color: var(--tags-text);
 
-    background: rgba(255, 255, 255, .035);
+    background: rgba(15, 23, 42, .04);
 
     border-color: var(--tags-border-hover);
 }
@@ -507,7 +509,7 @@
 
     color: var(--tags-text);
 
-    background: #101010;
+    background: var(--tags-input);
 
     border:
             1px solid
@@ -535,7 +537,7 @@
 
 .search-container input::placeholder {
 
-    color: #626262;
+    color: #98a2b3;
 }
 
 
@@ -585,7 +587,7 @@
 
     color: var(--tags-text);
 
-    background: rgba(255, 255, 255, .035);
+    background: rgba(15, 23, 42, .04);
 
     border-color: var(--tags-border-hover);
 }
@@ -725,7 +727,7 @@
 
 .table-wrapper::-webkit-scrollbar-track {
 
-    background: #101010;
+    background: var(--tags-surface-hover);
 }
 
 
@@ -749,7 +751,7 @@ table {
 
 thead {
 
-    background: #111;
+    background: var(--tags-surface-hover);
 }
 
 
@@ -785,7 +787,7 @@ td {
 
     border-bottom:
             1px solid
-            rgba(255, 255, 255, .045);
+            var(--tags-border);
 
     font-size: .73rem;
 
@@ -803,7 +805,7 @@ tbody tr {
 tbody tr:hover {
 
     background:
-            rgba(255, 255, 255, .018);
+            rgba(15, 23, 42, .025);
 }
 
 
@@ -1236,7 +1238,7 @@ tbody tr:last-child td {
     color: var(--tags-text-muted);
 
     background:
-            rgba(255, 255, 255, .035);
+            rgba(15, 23, 42, .04);
 
     border-radius: 50%;
 
@@ -1429,7 +1431,7 @@ tbody tr:last-child td {
 
     padding: 1.75rem;
 
-    background: #181818;
+    background: var(--tags-surface);
 
     border:
             1px solid
@@ -1555,7 +1557,7 @@ tbody tr:last-child td {
 
     padding: .85rem .9rem;
 
-    background: #191919;
+    background: var(--tags-surface);
 
     border:
             1px solid

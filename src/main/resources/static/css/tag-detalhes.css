@@ -132,9 +132,9 @@
 
     padding: .9rem 1rem;
 
-    background: #151515;
+    background: var(--almax-bg-card);
 
-    border: 1px solid #292929;
+    border: 1px solid var(--almax-border);
 
     border-radius: 10px;
 }
@@ -269,9 +269,9 @@
 
     overflow: hidden;
 
-    background: #151515;
+    background: var(--almax-bg-card);
 
-    border: 1px solid #292929;
+    border: 1px solid var(--almax-border);
 
     border-radius: 10px;
 }
@@ -295,7 +295,7 @@
 
     padding: 1rem 1.1rem;
 
-    border-bottom: 1px solid #292929;
+    border-bottom: 1px solid var(--almax-border);
 }
 
 

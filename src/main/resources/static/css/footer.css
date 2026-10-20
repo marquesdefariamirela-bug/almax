@@ -22,7 +22,7 @@
             var(--almax-border);
 
     background:
-            rgba(18, 18, 18, 0.75);
+            var(--almax-bg-elevated);
 }
 
 

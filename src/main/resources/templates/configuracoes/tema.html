@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Configurações de aparência do ALMAX">
+    <title>Configurações | ALMAX</title>
+
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/layout.css}">
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/configuracoes.css}">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+<div class="app-layout">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <div th:replace="~{fragments/sidebar :: sidebar-overlay}"></div>
+
+    <main class="app-main">
+        <header class="app-header">
+            <div th:replace="~{fragments/navbar :: navbar}"></div>
+        </header>
+
+        <section class="settings-page">
+            <div class="settings-heading">
+                <span class="settings-heading-icon"><i class="fa-solid fa-palette"></i></span>
+                <div>
+                    <p class="settings-eyebrow">PREFERÊNCIAS</p>
+                    <h1>Aparência</h1>
+                    <p>Escolha o tema usado nas telas do sistema.</p>
+                </div>
+            </div>
+
+            <section class="settings-card" aria-labelledby="theme-title">
+                <div class="settings-card-heading">
+                    <div>
+                        <h2 id="theme-title">Tema do sistema</h2>
+                        <p>A alteração é aplicada imediatamente e fica salva neste navegador.</p>
+                    </div>
+                </div>
+
+                <div class="theme-options" role="radiogroup" aria-labelledby="theme-title">
+                    <label class="theme-option">
+                        <input type="radio" name="theme" value="light" data-theme-choice>
+                        <span class="theme-preview theme-preview-light" aria-hidden="true">
+                            <span class="preview-sidebar"></span>
+                            <span class="preview-content">
+                                <span class="preview-header"></span>
+                                <span class="preview-panel"></span>
+                                <span class="preview-panel preview-panel-small"></span>
+                            </span>
+                        </span>
+                        <span class="theme-option-label">
+                            <span><i class="fa-regular fa-sun"></i> Claro</span>
+                            <span>Fundos claros e conteúdo de alto contraste.</span>
+                        </span>
+                    </label>
+
+                    <label class="theme-option">
+                        <input type="radio" name="theme" value="dark" data-theme-choice>
+                        <span class="theme-preview theme-preview-dark" aria-hidden="true">
+                            <span class="preview-sidebar"></span>
+                            <span class="preview-content">
+                                <span class="preview-header"></span>
+                                <span class="preview-panel"></span>
+                                <span class="preview-panel preview-panel-small"></span>
+                            </span>
+                        </span>
+                        <span class="theme-option-label">
+                            <span><i class="fa-regular fa-moon"></i> Escuro</span>
+                            <span>Superfícies escuras para ambientes com pouca luz.</span>
+                        </span>
+                    </label>
+                </div>
+            </section>
+        </section>
+
+        <footer class="app-footer">
+            <div th:replace="~{fragments/footer :: footer}"></div>
+        </footer>
+    </main>
+</div>
+<script th:src="@{/js/sidebar.js}"></script>
+<script th:src="@{/js/navbar.js}"></script>
+</body>
+</html>

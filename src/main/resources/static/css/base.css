@@ -1,24 +1,26 @@
+@import url("theme.css");
+
 /* =========================================================
    ALMAX — BASE / TEMA GLOBAL
    ========================================================= */
 
 
 :root {
-    --almax-bg: #121212;
-    --almax-bg-elevated: #181818;
-    --almax-bg-card: #1c1c1c;
-    --almax-bg-input: #151515;
+    --almax-bg: #f3f5f7;
+    --almax-bg-elevated: #ffffff;
+    --almax-bg-card: #ffffff;
+    --almax-bg-input: #ffffff;
 
-    --almax-border: #292929;
-    --almax-border-hover: #3a3a3a;
+    --almax-border: #d9dee7;
+    --almax-border-hover: #b9c2d0;
 
     --almax-accent: #ff6b00;
     --almax-accent-hover: #e85f00;
     --almax-accent-soft: rgba(255, 107, 0, 0.10);
 
-    --almax-text: #ffffff;
-    --almax-text-muted: #a8a8a8;
-    --almax-text-secondary: #777777;
+    --almax-text: #1f2937;
+    --almax-text-muted: #667085;
+    --almax-text-secondary: #475467;
 
     --almax-success: #35c759;
     --almax-success-soft: rgba(53, 199, 89, 0.10);
@@ -172,7 +174,7 @@ img {
 ::-webkit-scrollbar-thumb {
 
     background:
-            #333333;
+            #c6ccd5;
 
     border-radius:
             10px;
@@ -182,7 +184,7 @@ img {
 ::-webkit-scrollbar-thumb:hover {
 
     background:
-            #444444;
+            #aeb7c4;
 }
 
 
@@ -193,7 +195,7 @@ img {
     scrollbar-width: thin;
 
     scrollbar-color:
-            #333333
+            #c6ccd5
             var(--almax-bg);
 }
 

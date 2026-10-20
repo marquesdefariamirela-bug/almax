@@ -1,24 +1,26 @@
+@import url("theme.css");
+
 /* =========================================================
    ALMAX — LOGIN
    ========================================================= */
 
 :root {
 
-    --almax-bg: #121212;
-    --almax-bg-elevated: #181818;
-    --almax-bg-card: #1c1c1c;
-    --almax-bg-input: #151515;
+    --almax-bg: #f3f5f7;
+    --almax-bg-elevated: #ffffff;
+    --almax-bg-card: #ffffff;
+    --almax-bg-input: #ffffff;
 
-    --almax-border: #292929;
-    --almax-border-hover: #3a3a3a;
+    --almax-border: #d9dee7;
+    --almax-border-hover: #b9c2d0;
 
     --almax-accent: #ff6b00;
     --almax-accent-hover: #e85f00;
     --almax-accent-soft: rgba(255, 107, 0, 0.10);
 
-    --almax-text: #ffffff;
-    --almax-text-muted: #a8a8a8;
-    --almax-text-secondary: #777777;
+    --almax-text: #1f2937;
+    --almax-text-muted: #667085;
+    --almax-text-secondary: #475467;
 
     --almax-success: #35c759;
     --almax-success-soft: rgba(53, 199, 89, 0.10);
@@ -531,7 +533,7 @@ body {
 .form-control::placeholder {
 
     color:
-            #555555;
+            #98a2b3;
 }
 
 
@@ -545,7 +547,7 @@ body {
 .form-control:focus {
 
     background:
-            #181818;
+            #f8fafc;
 
     border-color:
             var(--almax-accent);
